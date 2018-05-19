@@ -23,8 +23,10 @@ namespace ModMenu
         UIMenu playerMenu;
         UIMenu weaponsMenu;
         UIMenu vehicleMenu;
+        UIMenu bodyguardMenu; 
 
         UIMenuItem resetWantedLevel;
+        UIMenuItem KillPlayerItem;
 
         public Class1()
         {
@@ -38,16 +40,18 @@ namespace ModMenu
         void Setup()
         {
             modMenuPool = new MenuPool();
-            mainMenu = new UIMenu("Mod Menu", "Select An Option");
+            mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.0");
             modMenuPool.Add(mainMenu);
 
             playerMenu = modMenuPool.AddSubMenu(mainMenu, "Player Options");
             weaponsMenu = modMenuPool.AddSubMenu(mainMenu, "Weapons Options");
             vehicleMenu = modMenuPool.AddSubMenu(mainMenu, "Vehicles Options");
+            bodyguardMenu = modMenuPool.AddSubMenu(mainMenu, "Bodyguard Menu");
 
             SetupPlayerFunctions();
             SetupWeaponFunctions();
             SetupVehicleFuntions();
+            SetupBodyguardFunctions();
             
         }
 
@@ -57,6 +61,7 @@ namespace ModMenu
             Godmode();
             neverWanted();
             changeModel();
+            KillPlayerMenu();
         }
 
         void SetupWeaponFunctions()
@@ -69,6 +74,12 @@ namespace ModMenu
         {
             VehicleSelectorMenu();
             VehicleSpawnByName();
+        }
+
+        void SetupBodyguardFunctions()
+        {
+            SpawnBodyguard();
+            deleteBody();
         }
 
 
@@ -340,6 +351,209 @@ namespace ModMenu
             };
 
         }
+
+        void KillPlayerMenu()
+        {
+            KillPlayerItem = new UIMenuItem("Kill Yourself","You can die :(");
+            playerMenu.AddItem(KillPlayerItem);
+
+            playerMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == KillPlayerItem)
+                {
+                    Game.Player.Character.Health = -1;
+                }
+            };
+        }
+
+
+        void SpawnBodyguard()
+        {
+            UIMenu spawnBody = modMenuPool.AddSubMenu(bodyguardMenu, "Spawn Bodyguard");
+
+            UIMenuItem copItem = new UIMenuItem("Police");
+            UIMenuItem franckItem = new UIMenuItem("Franklin");
+            UIMenuItem trevorItem = new UIMenuItem("Trevor");
+            UIMenuItem marineItem = new UIMenuItem("Marine");
+
+            spawnBody.AddItem(copItem);
+            spawnBody.AddItem(franckItem);
+            spawnBody.AddItem(trevorItem);
+            spawnBody.AddItem(marineItem);
+
+            spawnBody.OnItemSelect += (sender, item, index) =>
+            {
+                if ( item == copItem)
+                {
+                    Ped player = Game.Player.Character;
+
+                    Vector3 loc = player.Position + (player.ForwardVector * 5);
+
+                    Ped bodyguard = World.CreatePed(PedHash.Cop01SMY, loc);
+
+                    bodyguard.Weapons.Give(WeaponHash.Pistol50, 9999, true, true);
+
+                    bodyguard.Armor = 100;
+
+                    PedGroup ped = player.CurrentPedGroup;
+
+                    Function.Call(Hash.SET_PED_AS_GROUP_MEMBER, bodyguard, ped);
+
+                    Function.Call(Hash.SET_PED_COMBAT_ABILITY, bodyguard, 100);
+
+                    Function.Call(Hash.SET_PED_ACCURACY, bodyguard, 100);
+
+                    bodyguard.Task.FightAgainstHatedTargets(50000);
+
+                    UI.Notify("Bodyguard Spawned");
+
+                    UI.Notify("Mod by Anonik");
+
+                    if (player.IsInvincible == true)
+                    {
+                        bodyguard.IsInvincible = true;
+                    }
+
+                    if (player.IsInvincible == false)
+                    {
+                        bodyguard.IsInvincible = false;
+                    }
+                }
+
+                if (item == franckItem)
+                {
+                    Ped player = Game.Player.Character;
+
+                    Vector3 loc = player.Position + (player.ForwardVector * 5);
+
+                    Ped bodyguard = World.CreatePed(PedHash.Franklin, loc);
+
+                    bodyguard.Weapons.Give(WeaponHash.SpecialCarbine, 9999, true, true);
+
+                    bodyguard.Armor = 100;
+
+                    PedGroup ped = player.CurrentPedGroup;
+
+                    Function.Call(Hash.SET_PED_AS_GROUP_MEMBER, bodyguard, ped);
+
+                    Function.Call(Hash.SET_PED_COMBAT_ABILITY, bodyguard, 100);
+
+                    Function.Call(Hash.SET_PED_ACCURACY, bodyguard, 100);
+
+                    bodyguard.Task.FightAgainstHatedTargets(50000);
+
+                    UI.Notify("Bodyguard Spawned");
+
+                    UI.Notify("Mod by Anonik");
+                    if (player.IsInvincible == true)
+                    {
+                        bodyguard.IsInvincible = true;
+                    }
+
+                    if (player.IsInvincible == false)
+                    {
+                        bodyguard.IsInvincible = false;
+                    }
+                }
+
+                if (item == trevorItem)
+                {
+                    Ped player = Game.Player.Character;
+
+                    Vector3 loc = player.Position + (player.ForwardVector * 5);
+
+                    Ped bodyguard = World.CreatePed(PedHash.Trevor, loc);
+
+                    bodyguard.Weapons.Give(WeaponHash.SpecialCarbine, 9999, true, true);
+
+                    bodyguard.Armor = 100;
+
+                    PedGroup ped = player.CurrentPedGroup;
+
+                    Function.Call(Hash.SET_PED_AS_GROUP_MEMBER, bodyguard, ped);
+
+                    Function.Call(Hash.SET_PED_COMBAT_ABILITY, bodyguard, 100);
+
+                    Function.Call(Hash.SET_PED_ACCURACY, bodyguard, 100);
+
+                    bodyguard.Task.FightAgainstHatedTargets(50000);
+
+                    UI.Notify("Bodyguard Spawned");
+
+                    UI.Notify("Mod by Anonik");
+
+                    if (player.IsInvincible == true)
+                    {
+                        bodyguard.IsInvincible = true;
+                    }
+
+                    if (player.IsInvincible == false)
+                    {
+                        bodyguard.IsInvincible = false;
+                    }
+                }
+
+                if (item == marineItem)
+                {
+                    Ped player = Game.Player.Character;
+
+                    Vector3 loc = player.Position + (player.ForwardVector * 5);
+
+                    Ped bodyguard = World.CreatePed(PedHash.Marine03SMY, loc);
+
+                    bodyguard.Weapons.Give(WeaponHash.SpecialCarbine, 9999, true, true);
+
+                    bodyguard.Armor = 100;
+
+                    PedGroup ped = player.CurrentPedGroup;
+
+                    Function.Call(Hash.SET_PED_AS_GROUP_MEMBER, bodyguard, ped);
+
+                    Function.Call(Hash.SET_PED_COMBAT_ABILITY, bodyguard, 100);
+
+                    Function.Call(Hash.SET_PED_ACCURACY, bodyguard, 100);
+
+                    bodyguard.Task.FightAgainstHatedTargets(50000);
+
+                    UI.Notify("Bodyguard Spawned");
+
+                    UI.Notify("Mod by Anonik");
+
+                    if (player.IsInvincible == true)
+                    {
+                        bodyguard.IsInvincible = true;
+                    }
+
+                    if (player.IsInvincible == false)
+                    {
+                        bodyguard.IsInvincible = false;
+                    }
+                }
+
+
+            };
+
+
+        }
+
+        void deleteBody()
+        {
+            UIMenuItem Deletebody = new UIMenuItem("Delete All Bodyguard", "The Bodyguards stop following you");
+            bodyguardMenu.AddItem(Deletebody);
+
+            bodyguardMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if ( item == Deletebody)
+                {
+                    Ped player = Game.Player.Character;
+                    Vector3 loc = player.Position + (player.ForwardVector * 5);
+                    PedGroup ped = player.CurrentPedGroup;
+                    Function.Call(Hash.REMOVE_GROUP, ped);
+                }
+            };
+        }
+
+
 
 
 
