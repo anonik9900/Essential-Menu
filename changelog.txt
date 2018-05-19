@@ -1,0 +1,13 @@
+Changelog build 149 
+
+[Essential Menu] - [Beta]
+
+*Added Suicide Option 
+*Added New Menu
+*Added Bodyguard Menu
+*Added Bodyguard Spawn Menu (Not-Finished)
+*Added Delete Bodyguard Function (Bodyguard stop follow you)
+*Added New Menu Title (Essential Menu)
+*Improved Source Code
+*Improved UI
+*Fixed Some Bug
