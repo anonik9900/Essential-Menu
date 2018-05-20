@@ -68,6 +68,7 @@ namespace ModMenu
         {
             WeaponSelectorMenu();
             GetAllWeapons();
+            getWeapon();
         }
 
         void SetupVehicleFuntions()
@@ -282,72 +283,131 @@ namespace ModMenu
         void changeModel()
         {
             UIMenu mainModel = modMenuPool.AddSubMenu(playerMenu, "Model Changer");
+            UIMenuItem outfitsrandom = new UIMenuItem("~b~Randomize Outfits");
             UIMenuItem alienItem = new UIMenuItem("Alien");
             UIMenuItem copItem = new UIMenuItem("Cop");
             UIMenuItem rangerItem = new UIMenuItem("Ranger");
             UIMenuItem clayItem = new UIMenuItem("ClayPain");
             UIMenuItem clownItem = new UIMenuItem("Clown");
-            UIMenuItem lamarItem = new UIMenuItem("Lamar");
-            UIMenuItem jimmyItem = new UIMenuItem("Jimmy");
-            UIMenuItem traceyItem = new UIMenuItem("Tracey");
+            UIMenuItem jesusItem = new UIMenuItem("Jesus");
+            UIMenuItem catItem = new UIMenuItem("Cat");
+            UIMenuItem formageItem = new UIMenuItem("Cris Formage");
             UIMenuItem ballasItem = new UIMenuItem("Ballas");
             UIMenuItem marineItem = new UIMenuItem("Marine");
-            UIMenuItem westonItem = new UIMenuItem("David Weston");
+            UIMenuItem fbiItem = new UIMenuItem("FBI Man");
+            UIMenuItem superItem = new UIMenuItem("Superman");
             UIMenuItem cjItem = new UIMenuItem("Fake CJ");
-            UIMenuItem bitchItem = new UIMenuItem("Bitch");
+            UIMenuItem zombieItem = new UIMenuItem("Zombie");
 
+            mainModel.AddItem(outfitsrandom);
             mainModel.AddItem(alienItem);
             mainModel.AddItem(copItem);
             mainModel.AddItem(rangerItem);
             mainModel.AddItem(clayItem);
             mainModel.AddItem(clownItem);
-            mainModel.AddItem(lamarItem);
-            mainModel.AddItem(jimmyItem);
-            mainModel.AddItem(traceyItem);
+            mainModel.AddItem(jesusItem);
+            mainModel.AddItem(catItem);
+            mainModel.AddItem(formageItem);
             mainModel.AddItem(ballasItem);
             mainModel.AddItem(marineItem);
-            mainModel.AddItem(westonItem);
+            mainModel.AddItem(fbiItem);
+            mainModel.AddItem(superItem);
             mainModel.AddItem(cjItem);
-            mainModel.AddItem(bitchItem);
+            mainModel.AddItem(zombieItem);
 
             mainModel.OnItemSelect += (sender, item, index) =>
             {
-                if (item == alienItem)
-                {
-                    Ped gamePed = Game.Player.Character;                
-                    Game.Player.ChangeModel(PedHash.MovAlien01);
-                }
 
-                if (item == copItem)
-                {
+                    if (item == outfitsrandom)
+                    {
                     Ped gamePed = Game.Player.Character;
-                    Game.Player.ChangeModel(PedHash.Cop01SMY);
-                }
-                
+                    Game.Player.Character.RandomizeOutfit();
+                    }
 
-                if (item == rangerItem)
-                {
-                    Ped gamePed = Game.Player.Character;
-                    Game.Player.ChangeModel(PedHash.Ranger01SMY);
-                }
+                    if (item == alienItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.MovAlien01);
+                    }
 
-                if (item == clayItem)
-                {
-                    Ped gamePed = Game.Player.Character;
-                    Game.Player.ChangeModel(PedHash.Claypain);
-                }
+                    if (item == copItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.Cop01SMY);
+                    }
 
-                if (item == clownItem)
-                {
-                    Ped gamePed = Game.Player.Character;
-                    Game.Player.ChangeModel(PedHash.Clown01SMY);
-                }
 
-                if (item == lamarItem)
-                {
-                    Ped gamePed = Game.Player.Character;
-                    Game.Player.ChangeModel(PedHash.LamarDavis);
-                }
+                    if (item == rangerItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.Ranger01SMY);
+                    }
+
+                    if (item == clayItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.Claypain);
+                    }
+
+                    if (item == clownItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.Clown01SMY);
+                    }
+
+                    if (item == jesusItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.Jesus01);
+                    }
+
+                    if (item == catItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.Cat);
+                    }
+
+                    if (item == formageItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.CrisFormage);
+                    }
+
+                    if (item == ballasItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.BallaOrig01GMY);
+                    }
+
+                    if (item == marineItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.Marine03SMY);
+                    }
+
+                    if (item == fbiItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.FibSec01SMM);
+                    }
+
+                    if (item == superItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.Imporage);
+                    }
+
+                    if (item == cjItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.StrPunk02GMY);
+                    }
+
+                    if (item == zombieItem)
+                    {
+                        Ped gamePed = Game.Player.Character;
+                        Game.Player.ChangeModel(PedHash.Zombie01);
+                    }
             };
 
         }
@@ -536,6 +596,7 @@ namespace ModMenu
 
         }
 
+
         void deleteBody()
         {
             UIMenuItem Deletebody = new UIMenuItem("Delete All Bodyguard", "The Bodyguards stop following you");
@@ -551,6 +612,362 @@ namespace ModMenu
                     Function.Call(Hash.REMOVE_GROUP, ped);
                 }
             };
+        }
+
+        
+
+        void getWeapon()
+        {
+            UIMenu mainWeapon = modMenuPool.AddSubMenu(weaponsMenu, "Get Weapon");
+
+            UIMenuItem bodyItem = new UIMenuItem("~r~Melee weapons");
+            UIMenuItem knifeItem = new UIMenuItem("Knife");
+            UIMenuItem stickItem = new UIMenuItem("NightStick");
+            UIMenuItem hammerItem = new UIMenuItem("Hammer");
+            UIMenuItem batItem = new UIMenuItem("Baseball Bat");
+            UIMenuItem crowItem = new UIMenuItem("Crowbar");
+            UIMenuItem golfItem = new UIMenuItem("Golf Bat");
+            UIMenuItem bottleItem = new UIMenuItem("Bottle");
+            UIMenuItem daggerItem = new UIMenuItem("Dagger");
+            UIMenuItem hatItem = new UIMenuItem("Hatchet");
+            UIMenuItem dusterItem = new UIMenuItem("Knuckle Duster");
+            UIMenuItem macheteItem = new UIMenuItem("Machete");
+            UIMenuItem flashItem = new UIMenuItem("Flashlight");
+            UIMenuItem bladeItem = new UIMenuItem("Switch Blade");
+            UIMenuItem wrenchItem = new UIMenuItem("Wrench");
+            UIMenuItem axeItem = new UIMenuItem("Battle Axe");
+
+            //HandGun
+            UIMenuItem body2lItem = new UIMenuItem("~b~HandGuns");
+            UIMenuItem pistolItem = new UIMenuItem("Pistol");
+            UIMenuItem pistolmk2Item = new UIMenuItem("Pistol MK2");
+            UIMenuItem combatPistolItem = new UIMenuItem("Combat Pistol");
+            UIMenuItem pistol50Item = new UIMenuItem("50 Caliber Pistol");
+            UIMenuItem snspistolItem = new UIMenuItem("SNS Pistol");
+            UIMenuItem heavypistolItem = new UIMenuItem("Heavy Pistol");
+            UIMenuItem vintagepistolItem = new UIMenuItem("Vintage Pistol");
+            UIMenuItem marskpistolItem = new UIMenuItem("Marskman Pistol");
+            UIMenuItem revolverItem = new UIMenuItem("Revolver");
+            UIMenuItem appistolItem = new UIMenuItem("AP Pistol");
+            UIMenuItem stungunItem = new UIMenuItem("Stun Gun");
+            UIMenuItem flaregunItem = new UIMenuItem("Flare Gun");
+
+            //MachineGun
+            UIMenuItem body3Item = new UIMenuItem("~b~Machine Guns");
+            UIMenuItem microsmgItem = new UIMenuItem("Micro SMG");
+            UIMenuItem machinepistolItem = new UIMenuItem("Machine Pistol");
+            UIMenuItem smgItem = new UIMenuItem("SMG");
+            UIMenuItem assaultsmgItem = new UIMenuItem("Assault SMG");
+            UIMenuItem combatpdwItem = new UIMenuItem("Combat PDW");
+            UIMenuItem mgItem = new UIMenuItem("MG");
+            UIMenuItem combatmgItem = new UIMenuItem("Combat MG");
+            UIMenuItem combatmgmk2Item = new UIMenuItem("Combat MG MK2");
+            UIMenuItem gusenbergItem = new UIMenuItem("Gusenberg");
+            UIMenuItem minismgItem = new UIMenuItem("Mini SMG");
+
+            //Assault Riffle
+            UIMenuItem body4Item = new UIMenuItem("~b~Assault Riffle");
+            UIMenuItem assaultriffleItem = new UIMenuItem("Assault Riffle");
+            UIMenuItem assaultrifflemk2Item = new UIMenuItem("Assault RIffle Mk2");
+            UIMenuItem carabineriffleItem = new UIMenuItem("Carabine");
+            UIMenuItem carabinerifflemk2Item = new UIMenuItem("Carabine Mk2");
+            UIMenuItem advancedriffleItem = new UIMenuItem("Advanced Riffle");
+            UIMenuItem specialcarabineItem = new UIMenuItem("Special Carabine");
+            UIMenuItem bullpupriffleItem = new UIMenuItem("Bullpup Riffle");
+            UIMenuItem compactriffleItem = new UIMenuItem("Compact Riffle");
+
+            //Melee Weapon
+            mainWeapon.AddItem(bodyItem);
+            mainWeapon.AddItem(knifeItem);
+            mainWeapon.AddItem(stickItem);
+            mainWeapon.AddItem(hammerItem);
+            mainWeapon.AddItem(batItem);
+            mainWeapon.AddItem(crowItem);
+            mainWeapon.AddItem(golfItem);
+            mainWeapon.AddItem(bottleItem);
+            mainWeapon.AddItem(daggerItem);
+            mainWeapon.AddItem(hatItem);
+            mainWeapon.AddItem(dusterItem);
+            mainWeapon.AddItem(macheteItem);
+            mainWeapon.AddItem(flashItem);
+            mainWeapon.AddItem(bladeItem);
+            mainWeapon.AddItem(wrenchItem);
+            mainWeapon.AddItem(axeItem);
+
+            //HandGuns Weapon
+            mainWeapon.AddItem(body2lItem);
+            mainWeapon.AddItem(pistolItem);
+            mainWeapon.AddItem(pistolmk2Item);
+            mainWeapon.AddItem(combatPistolItem);
+            mainWeapon.AddItem(pistol50Item);
+            mainWeapon.AddItem(snspistolItem);
+            mainWeapon.AddItem(heavypistolItem);
+            mainWeapon.AddItem(vintagepistolItem);
+            mainWeapon.AddItem(marskpistolItem);
+            mainWeapon.AddItem(revolverItem);
+            mainWeapon.AddItem(appistolItem);
+            mainWeapon.AddItem(stungunItem);
+            mainWeapon.AddItem(flaregunItem);
+
+            //MachineGun
+            mainWeapon.AddItem(body3Item);
+            mainWeapon.AddItem(microsmgItem);
+            mainWeapon.AddItem(machinepistolItem);
+            mainWeapon.AddItem(smgItem);
+            mainWeapon.AddItem(assaultsmgItem);
+            mainWeapon.AddItem(combatpdwItem);
+            mainWeapon.AddItem(mgItem);
+            mainWeapon.AddItem(combatmgItem);
+            mainWeapon.AddItem(combatmgmk2Item);
+            mainWeapon.AddItem(gusenbergItem);
+            mainWeapon.AddItem(minismgItem);
+
+            //Assault Riffle
+            mainWeapon.AddItem(body4Item);
+            mainWeapon.AddItem(assaultriffleItem);
+            mainWeapon.AddItem(assaultrifflemk2Item);
+            mainWeapon.AddItem(carabineriffleItem);
+            mainWeapon.AddItem(carabinerifflemk2Item);
+            mainWeapon.AddItem(advancedriffleItem);
+            mainWeapon.AddItem(specialcarabineItem);
+            mainWeapon.AddItem(bullpupriffleItem);
+            mainWeapon.AddItem(compactriffleItem);
+
+            mainWeapon.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == knifeItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Knife, 9999, true, true);
+                }
+
+                if (item == stickItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Nightstick, 9999, true, true);
+                }
+
+                if (item == hammerItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Hammer, 9999, true, true);
+                }
+
+                if (item == batItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Bat, 9999, true, true);
+                }
+
+                if (item == crowItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Crowbar, 9999, true, true);
+                }
+
+                if (item == golfItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.GolfClub, 9999, true, true);
+                }
+
+                if (item == bottleItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Bottle, 9999, true, true);
+                }
+
+                if (item == daggerItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Dagger, 9999, true, true);
+                }
+
+                if (item == hatItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Hatchet, 9999, true, true);
+                }
+
+                if (item == dusterItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.KnuckleDuster, 9999, true, true);
+                }
+
+                if (item == macheteItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Machete, 9999, true, true);
+                }
+
+                if (item == flashItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Flashlight, 9999, true, true);
+                }
+
+                if (item == bladeItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.SwitchBlade, 9999, true, true);
+                }
+
+                if (item == wrenchItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Wrench, 9999, true, true);
+                }
+
+                if (item == axeItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.BattleAxe, 9999, true, true);
+                }
+
+                //Start Fire Weapon
+                
+                if (item == pistolItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Pistol, 9999, true, true);
+                }
+
+                if (item == pistolmk2Item)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.PistolMk2, 9999, true, true);
+                }
+
+                if (item == combatPistolItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.CombatPistol, 9999, true, true);
+                }
+
+                if (item == pistol50Item)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Pistol50, 9999, true, true);
+                }
+
+                if (item == snspistolItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.SNSPistol, 9999, true, true);
+                }
+
+                if (item == heavypistolItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.HeavyPistol, 9999, true, true);
+                }
+
+                if (item == vintagepistolItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.VintagePistol, 9999, true, true);
+                }
+
+                if (item == marskpistolItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.MarksmanPistol, 9999, true, true);
+                }
+
+                if (item == revolverItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Revolver, 9999, true, true);
+                }
+
+                if (item == appistolItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.APPistol, 9999, true, true);
+                }
+
+                if (item == stungunItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.StunGun, 9999, true, true);
+                }
+
+                if (item == flaregunItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.FlareGun, 9999, true, true);
+                }
+
+
+                // MachineGun
+                if (item == microsmgItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.MicroSMG, 9999, true, true);
+                }
+
+                if (item == machinepistolItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.MachinePistol, 9999, true, true);
+                }
+
+                if (item == smgItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.SMG, 9999, true, true);
+                }
+
+                if (item == assaultsmgItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.AssaultSMG, 9999, true, true);
+                }
+
+                if (item == combatpdwItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.CombatPDW, 9999, true, true);
+                }
+
+                if (item == mgItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.MG, 9999, true, true);
+                }
+
+                if (item == combatmgItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.CombatMG, 9999, true, true);
+                }
+
+                if (item == combatmgmk2Item)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.CombatMGMk2, 9999, true, true);
+                }
+
+                if (item == gusenbergItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Gusenberg, 9999, true, true);
+                }
+
+                if (item == minismgItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.MiniSMG, 9999, true, true);
+                }
+
+                
+                //Assault Riffle
+                if (item == assaultriffleItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.AssaultRifle, 9999, true, true);
+                }
+
+                if (item == assaultrifflemk2Item)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.AssaultrifleMk2, 9999, true, true);
+                }
+
+                if (item == carabineriffleItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.CarbineRifle, 9999, true, true);
+                }
+
+                if (item == carabinerifflemk2Item)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.CarbineRifleMk2, 9999, true, true);
+                }
+
+                if (item == advancedriffleItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.AdvancedRifle, 9999, true, true);
+                }
+
+                if (item == specialcarabineItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.SpecialCarbine, 9999, true, true);
+                }
+
+                if (item == bullpupriffleItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.BullpupRifle, 9999, true, true);
+                }
+
+                if (item == compactriffleItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.CompactRifle, 9999, true, true);
+                }
+            };
+
+
         }
 
 
