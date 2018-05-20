@@ -1,13 +1,13 @@
-Changelog build 149 
+Changelog build 150 
 
 [Essential Menu] - [Beta]
 
-*Added Suicide Option 
-*Added New Menu
-*Added Bodyguard Menu
-*Added Bodyguard Spawn Menu (Not-Finished)
-*Added Delete Bodyguard Function (Bodyguard stop follow you)
-*Added New Menu Title (Essential Menu)
+*Added new Sub-Menu (Get single Weapon)
+*Added New Weapons
+*Added 3 new Weapons Category (Melee Weapons,HandGuns And Assault Riffle Guns) on (Single Weapon Menu).
+*Added 20+ new Weapons
+*Added new Model on Model Changer
+*Fixed Graphic Glitch with 1440x1080p resolution
 *Improved Source Code
 *Improved UI
 *Fixed Some Bug
