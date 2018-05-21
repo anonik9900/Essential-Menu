@@ -298,6 +298,8 @@ namespace ModMenu
             UIMenuItem superItem = new UIMenuItem("Superman");
             UIMenuItem cjItem = new UIMenuItem("Fake CJ");
             UIMenuItem zombieItem = new UIMenuItem("Zombie");
+            UIMenuItem lamarItem = new UIMenuItem("Lamar");
+            UIMenuItem amandaItem = new UIMenuItem("Amanda");
 
             mainModel.AddItem(outfitsrandom);
             mainModel.AddItem(alienItem);
@@ -314,9 +316,11 @@ namespace ModMenu
             mainModel.AddItem(superItem);
             mainModel.AddItem(cjItem);
             mainModel.AddItem(zombieItem);
+            mainModel.AddItem(lamarItem);
+            mainModel.AddItem(amandaItem);
 
             mainModel.OnItemSelect += (sender, item, index) =>
-            {
+                {
 
                     if (item == outfitsrandom)
                     {
@@ -408,7 +412,39 @@ namespace ModMenu
                         Ped gamePed = Game.Player.Character;
                         Game.Player.ChangeModel(PedHash.Zombie01);
                     }
-            };
+
+                    if (item == lamarItem)
+                    {
+                    Model model = PedHash.LamarDavis;
+
+                    if (!model.IsLoaded && !model.Request(1000))
+                    {
+                        // we couldn't load that model...
+                        return;
+                    }
+
+                    //Function.Call(Hash.GET_ENTITY_MODEL, model); Try n 1
+                    //Function.Call(Hash.CHANGE_PLAYER_PED, model); Try n 2
+
+                    Game.Player.ChangeModel(model);
+                    Game.Player.Character.RandomizeOutfit();
+
+                    }
+
+
+                    if (item == amandaItem)
+                    {
+                    Model model = PedHash.AmandaTownley;
+
+                    if (!model.IsLoaded && !model.Request(1000))
+                    {
+                        return;
+                    }
+
+                    Game.Player.ChangeModel(model);
+                    Game.Player.Character.RandomizeOutfit();
+                    }
+                };
 
         }
 
@@ -638,7 +674,7 @@ namespace ModMenu
             UIMenuItem axeItem = new UIMenuItem("Battle Axe");
 
             //HandGun
-            UIMenuItem body2lItem = new UIMenuItem("~b~HandGuns");
+            UIMenuItem body2lItem = new UIMenuItem("~r~HandGuns");
             UIMenuItem pistolItem = new UIMenuItem("Pistol");
             UIMenuItem pistolmk2Item = new UIMenuItem("Pistol MK2");
             UIMenuItem combatPistolItem = new UIMenuItem("Combat Pistol");
@@ -653,7 +689,7 @@ namespace ModMenu
             UIMenuItem flaregunItem = new UIMenuItem("Flare Gun");
 
             //MachineGun
-            UIMenuItem body3Item = new UIMenuItem("~b~Machine Guns");
+            UIMenuItem body3Item = new UIMenuItem("~r~Machine Guns");
             UIMenuItem microsmgItem = new UIMenuItem("Micro SMG");
             UIMenuItem machinepistolItem = new UIMenuItem("Machine Pistol");
             UIMenuItem smgItem = new UIMenuItem("SMG");
@@ -666,15 +702,25 @@ namespace ModMenu
             UIMenuItem minismgItem = new UIMenuItem("Mini SMG");
 
             //Assault Riffle
-            UIMenuItem body4Item = new UIMenuItem("~b~Assault Riffle");
-            UIMenuItem assaultriffleItem = new UIMenuItem("Assault Riffle");
-            UIMenuItem assaultrifflemk2Item = new UIMenuItem("Assault RIffle Mk2");
+            UIMenuItem body4Item = new UIMenuItem("~r~Assault Rifle Gun");
+            UIMenuItem assaultriffleItem = new UIMenuItem("Assault Rifle");
+            UIMenuItem assaultrifflemk2Item = new UIMenuItem("Assault RIfle Mk2");
             UIMenuItem carabineriffleItem = new UIMenuItem("Carabine");
             UIMenuItem carabinerifflemk2Item = new UIMenuItem("Carabine Mk2");
-            UIMenuItem advancedriffleItem = new UIMenuItem("Advanced Riffle");
+            UIMenuItem advancedriffleItem = new UIMenuItem("Advanced Rifle");
             UIMenuItem specialcarabineItem = new UIMenuItem("Special Carabine");
-            UIMenuItem bullpupriffleItem = new UIMenuItem("Bullpup Riffle");
-            UIMenuItem compactriffleItem = new UIMenuItem("Compact Riffle");
+            UIMenuItem bullpupriffleItem = new UIMenuItem("Bullpup Rifle");
+            UIMenuItem compactriffleItem = new UIMenuItem("Compact Rifle");
+
+            //Sniper Riffle
+            UIMenuItem body5Item = new UIMenuItem("~r~Sniper Rifle");
+            UIMenuItem sniperriffleItem = new UIMenuItem("Sniper");
+            UIMenuItem heavysniperItem = new UIMenuItem("Heavy Sniper");
+            UIMenuItem heavysnipermk2Item = new UIMenuItem("Heavy Sniper Mk2");
+            UIMenuItem marskmanrifleItem = new UIMenuItem("Marskman Rifle");
+
+            //Shotgun
+            UIMenuItem body6Item = new UIMenuItem("~r~Shotguns");
 
             //Melee Weapon
             mainWeapon.AddItem(bodyItem);
@@ -732,6 +778,16 @@ namespace ModMenu
             mainWeapon.AddItem(specialcarabineItem);
             mainWeapon.AddItem(bullpupriffleItem);
             mainWeapon.AddItem(compactriffleItem);
+
+            //Sniper Riffle
+            mainWeapon.AddItem(body5Item);
+            mainWeapon.AddItem(sniperriffleItem);
+            mainWeapon.AddItem(heavysniperItem);
+            mainWeapon.AddItem(heavysnipermk2Item);
+            mainWeapon.AddItem(marskmanrifleItem);
+
+            //Shotgun
+
 
             mainWeapon.OnItemSelect += (sender, item, index) =>
             {
@@ -965,6 +1021,29 @@ namespace ModMenu
                 {
                     Game.Player.Character.Weapons.Give(WeaponHash.CompactRifle, 9999, true, true);
                 }
+
+                //Sniper Riffle
+                if (item == sniperriffleItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.SniperRifle, 9999, true, true);
+                }
+
+                if (item == heavysniperItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.HeavySniper, 9999, true, true);
+                }
+
+                if (item == heavysnipermk2Item)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.HeavySniperMk2, 9999, true, true);
+                }
+
+                if (item == marskmanrifleItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.MarksmanRifle, 9999, true, true);
+                }
+
+                //Shotgun
             };
 
 
