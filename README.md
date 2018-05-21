@@ -1,7 +1,3 @@
-<style type="text/css">
- a{color: green;}
- </style>
-
 # Essential Menu
  
 GTA V Mod Menu with NativeUI written in C#
