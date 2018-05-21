@@ -2,7 +2,7 @@
  
 GTA V Mod Menu with NativeUI written in C#
 
-<h3> [Feauters] </h3>
+<h3> [Features] </h3>
 <p>
   <ul>
     <li>Player Options</li>
