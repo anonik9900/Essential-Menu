@@ -1,8 +1,12 @@
+<style type="text/css">
+ a{color: green;}
+ </style>
+
 # Essential Menu
  
 GTA V Mod Menu with NativeUI written in C#
 
-<h3>[Feauters] </h3>
+<h3> [Feauters] </h3>
 <p>
   <ul>
     <li>Player Options</li>
@@ -21,11 +25,8 @@ GTA V Mod Menu with NativeUI written in C#
      <li>Use "Enter" to select an Option.</li>
      <li>Use "Esc" to exit from Mod menu.</li>
      </ul>
-     </p>
-     
-     
-    
-     <h2>Requirements</h2>
+     </p>   
+     <h2>[Requirements]</h2>
      <p>
      <ul>
      <li><a href="http://www.dev-c.com/gtav/scripthookv/">ScriptHookV</a></li>
