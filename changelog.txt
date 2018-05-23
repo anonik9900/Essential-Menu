@@ -1,3 +1,22 @@
+Minor-Update build 158
+
+*Added new Sub-Categories on Model Changer ("Story Model And Animal Model")
+*Main Uman model moved to Story Model Category
+*Animal moved to Animal Model Category
+*Added new Character
+*Added 4+ Animal peds
+*Improved UI
+*Fixed UI
+*Improved Source Code
+
+
+Minor-Update build 155
+
+*Added new Ped Model
+*Added Sniper Rifle
+*Fixed minor bug
+
+
 Changelog build 150 
 
 [Essential Menu] - [Beta]
