@@ -284,13 +284,14 @@ namespace ModMenu
         {
             UIMenu mainModel = modMenuPool.AddSubMenu(playerMenu, "Model Changer");
             UIMenuItem outfitsrandom = new UIMenuItem("~b~Randomize Outfits");
+
+            UIMenu storyModel = modMenuPool.AddSubMenu(mainModel, "Story Model");
             UIMenuItem alienItem = new UIMenuItem("Alien");
             UIMenuItem copItem = new UIMenuItem("Cop");
             UIMenuItem rangerItem = new UIMenuItem("Ranger");
             UIMenuItem clayItem = new UIMenuItem("ClayPain");
             UIMenuItem clownItem = new UIMenuItem("Clown");
             UIMenuItem jesusItem = new UIMenuItem("Jesus");
-            UIMenuItem catItem = new UIMenuItem("Cat");
             UIMenuItem formageItem = new UIMenuItem("Cris Formage");
             UIMenuItem ballasItem = new UIMenuItem("Ballas");
             UIMenuItem marineItem = new UIMenuItem("Marine");
@@ -300,24 +301,54 @@ namespace ModMenu
             UIMenuItem zombieItem = new UIMenuItem("Zombie");
             UIMenuItem lamarItem = new UIMenuItem("Lamar");
             UIMenuItem amandaItem = new UIMenuItem("Amanda");
+            UIMenuItem traceyItem = new UIMenuItem("Tracey");
+            UIMenuItem musclemainItem = new UIMenuItem("Muscle Man");
+            UIMenuItem bigfootItem = new UIMenuItem("Bigfoot");
 
+            UIMenu animalModel = modMenuPool.AddSubMenu(mainModel, "Animal Model");
+            UIMenuItem catItem = new UIMenuItem("Cat");
+            UIMenuItem hawkItem = new UIMenuItem("Hawk");
+            UIMenuItem chopItem = new UIMenuItem("Chop");
+            UIMenuItem chimpItem = new UIMenuItem("Chimp");
+            UIMenuItem cowItem = new UIMenuItem("Cow");
+            UIMenuItem coyoteItem = new UIMenuItem("Coyote");
+            UIMenuItem crowItem = new UIMenuItem("Crow");
+            UIMenuItem cormoItem = new UIMenuItem("Cormorant");
+            UIMenuItem boarItem = new UIMenuItem("Board");
+
+            //Main menu
             mainModel.AddItem(outfitsrandom);
-            mainModel.AddItem(alienItem);
-            mainModel.AddItem(copItem);
-            mainModel.AddItem(rangerItem);
-            mainModel.AddItem(clayItem);
-            mainModel.AddItem(clownItem);
-            mainModel.AddItem(jesusItem);
-            mainModel.AddItem(catItem);
-            mainModel.AddItem(formageItem);
-            mainModel.AddItem(ballasItem);
-            mainModel.AddItem(marineItem);
-            mainModel.AddItem(fbiItem);
-            mainModel.AddItem(superItem);
-            mainModel.AddItem(cjItem);
-            mainModel.AddItem(zombieItem);
-            mainModel.AddItem(lamarItem);
-            mainModel.AddItem(amandaItem);
+
+            //Story Model
+            storyModel.AddItem(alienItem);
+            storyModel.AddItem(copItem);
+            storyModel.AddItem(rangerItem);
+            storyModel.AddItem(clayItem);
+            storyModel.AddItem(clownItem);
+            storyModel.AddItem(jesusItem);
+            storyModel.AddItem(formageItem);
+            storyModel.AddItem(ballasItem);
+            storyModel.AddItem(marineItem);
+            storyModel.AddItem(fbiItem);
+            storyModel.AddItem(superItem);
+            storyModel.AddItem(cjItem);
+            storyModel.AddItem(zombieItem);
+            storyModel.AddItem(lamarItem);
+            storyModel.AddItem(amandaItem);
+            storyModel.AddItem(traceyItem);
+            storyModel.AddItem(musclemainItem);
+            storyModel.AddItem(bigfootItem);
+
+            //Animal
+            animalModel.AddItem(catItem);
+            animalModel.AddItem(hawkItem);
+            animalModel.AddItem(chopItem);
+            animalModel.AddItem(chimpItem);
+            animalModel.AddItem(cowItem);
+            animalModel.AddItem(coyoteItem);
+            animalModel.AddItem(crowItem);
+            animalModel.AddItem(cormoItem);
+            animalModel.AddItem(boarItem);
 
             mainModel.OnItemSelect += (sender, item, index) =>
                 {
@@ -328,93 +359,94 @@ namespace ModMenu
                     Game.Player.Character.RandomizeOutfit();
                     }
 
-                    if (item == alienItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.MovAlien01);
-                    }
+                };
 
-                    if (item == copItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.Cop01SMY);
-                    }
+            //StoryModel
+
+            storyModel.OnItemSelect += (sender, item, index) =>
+            {
+
+                if (item == alienItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.MovAlien01);
+                }
+
+                if (item == copItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Cop01SMY);
+                }
 
 
-                    if (item == rangerItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.Ranger01SMY);
-                    }
+                if (item == rangerItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Ranger01SMY);
+                }
 
-                    if (item == clayItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.Claypain);
-                    }
+                if (item == clayItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Claypain);
+                }
 
-                    if (item == clownItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.Clown01SMY);
-                    }
+                if (item == clownItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Clown01SMY);
+                }
 
-                    if (item == jesusItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.Jesus01);
-                    }
+                if (item == jesusItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Jesus01);
+                }
 
-                    if (item == catItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.Cat);
-                    }
+                if (item == formageItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.CrisFormage);
+                }
 
-                    if (item == formageItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.CrisFormage);
-                    }
+                if (item == ballasItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.BallaOrig01GMY);
+                }
 
-                    if (item == ballasItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.BallaOrig01GMY);
-                    }
+                if (item == marineItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Marine03SMY);
+                }
 
-                    if (item == marineItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.Marine03SMY);
-                    }
+                if (item == fbiItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.FibSec01SMM);
+                }
 
-                    if (item == fbiItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.FibSec01SMM);
-                    }
+                if (item == superItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Imporage);
+                }
 
-                    if (item == superItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.Imporage);
-                    }
+                if (item == cjItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.StrPunk02GMY);
+                }
 
-                    if (item == cjItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.StrPunk02GMY);
-                    }
+                if (item == zombieItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Zombie01);
+                }
 
-                    if (item == zombieItem)
-                    {
-                        Ped gamePed = Game.Player.Character;
-                        Game.Player.ChangeModel(PedHash.Zombie01);
-                    }
-
-                    if (item == lamarItem)
-                    {
+                if (item == lamarItem)
+                {
                     Model model = PedHash.LamarDavis;
 
                     if (!model.IsLoaded && !model.Request(1000))
@@ -423,17 +455,15 @@ namespace ModMenu
                         return;
                     }
 
-                    //Function.Call(Hash.GET_ENTITY_MODEL, model); Try n 1
-                    //Function.Call(Hash.CHANGE_PLAYER_PED, model); Try n 2
-
                     Game.Player.ChangeModel(model);
-                    Game.Player.Character.RandomizeOutfit();
 
-                    }
+                    Function.Call(Hash.SET_PED_DEFAULT_COMPONENT_VARIATION, Game.Player.Character);
+
+                }
 
 
-                    if (item == amandaItem)
-                    {
+                if (item == amandaItem)
+                {
                     Model model = PedHash.AmandaTownley;
 
                     if (!model.IsLoaded && !model.Request(1000))
@@ -442,9 +472,114 @@ namespace ModMenu
                     }
 
                     Game.Player.ChangeModel(model);
-                    Game.Player.Character.RandomizeOutfit();
+
+                    Function.Call(Hash.SET_PED_DEFAULT_COMPONENT_VARIATION, Game.Player.Character);
+                }
+
+
+                if (item == traceyItem)
+                {
+                    Model model = PedHash.TracyDisanto;
+
+                    if (!model.IsLoaded && !model.Request(1000))
+                    {
+                        // we couldn't load that model...
+                        return;
                     }
-                };
+
+                    Game.Player.ChangeModel(model);
+
+                    Function.Call(Hash.SET_PED_DEFAULT_COMPONENT_VARIATION, Game.Player.Character);
+                }
+
+
+                if (item == musclemainItem)
+                {
+                    Model model = PedHash.Babyd;
+
+                    if (!model.IsLoaded && !model.Request(1000))
+                    {
+                        return;
+                    }
+
+                    Game.Player.ChangeModel(model);
+
+                    Function.Call(Hash.SET_PED_DEFAULT_COMPONENT_VARIATION, Game.Player.Character);
+                }
+
+                if (item == bigfootItem)
+                {
+                    Model model = PedHash.Orleans;
+
+                    if (!model.IsLoaded && !model.Request(1000))
+                    {
+                        return;
+                    }
+
+                    Game.Player.ChangeModel(model);
+
+                    Function.Call(Hash.SET_PED_DEFAULT_COMPONENT_VARIATION, Game.Player.Character);
+                }
+
+            };
+
+            //Animal Model
+            animalModel.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == catItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Cat);
+                }
+
+                if (item == hawkItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.ChickenHawk);
+                }
+
+                if (item == chopItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Chop);
+                }
+
+                if (item == chimpItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Chimp);
+                }
+
+                if (item == cowItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Cow);
+                }
+
+                if (item == coyoteItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Coyote);
+                }
+
+                if (item == crowItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Crow);
+                }
+
+                if (item == cormoItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Cormorant);
+                }
+
+                if (item == boarItem)
+                {
+                    Ped gamePed = Game.Player.Character;
+                    Game.Player.ChangeModel(PedHash.Boar);
+                }
+            };
 
         }
 
