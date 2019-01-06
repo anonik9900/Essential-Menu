@@ -1,3 +1,14 @@
+Midlle-Update build 160
+
+*Added Money Options
+*Fixed Wanted level bugs
+*Added New Peds to change player skin.
+*Added New Vehicles Menu.
+*Vehicle Fixer added
+*Vehicle spawn Improved
+*Added New Banner's for some categories
+
+
 Minor-Update build 158
 
 *Added new Sub-Categories on Model Changer ("Story Model And Animal Model")
