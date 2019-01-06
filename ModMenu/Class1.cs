@@ -17,13 +17,14 @@ namespace ModMenu
     {
         private bool checkbox1 = false;
         private bool checkbox2 = false;
+        private bool checkbox3 = false;
         MenuPool modMenuPool;
         UIMenu mainMenu;
-
         UIMenu playerMenu;
         UIMenu weaponsMenu;
         UIMenu vehicleMenu;
-        UIMenu bodyguardMenu; 
+        UIMenu bodyguardMenu;
+        UIMenu miscMenu;
 
         UIMenuItem resetWantedLevel;
         UIMenuItem KillPlayerItem;
@@ -47,21 +48,24 @@ namespace ModMenu
             weaponsMenu = modMenuPool.AddSubMenu(mainMenu, "Weapons Options");
             vehicleMenu = modMenuPool.AddSubMenu(mainMenu, "Vehicles Options");
             bodyguardMenu = modMenuPool.AddSubMenu(mainMenu, "Bodyguard Menu");
+            miscMenu = modMenuPool.AddSubMenu(mainMenu, "Misc Options");
 
             SetupPlayerFunctions();
             SetupWeaponFunctions();
             SetupVehicleFuntions();
             SetupBodyguardFunctions();
+            SetupMiscFunctions();
             
         }
 
         void SetupPlayerFunctions()
         {
-            ResetWantedLevel();
+            //ResetWantedLevel();
             Godmode();
             neverWanted();
             changeModel();
             KillPlayerMenu();
+            MoneyPlayerMenu();
         }
 
         void SetupWeaponFunctions()
@@ -69,12 +73,14 @@ namespace ModMenu
             WeaponSelectorMenu();
             GetAllWeapons();
             getWeapon();
+            GetAInfiniteAmmo();
         }
 
         void SetupVehicleFuntions()
         {
             VehicleSelectorMenu();
             VehicleSpawnByName();
+            VehicleFixHealth();
         }
 
         void SetupBodyguardFunctions()
@@ -83,12 +89,17 @@ namespace ModMenu
             deleteBody();
         }
 
+        void SetupMiscFunctions()
+        {
+            spawnGioele();
+        }
+
 
         
         
 
 
-        void ResetWantedLevel()
+        /*void ResetWantedLevel()
         {
             resetWantedLevel = new UIMenuItem("Reset Wanted Level");
             mainMenu.AddItem(resetWantedLevel);
@@ -104,14 +115,31 @@ namespace ModMenu
                     else
                     {
                         Game.Player.WantedLevel = 0;
+
                     }
                 }
             };
+        }*/
+
+
+
+        void spawnGioele()
+        {
+            UIMenuItem spawngioele = new UIMenuItem("Gioele Spawn");
+            miscMenu.AddItem(spawngioele);
+
+            miscMenu.OnItemSelect += (sender, item, index) =>
+            {
+                Ped bodyguard = World.CreatePed(new Model(PedHash.Armoured02SMM), Game.Player.Character.Position);
+                bodyguard.Weapons.Give(WeaponHash.Pistol, 9999, true, true);
+                bodyguard.Armor = 100; // Armor ranges from 1-100
+                PedGroup playerGroup = Game.Player.Character.CurrentPedGroup; // gets the players current group
+                Function.Call(Hash.SET_PED_AS_GROUP_MEMBER, bodyguard, playerGroup); // puts the bodyguard into the players group
+                Function.Call(Hash.SET_PED_COMBAT_ABILITY, bodyguard, 100); // 100 = attack
+                UI.Notify("Gioele");
+            };
+
         }
-
-
-
-
         
 
         void WeaponSelectorMenu()
@@ -157,6 +185,35 @@ namespace ModMenu
                     {
                         Game.Player.Character.Weapons.Give(allWeaponHashes[i], 9999, true, true);
                     }
+                }
+            };
+        }
+
+        void GetAInfiniteAmmo()
+        {
+            var checkbox_ammo = new UIMenuCheckboxItem("Get Unlimited Ammo", checkbox3, "Activate ~b~Unlimited Ammo");
+            //UIMenuItem infiniteammo = new UIMenuItem("Infinite Ammo");
+            weaponsMenu.AddItem(checkbox_ammo);
+
+
+            weaponsMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == checkbox_ammo)
+                {
+                    if (checked_ == true)
+                    {
+                        UI.Notify("Unlimite Ammo: ~b~ON");
+                        //Game.Player.Character.Weapons.Give(WeaponHash.AdvancedRifle, 999, true, true);
+                        Function.Call(Hash.GET_MAX_AMMO_IN_CLIP);
+                        
+
+                    }//end true check
+
+                    if (checked_ == false)
+                    {
+                        UI.Notify("Unlimite Ammo: ~r~OFF");
+                        
+                    }//end false check
                 }
             };
         }
@@ -215,6 +272,23 @@ namespace ModMenu
                         v.PlaceOnGround();
                         gamePed.Task.WarpIntoVehicle(v, VehicleSeat.Driver);
                     }
+                }
+            };
+        }
+
+        void VehicleFixHealth()
+        {
+            UIMenuItem vehiclefixhealth = new UIMenuItem("Fix Car Health");
+            vehicleMenu.AddItem(vehiclefixhealth);
+            vehicleMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == vehiclefixhealth)
+                {
+                    UI.Notify("Vehicle Fixed");
+                    Function.Call(Hash.SET_VEHICLE_FIXED,Game.Player.Character.CurrentVehicle);
+                    Function.Call(Hash.FIX_VEHICLE_WINDOW,Game.Player.Character.CurrentVehicle);
+                    Function.Call(Hash.SET_VEHICLE_DEFORMATION_FIXED,Game.Player.Character.CurrentVehicle);
+                    Function.Call(Hash.SET_VEHICLE_TYRE_FIXED,Game.Player.Character.CurrentVehicle);
                 }
             };
         }
@@ -278,7 +352,90 @@ namespace ModMenu
                 }
             };
         }
-           
+
+
+        void MoneyPlayerMenu()
+        {
+            UIMenu moneyPlayerItem = modMenuPool.AddSubMenu(mainMenu,"Money Options");
+            UIMenuItem add10k = new UIMenuItem("Add: ~g~10k");
+            UIMenuItem add50k = new UIMenuItem("Add: ~g~50k");
+            UIMenuItem add100k = new UIMenuItem("Add: ~g~100k");
+            UIMenuItem add500k = new UIMenuItem("Add: ~g~500k");
+            UIMenuItem add1milion = new UIMenuItem("Add: ~g~1.000.000");
+            UIMenuItem add5milion = new UIMenuItem("Add: ~g~5.000.000");
+            UIMenuItem add20milion = new UIMenuItem("Add: ~g~20.000.000");
+            UIMenuItem add100milion = new UIMenuItem("Add: ~g~100.000.000");
+            UIMenuItem add1bilion = new UIMenuItem("Add: ~g~1.000.000.000");
+
+            moneyPlayerItem.AddItem(add10k);
+            moneyPlayerItem.AddItem(add50k);
+            moneyPlayerItem.AddItem(add100k);
+            moneyPlayerItem.AddItem(add500k);
+            moneyPlayerItem.AddItem(add1milion);
+            moneyPlayerItem.AddItem(add5milion);
+            moneyPlayerItem.AddItem(add20milion);
+            moneyPlayerItem.AddItem(add100milion);
+            moneyPlayerItem.AddItem(add1bilion);
+
+            moneyPlayerItem.OnItemSelect += (sender, item, index) =>
+            {
+
+                if (item == add10k)
+                {
+                    UI.Notify("10.000 $ has been added to your account");
+                    Game.Player.Money += 10000;
+                }
+
+                if (item == add50k)
+                {
+                    UI.Notify("50.000 $ has been added to your account");
+                    Game.Player.Money += 50000;
+                }
+
+                if (item == add100k)
+                {
+                    UI.Notify("100.000 $ has been added to your account");
+                    Game.Player.Money += 100000;
+                }
+
+                if (item == add500k)
+                {
+                    UI.Notify("500.000 $ has been added to your account");
+                    Game.Player.Money += 500000;
+                }
+
+                if (item == add1milion)
+                {
+                    UI.Notify("1.000.000 $ has been added to your account");
+                    Game.Player.Money += 1000000;
+                }
+
+                if (item == add5milion)
+                {
+                    UI.Notify("5.000.000 $ has been added to your account");
+                    Game.Player.Money += 5000000;
+                }
+
+                if (item == add20milion)
+                {
+                    UI.Notify("20.000.000 $ has been added to your account");
+                    Game.Player.Money += 20000000;
+                }
+
+                if (item == add100milion)
+                {
+                    UI.Notify("100.000.000 $ has been added to your account");
+                    Game.Player.Money += 100000000;
+                }
+
+                if (item == add1bilion)
+                {
+                    UI.Notify("1.000.000.000 $ has been added to your account");
+                    Game.Player.Money += 1000000000;
+                }
+            };
+        }
+
 
         void changeModel()
         {
@@ -585,7 +742,7 @@ namespace ModMenu
 
         void KillPlayerMenu()
         {
-            KillPlayerItem = new UIMenuItem("Kill Yourself","You can die :(");
+            KillPlayerItem = new UIMenuItem("Kill Yourself","You commite suicide :(");
             playerMenu.AddItem(KillPlayerItem);
 
             playerMenu.OnItemSelect += (sender, item, index) =>
@@ -596,6 +753,9 @@ namespace ModMenu
                 }
             };
         }
+
+
+
 
 
         void SpawnBodyguard()
@@ -761,7 +921,12 @@ namespace ModMenu
                     }
                 }
 
+                if (Game.Player.Character.IsDead == true)
+                {
 
+                    Function.Call(Hash.REMOVE_GROUP,Game.Player.Character.CurrentPedGroup);
+                    
+                }
             };
 
 
@@ -1199,6 +1364,10 @@ namespace ModMenu
             if (e.KeyCode == Keys.Z && !modMenuPool.IsAnyMenuOpen())
             {
                 mainMenu.Visible = !mainMenu.Visible;
+
+                mainMenu.SetBannerType("scripts\\mainBanner.jpg"); //banner directory
+                vehicleMenu.SetBannerType("scripts\\carBanner.jpg");
+                UI.Notify("Essential Menu v1.0");
             }
         }
     }
