@@ -12,13 +12,15 @@ GTA V Mod Menu with NativeUI written in C#<br>
     <li>Vehicle Options</li>
     <li>Weapon Options</li>
     <li>Misc Options</li>
+    <li>Money Options</li>
+    <li>Bodyguard Menu</li>
     </ul
    </p>
    
    <h3> [Commands] </h3>
    <p>
     <ul>
-     <li>Press "Z" To Open the Menu.</li>
+     <li>Press "Z" To Open the Menu or customize it with the .ini file.</li>
      <li>Use "Arrow_Up" to move Up.</li>
      <li>Use "Arrow_Down" to move Down.</li>
      <li>Use "Enter" to select an Option.</li>
