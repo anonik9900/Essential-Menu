@@ -1,3 +1,15 @@
+minor-update build 161
+
+*Added new Separated Money Menu
+*Added custom-banner for the Money menu
+*Infinite-Ammo (completed at 50%)
+*Preview Image added
+*.ini config file added
+*Code cleaned
+*Improved source
+*Pre-Build folder added
+
+
 Midlle-Update build 160
 
 *Added Money Options
