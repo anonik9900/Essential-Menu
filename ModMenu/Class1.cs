@@ -23,11 +23,14 @@ namespace ModMenu
         UIMenu playerMenu;
         UIMenu weaponsMenu;
         UIMenu vehicleMenu;
+        UIMenu cashMenu;
         UIMenu bodyguardMenu;
         UIMenu miscMenu;
 
         UIMenuItem resetWantedLevel;
         UIMenuItem KillPlayerItem;
+
+
 
         public Class1()
         {
@@ -47,12 +50,14 @@ namespace ModMenu
             playerMenu = modMenuPool.AddSubMenu(mainMenu, "Player Options");
             weaponsMenu = modMenuPool.AddSubMenu(mainMenu, "Weapons Options");
             vehicleMenu = modMenuPool.AddSubMenu(mainMenu, "Vehicles Options");
+            cashMenu = modMenuPool.AddSubMenu(mainMenu, "Money Options");
             bodyguardMenu = modMenuPool.AddSubMenu(mainMenu, "Bodyguard Menu");
             miscMenu = modMenuPool.AddSubMenu(mainMenu, "Misc Options");
 
             SetupPlayerFunctions();
             SetupWeaponFunctions();
             SetupVehicleFuntions();
+            SetupMoneyFunctions();
             SetupBodyguardFunctions();
             SetupMiscFunctions();
             
@@ -65,7 +70,6 @@ namespace ModMenu
             neverWanted();
             changeModel();
             KillPlayerMenu();
-            MoneyPlayerMenu();
         }
 
         void SetupWeaponFunctions()
@@ -81,6 +85,87 @@ namespace ModMenu
             VehicleSelectorMenu();
             VehicleSpawnByName();
             VehicleFixHealth();
+        }
+
+        void SetupMoneyFunctions()
+        {
+            UIMenuItem add10k = new UIMenuItem("Add: ~g~10k");
+            UIMenuItem add50k = new UIMenuItem("Add: ~g~50k");
+            UIMenuItem add100k = new UIMenuItem("Add: ~g~100k");
+            UIMenuItem add500k = new UIMenuItem("Add: ~g~500k");
+            UIMenuItem add1milion = new UIMenuItem("Add: ~g~1.000.000");
+            UIMenuItem add5milion = new UIMenuItem("Add: ~g~5.000.000");
+            UIMenuItem add20milion = new UIMenuItem("Add: ~g~20.000.000");
+            UIMenuItem add100milion = new UIMenuItem("Add: ~g~100.000.000");
+            UIMenuItem add1bilion = new UIMenuItem("Add: ~g~1.000.000.000");
+
+            cashMenu.AddItem(add10k);
+            cashMenu.AddItem(add50k);
+            cashMenu.AddItem(add100k);
+            cashMenu.AddItem(add500k);
+            cashMenu.AddItem(add1milion);
+            cashMenu.AddItem(add5milion);
+            cashMenu.AddItem(add20milion);
+            cashMenu.AddItem(add100milion);
+            cashMenu.AddItem(add1bilion);
+
+            cashMenu.OnItemSelect += (sender, item, index) =>
+            {
+
+                if (item == add10k)
+                {
+                    UI.Notify("10.000 $ has been added to your account");
+                    Game.Player.Money += 10000;
+                }
+
+                if (item == add50k)
+                {
+                    UI.Notify("50.000 $ has been added to your account");
+                    Game.Player.Money += 50000;
+                }
+
+                if (item == add100k)
+                {
+                    UI.Notify("100.000 $ has been added to your account");
+                    Game.Player.Money += 100000;
+                }
+
+                if (item == add500k)
+                {
+                    UI.Notify("500.000 $ has been added to your account");
+                    Game.Player.Money += 500000;
+                }
+
+                if (item == add1milion)
+                {
+                    UI.Notify("1.000.000 $ has been added to your account");
+                    Game.Player.Money += 1000000;
+                }
+
+                if (item == add5milion)
+                {
+                    UI.Notify("5.000.000 $ has been added to your account");
+                    Game.Player.Money += 5000000;
+                }
+
+                if (item == add20milion)
+                {
+                    UI.Notify("20.000.000 $ has been added to your account");
+                    Game.Player.Money += 20000000;
+                }
+
+                if (item == add100milion)
+                {
+                    UI.Notify("100.000.000 $ has been added to your account");
+                    Game.Player.Money += 100000000;
+                }
+
+                if (item == add1bilion)
+                {
+                    UI.Notify("1.000.000.000 $ has been added to your account");
+                    Game.Player.Money += 1000000000;
+                }
+            };
         }
 
         void SetupBodyguardFunctions()
@@ -195,7 +280,6 @@ namespace ModMenu
             //UIMenuItem infiniteammo = new UIMenuItem("Infinite Ammo");
             weaponsMenu.AddItem(checkbox_ammo);
 
-
             weaponsMenu.OnCheckboxChange += (sender, item, checked_) =>
             {
                 if (item == checkbox_ammo)
@@ -203,14 +287,17 @@ namespace ModMenu
                     if (checked_ == true)
                     {
                         UI.Notify("Unlimite Ammo: ~b~ON");
-                        //Game.Player.Character.Weapons.Give(WeaponHash.AdvancedRifle, 999, true, true);
-                        Function.Call(Hash.GET_MAX_AMMO_IN_CLIP);
+                       
+
+                        Function.Call(Hash.SET_PED_INFINITE_AMMO_CLIP,Game.Player.Character);
+                        //Function.Call(Hash.SET_PED_INFINITE_AMMO,Game.Player.Character.Weapons.Current);
                         
 
                     }//end true check
 
                     if (checked_ == false)
                     {
+                        Function.Call(Hash.GET_MAX_AMMO_IN_CLIP);
                         UI.Notify("Unlimite Ammo: ~r~OFF");
                         
                     }//end false check
@@ -321,7 +408,7 @@ namespace ModMenu
 
         void neverWanted()
         {
-            var checkbox = new UIMenuCheckboxItem("Reset Wanted Level", checkbox2, "The police ignore you");
+            var checkbox = new UIMenuCheckboxItem("Reset Wanted Level", checkbox2, "Reset the Wanted Level");
             playerMenu.AddItem(checkbox);
 
 
@@ -353,88 +440,14 @@ namespace ModMenu
             };
         }
 
-
-        void MoneyPlayerMenu()
+        /*void truenerverwanted()
         {
-            UIMenu moneyPlayerItem = modMenuPool.AddSubMenu(mainMenu,"Money Options");
-            UIMenuItem add10k = new UIMenuItem("Add: ~g~10k");
-            UIMenuItem add50k = new UIMenuItem("Add: ~g~50k");
-            UIMenuItem add100k = new UIMenuItem("Add: ~g~100k");
-            UIMenuItem add500k = new UIMenuItem("Add: ~g~500k");
-            UIMenuItem add1milion = new UIMenuItem("Add: ~g~1.000.000");
-            UIMenuItem add5milion = new UIMenuItem("Add: ~g~5.000.000");
-            UIMenuItem add20milion = new UIMenuItem("Add: ~g~20.000.000");
-            UIMenuItem add100milion = new UIMenuItem("Add: ~g~100.000.000");
-            UIMenuItem add1bilion = new UIMenuItem("Add: ~g~1.000.000.000");
+            Function.Call(Hash.SET_POLICE_IGNORE_PLAYER);
 
-            moneyPlayerItem.AddItem(add10k);
-            moneyPlayerItem.AddItem(add50k);
-            moneyPlayerItem.AddItem(add100k);
-            moneyPlayerItem.AddItem(add500k);
-            moneyPlayerItem.AddItem(add1milion);
-            moneyPlayerItem.AddItem(add5milion);
-            moneyPlayerItem.AddItem(add20milion);
-            moneyPlayerItem.AddItem(add100milion);
-            moneyPlayerItem.AddItem(add1bilion);
+        }*/
 
-            moneyPlayerItem.OnItemSelect += (sender, item, index) =>
-            {
 
-                if (item == add10k)
-                {
-                    UI.Notify("10.000 $ has been added to your account");
-                    Game.Player.Money += 10000;
-                }
-
-                if (item == add50k)
-                {
-                    UI.Notify("50.000 $ has been added to your account");
-                    Game.Player.Money += 50000;
-                }
-
-                if (item == add100k)
-                {
-                    UI.Notify("100.000 $ has been added to your account");
-                    Game.Player.Money += 100000;
-                }
-
-                if (item == add500k)
-                {
-                    UI.Notify("500.000 $ has been added to your account");
-                    Game.Player.Money += 500000;
-                }
-
-                if (item == add1milion)
-                {
-                    UI.Notify("1.000.000 $ has been added to your account");
-                    Game.Player.Money += 1000000;
-                }
-
-                if (item == add5milion)
-                {
-                    UI.Notify("5.000.000 $ has been added to your account");
-                    Game.Player.Money += 5000000;
-                }
-
-                if (item == add20milion)
-                {
-                    UI.Notify("20.000.000 $ has been added to your account");
-                    Game.Player.Money += 20000000;
-                }
-
-                if (item == add100milion)
-                {
-                    UI.Notify("100.000.000 $ has been added to your account");
-                    Game.Player.Money += 100000000;
-                }
-
-                if (item == add1bilion)
-                {
-                    UI.Notify("1.000.000.000 $ has been added to your account");
-                    Game.Player.Money += 1000000000;
-                }
-            };
-        }
+        
 
 
         void changeModel()
@@ -1361,13 +1374,22 @@ namespace ModMenu
 
         void onKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Z && !modMenuPool.IsAnyMenuOpen())
+            ScriptSettings.Load("scripts\\essentialconfig.ini");
+            GTA.ScriptSettings configkey;
+            Keys OpenMenu;
+
+            configkey = ScriptSettings.Load("scripts\\essentialconfig.ini");
+            OpenMenu = configkey.GetValue<Keys>("Options", "OpenMenu", Keys.Z); //The Z key will be set my default, but the user can change the key
+
+            if (e.KeyCode == OpenMenu  /*Keys.Z*/ && !modMenuPool.IsAnyMenuOpen())
             {
                 mainMenu.Visible = !mainMenu.Visible;
 
                 mainMenu.SetBannerType("scripts\\mainBanner.jpg"); //banner directory
                 vehicleMenu.SetBannerType("scripts\\carBanner.jpg");
+                cashMenu.SetBannerType("scripts\\moneyBanner.jpg");
                 UI.Notify("Essential Menu v1.0");
+
             }
         }
     }
