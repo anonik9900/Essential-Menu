@@ -1,6 +1,6 @@
 # Essential Menu
  <div align = "center">
-GTA V Mod Menu with NativeUI written in C#
+GTA V Mod Menu with NativeUI written in C#<br>
 
 <img src ="https://github.com/anonik9900/Essential-Menu/blob/master/preview/preview.png?raw=true">
 
