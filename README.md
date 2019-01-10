@@ -2,7 +2,7 @@
 
 GTA V Mod Menu with NativeUI written in C#<br>
 
-<img src ="https://github.com/anonik9900/Essential-Menu/blob/master/preview/preview.png?raw=true">
+<img src ="https://github.com/anonik9900/Essential-Menu/blob/master/preview/preview2.png?raw=true">
 
 
 <h3> [Features] </h3>
