@@ -1,3 +1,13 @@
+Minor-Update build 162
+
+*Added New Weather Menu
+*Added Custom Banner for Weather Menu
+*Fixed some Bug
+*Source Code Cleaned
+*Improved UI Experience
+*Improved GUI compatibility
+
+
 minor-update build 161
 
 *Added new Separated Money Menu
