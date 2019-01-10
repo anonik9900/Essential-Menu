@@ -18,6 +18,8 @@ namespace ModMenu
         private bool checkbox1 = false;
         private bool checkbox2 = false;
         private bool checkbox3 = false;
+        private bool checkbox4 = false;
+
         MenuPool modMenuPool;
         UIMenu mainMenu;
         UIMenu playerMenu;
@@ -26,6 +28,7 @@ namespace ModMenu
         UIMenu cashMenu;
         UIMenu bodyguardMenu;
         UIMenu miscMenu;
+        UIMenu weatherMenu;
 
         UIMenuItem resetWantedLevel;
         UIMenuItem KillPlayerItem;
@@ -53,6 +56,7 @@ namespace ModMenu
             cashMenu = modMenuPool.AddSubMenu(mainMenu, "Money Options");
             bodyguardMenu = modMenuPool.AddSubMenu(mainMenu, "Bodyguard Menu");
             miscMenu = modMenuPool.AddSubMenu(mainMenu, "Misc Options");
+            weatherMenu = modMenuPool.AddSubMenu(mainMenu, "Weather Options");
 
             SetupPlayerFunctions();
             SetupWeaponFunctions();
@@ -60,6 +64,7 @@ namespace ModMenu
             SetupMoneyFunctions();
             SetupBodyguardFunctions();
             SetupMiscFunctions();
+            SetupWeatherFunctions();
             
         }
 
@@ -70,6 +75,7 @@ namespace ModMenu
             neverWanted();
             changeModel();
             KillPlayerMenu();
+            truenerverwanted();
         }
 
         void SetupWeaponFunctions()
@@ -85,6 +91,136 @@ namespace ModMenu
             VehicleSelectorMenu();
             VehicleSpawnByName();
             VehicleFixHealth();
+        }
+
+        void SetupWeatherFunctions()
+        {
+            UIMenuItem clear = new UIMenuItem("Clear");
+            UIMenuItem extrasunny = new UIMenuItem("Extrasunny");
+            UIMenuItem clouds = new UIMenuItem("Clouds");
+            UIMenuItem smog = new UIMenuItem("Smog");
+            UIMenuItem foggy = new UIMenuItem("Foggy");
+            UIMenuItem overcast = new UIMenuItem("Overcast");
+            UIMenuItem rain = new UIMenuItem("Rain");
+            UIMenuItem thunder = new UIMenuItem("Thunder");
+            UIMenuItem clearing = new UIMenuItem("Clearing");
+            UIMenuItem neutral = new UIMenuItem("Neutral");
+            UIMenuItem snow = new UIMenuItem("Snow");
+            UIMenuItem blizzard = new UIMenuItem("Blizzard");
+            UIMenuItem snowlight = new UIMenuItem("SnowLight");
+            UIMenuItem halloween = new UIMenuItem("Halloween");
+            UIMenuItem christmas = new UIMenuItem("Christmas");
+
+            weatherMenu.AddItem(clear);
+            weatherMenu.AddItem(extrasunny);
+            weatherMenu.AddItem(clouds);
+            weatherMenu.AddItem(smog);
+            weatherMenu.AddItem(foggy);
+            weatherMenu.AddItem(overcast);
+            weatherMenu.AddItem(rain);
+            weatherMenu.AddItem(thunder);
+            weatherMenu.AddItem(clearing);
+            weatherMenu.AddItem(neutral);
+            weatherMenu.AddItem(snow);
+            weatherMenu.AddItem(blizzard);
+            weatherMenu.AddItem(snowlight);
+            weatherMenu.AddItem(halloween);
+            weatherMenu.AddItem(christmas);
+
+            weatherMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == clear)
+                {
+                    World.Weather = Weather.Clear;
+                    UI.ShowSubtitle("Weather Setted to Clear");
+                }
+
+                if (item == extrasunny)
+                {
+                    World.Weather = Weather.ExtraSunny;
+                    UI.ShowSubtitle("Weather Setted to Extrasunny");
+                }
+
+                if (item == clouds)
+                {
+                    World.Weather = Weather.Clouds;
+                    UI.ShowSubtitle("Weather Setted to Clouds");
+                }
+
+                if (item == smog)
+                {
+                    World.Weather = Weather.Smog;
+                    UI.ShowSubtitle("Weather Setted to Smog");
+                }
+
+                if (item == foggy)
+                {
+                    World.Weather = Weather.Foggy;
+                    UI.ShowSubtitle("Weather Setted to Foggy");
+                }
+
+                if (item == overcast)
+                {
+                    World.Weather = Weather.Overcast;
+                    UI.ShowSubtitle("Weather Setted to Overcast");
+                }
+
+                if (item == rain)
+                {
+                    World.Weather = Weather.Raining;
+                    UI.ShowSubtitle("Weather Setted to Raining");
+                }
+
+                if (item == thunder)
+                {
+                    World.Weather = Weather.ThunderStorm;
+                    UI.ShowSubtitle("Weather Setted to Thunder Storm");
+                }
+
+                if (item == clearing)
+                {
+                    World.Weather = Weather.Clearing;
+                    UI.ShowSubtitle("Weather Setted to Clearing");
+                }
+
+                if (item == neutral)
+                {
+                    World.Weather = Weather.Neutral;
+                    UI.ShowSubtitle("Weather Setted to Neutral");
+                }
+
+                if (item == snow)
+                {
+                    World.Weather = Weather.Snowing;
+                    UI.ShowSubtitle("Weather Setted to Snowing");
+                }
+
+                if (item == blizzard)
+                {
+                    World.Weather = Weather.Blizzard;
+                    UI.ShowSubtitle("Weather Setted to Blizzard");
+                }
+
+                if (item == snowlight)
+                {
+                    World.Weather = Weather.Snowlight;
+                    UI.ShowSubtitle("Weather Setted to SnowLight");
+                }
+
+                if (item == halloween)
+                {
+                    World.Weather = Weather.Halloween;
+                    UI.ShowSubtitle("Weather Setted to Halloween");
+                }
+
+                if (item == christmas)
+                {
+                    World.Weather = Weather.Christmas;
+                    UI.ShowSubtitle("Weather Setted to Christmas");
+                }
+
+
+            };
         }
 
         void SetupMoneyFunctions()
@@ -440,11 +576,34 @@ namespace ModMenu
             };
         }
 
-        /*void truenerverwanted()
+        void truenerverwanted()
         {
-            Function.Call(Hash.SET_POLICE_IGNORE_PLAYER);
+            var neverWanted = new UIMenuCheckboxItem("Never Wanted", checkbox4, "No Police");
+            playerMenu.AddItem(neverWanted);
 
-        }*/
+            playerMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == neverWanted)
+                {
+                    if (checked_ == true)
+                    {
+                        UI.Notify("Never Wanted: ~g~GON");
+                        Game.Player.WantedLevel = 0;
+                        Game.Player.WantedLevel = 0;
+
+
+                    }
+
+                    if (checked_ == false)
+                    {
+                        UI.Notify("Never Wanted: ~r~OFF");
+                        //Game.Player.WantedLevel = 0;
+
+                    }
+                }
+            };
+
+        }
 
 
         
@@ -1388,7 +1547,9 @@ namespace ModMenu
                 mainMenu.SetBannerType("scripts\\mainBanner.jpg"); //banner directory
                 vehicleMenu.SetBannerType("scripts\\carBanner.jpg");
                 cashMenu.SetBannerType("scripts\\moneyBanner.jpg");
+                weatherMenu.SetBannerType("scripts\\weatherBanner.jpg");
                 UI.Notify("Essential Menu v1.0");
+                
 
             }
         }
