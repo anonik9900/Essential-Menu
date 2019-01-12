@@ -1,3 +1,35 @@
+Big-Update build 170
+
+*Completed The Infinite Ammo Function
+*Added new never wanted function
+*Improved Stability
+*Added new Teleport Options
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+*Teleport to:
+++ Waypoint (Marker)
+++ Lester House
+++ Fib Lobby
+++ Pacific Standard Bank
+++ O'Neil Ranch
+++ Online Yatch
+++ Cluckin Bell
+++ Solomon's Office
+++ Floyd House
+++ Bahama Mamas
+++ Lifeinvader
+++ Tequil - la - la
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+*Added the North Yankton Menu
+++ Load and Teleport to the North Yankton Map
+++ Unload the North Yankton Map
+
+*Added new custom banner for the Teleport Menu
+
+
 Minor-Update build 162
 
 *Added New Weather Menu
