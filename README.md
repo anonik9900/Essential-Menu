@@ -2,7 +2,7 @@
 
 GTA V Mod Menu with NativeUI written in C#<br>
 
-<img src ="https://github.com/anonik9900/Essential-Menu/blob/master/preview/preview2.png?raw=true">
+<img src ="https://github.com/anonik9900/Essential-Menu/blob/master/preview/preview3.png?raw=true">
 
 
 <h3> [Features] </h3>
@@ -14,6 +14,10 @@ GTA V Mod Menu with NativeUI written in C#<br>
     <li>Misc Options</li>
     <li>Money Options</li>
     <li>Bodyguard Menu</li>
+    <li>Misc Options</li>
+    <li>Weather Options</li>
+    <li>Teleport Options</li>
+    <li>North Yankton Options</li>
     </ul
    </p>
    
