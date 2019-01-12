@@ -19,6 +19,8 @@ namespace ModMenu
         private bool checkbox2 = false;
         private bool checkbox3 = false;
         private bool checkbox4 = false;
+        bool neverWantedOn;
+        bool InfiniteAmmo;
 
         MenuPool modMenuPool;
         UIMenu mainMenu;
@@ -29,6 +31,8 @@ namespace ModMenu
         UIMenu bodyguardMenu;
         UIMenu miscMenu;
         UIMenu weatherMenu;
+        UIMenu teleportMenu;
+        UIMenu yanktonMenu;
 
         UIMenuItem resetWantedLevel;
         UIMenuItem KillPlayerItem;
@@ -39,7 +43,7 @@ namespace ModMenu
         {
             Setup();
 
-
+            Interval = 1;
             Tick += onTick;
             KeyDown += onKeyDown;
         }
@@ -57,6 +61,8 @@ namespace ModMenu
             bodyguardMenu = modMenuPool.AddSubMenu(mainMenu, "Bodyguard Menu");
             miscMenu = modMenuPool.AddSubMenu(mainMenu, "Misc Options");
             weatherMenu = modMenuPool.AddSubMenu(mainMenu, "Weather Options");
+            teleportMenu = modMenuPool.AddSubMenu(mainMenu, "Teleport Options");
+            yanktonMenu = modMenuPool.AddSubMenu(mainMenu, "North Yankton Options");
 
             SetupPlayerFunctions();
             SetupWeaponFunctions();
@@ -65,7 +71,8 @@ namespace ModMenu
             SetupBodyguardFunctions();
             SetupMiscFunctions();
             SetupWeatherFunctions();
-            
+            SetupTeleportOptions();
+            SetupYanktonOptions();
         }
 
         void SetupPlayerFunctions()
@@ -304,6 +311,472 @@ namespace ModMenu
             };
         }
 
+        void SetupYanktonOptions()
+        {
+            UIMenuItem loadmap = new UIMenuItem("Load North Yankton","Load and Teleport to the North Yankton Map");
+            UIMenuItem unloadmap = new UIMenuItem("Unload North Yankton","Unload the North Yankton Map");
+
+            yanktonMenu.AddItem(loadmap);
+            yanktonMenu.AddItem(unloadmap);
+
+            yanktonMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == loadmap)
+                {
+                    Player player = Game.Player;
+                    if (!player.Character.IsInVehicle())
+                    {
+                        UI.Notify("North Yankton: ~g~ON");
+                        player.Character.Position = new Vector3(3360.19f, -4849.67f, 111.8f);
+                        Function.Call(Hash.REQUEST_IPL, "plg_01");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01c");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01c_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01d");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01d_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01f");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01f_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01g");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01h");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01h_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01i");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01i_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01j");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01j_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01k");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01k_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01z");
+                        Function.Call(Hash.REQUEST_IPL, "prologue01z_lod");
+                        Function.Call(Hash.REQUEST_IPL, "plg_02");
+                        Function.Call(Hash.REQUEST_IPL, "prologue02");
+                        Function.Call(Hash.REQUEST_IPL, "prologue02_lod");
+                        Function.Call(Hash.REQUEST_IPL, "plg_03");
+                        Function.Call(Hash.REQUEST_IPL, "prologue03");
+                        Function.Call(Hash.REQUEST_IPL, "prologue03_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue03b");
+                        Function.Call(Hash.REQUEST_IPL, "prologue03b_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue03_grv_dug");
+                        Function.Call(Hash.REQUEST_IPL, "prologue03_grv_dug_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue03b");
+                        Function.Call(Hash.REQUEST_IPL, "prologue0_grv_torch");
+                        Function.Call(Hash.REQUEST_IPL, "plg_04");
+                        Function.Call(Hash.REQUEST_IPL, "prologue04");
+                        Function.Call(Hash.REQUEST_IPL, "prologue04_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue04b");
+                        Function.Call(Hash.REQUEST_IPL, "prologue04b_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue04_cover");
+                        Function.Call(Hash.REQUEST_IPL, "des_potree_end");
+                        Function.Call(Hash.REQUEST_IPL, "des_potree_start");
+                        Function.Call(Hash.REQUEST_IPL, "des_potree_start_lod");
+                        Function.Call(Hash.REQUEST_IPL, "plg_05");
+                        Function.Call(Hash.REQUEST_IPL, "prologue05");
+                        Function.Call(Hash.REQUEST_IPL, "prologue05_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue05b");
+                        Function.Call(Hash.REQUEST_IPL, "prologue05b_lod");
+                        Function.Call(Hash.REQUEST_IPL, "plg_06");
+                        Function.Call(Hash.REQUEST_IPL, "prologue06");
+                        Function.Call(Hash.REQUEST_IPL, "prologue06_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue06b");
+                        Function.Call(Hash.REQUEST_IPL, "prologue06b_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue06_int");
+                        Function.Call(Hash.REQUEST_IPL, "prologue06_int_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue06_pannel");
+                        Function.Call(Hash.REQUEST_IPL, "prologue06_pannel_lod");
+                        Function.Call(Hash.REQUEST_IPL, "prologue_m2_door");
+                        Function.Call(Hash.REQUEST_IPL, "prologue_m2_door_lod");
+                        Function.Call(Hash.REQUEST_IPL, "plg_occl_00");
+                        Function.Call(Hash.REQUEST_IPL, "prologue_occl");
+                        Function.Call(Hash.REQUEST_IPL, "plg_rd");
+                        Function.Call(Hash.REQUEST_IPL, "prologuerd");
+                        Function.Call(Hash.REQUEST_IPL, "prologuerdb");
+                        Function.Call(Hash.REQUEST_IPL, "prologuerd_lod");
+
+                    }
+                    else
+                    {
+                        Vehicle v = player.Character.CurrentVehicle;
+                        v.Position = new Vector3(3360.19f, -4849.67f, 111.8f);
+
+                    }
+                    
+                }
+
+                if (item == unloadmap)
+                {
+                    UI.Notify("North Yankton: ~g~OFF");
+                    Function.Call(Hash.REMOVE_IPL, "plg_01");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01c");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01c_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01d");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01d_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01f");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01f_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01g");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01h");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01h_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01i");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01i_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01j");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01j_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01k");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01k_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01z");
+                    Function.Call(Hash.REMOVE_IPL, "prologue01z_lod");
+                    Function.Call(Hash.REMOVE_IPL, "plg_02");
+                    Function.Call(Hash.REMOVE_IPL, "prologue02");
+                    Function.Call(Hash.REMOVE_IPL, "prologue02_lod");
+                    Function.Call(Hash.REMOVE_IPL, "plg_03");
+                    Function.Call(Hash.REMOVE_IPL, "prologue03");
+                    Function.Call(Hash.REMOVE_IPL, "prologue03_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue03b");
+                    Function.Call(Hash.REMOVE_IPL, "prologue03b_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue03_grv_dug");
+                    Function.Call(Hash.REMOVE_IPL, "prologue03_grv_dug_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue03b");
+                    Function.Call(Hash.REMOVE_IPL, "prologue0_grv_torch");
+                    Function.Call(Hash.REMOVE_IPL, "plg_04");
+                    Function.Call(Hash.REMOVE_IPL, "prologue04");
+                    Function.Call(Hash.REMOVE_IPL, "prologue04_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue04b");
+                    Function.Call(Hash.REMOVE_IPL, "prologue04b_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue04_cover");
+                    Function.Call(Hash.REMOVE_IPL, "des_potree_end");
+                    Function.Call(Hash.REMOVE_IPL, "des_potree_start");
+                    Function.Call(Hash.REMOVE_IPL, "des_potree_start_lod");
+                    Function.Call(Hash.REMOVE_IPL, "plg_05");
+                    Function.Call(Hash.REMOVE_IPL, "prologue05");
+                    Function.Call(Hash.REMOVE_IPL, "prologue05_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue05b");
+                    Function.Call(Hash.REMOVE_IPL, "prologue05b_lod");
+                    Function.Call(Hash.REMOVE_IPL, "plg_06");
+                    Function.Call(Hash.REMOVE_IPL, "prologue06");
+                    Function.Call(Hash.REMOVE_IPL, "prologue06_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue06b");
+                    Function.Call(Hash.REMOVE_IPL, "prologue06b_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue06_int");
+                    Function.Call(Hash.REMOVE_IPL, "prologue06_int_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue06_pannel");
+                    Function.Call(Hash.REMOVE_IPL, "prologue06_pannel_lod");
+                    Function.Call(Hash.REMOVE_IPL, "prologue_m2_door");
+                    Function.Call(Hash.REMOVE_IPL, "prologue_m2_door_lod");
+                    Function.Call(Hash.REMOVE_IPL, "plg_occl_00");
+                    Function.Call(Hash.REMOVE_IPL, "prologue_occl");
+                    Function.Call(Hash.REMOVE_IPL, "plg_rd");
+                    Function.Call(Hash.REMOVE_IPL, "prologuerd");
+                    Function.Call(Hash.REMOVE_IPL, "prologuerdb");
+                    Function.Call(Hash.REMOVE_IPL, "prologuerd_lod");
+                }
+            };
+        }
+
+        void SetupTeleportOptions()
+        {
+            UIMenuItem teleportwaypoint = new UIMenuItem("Waypoint");
+            UIMenuItem teleportchilliad = new UIMenuItem("Chilliad");
+            UIMenuItem teleportpbank = new UIMenuItem("Pacific Standard Bank");
+            UIMenuItem teleportpub1 = new UIMenuItem("Tequilala");
+            UIMenuItem teleportpub2 = new UIMenuItem("Bahama Mamas");
+            UIMenuItem teleportbell = new UIMenuItem("Cluckin Bell");
+            UIMenuItem teleportfib = new UIMenuItem("FIB Lobby");
+            UIMenuItem teleportfloyd = new UIMenuItem("Floyd House");
+            UIMenuItem teleportlifeinvader = new UIMenuItem("Life Invader");
+            UIMenuItem teleportlester = new UIMenuItem("Lester House");
+            UIMenuItem teleportoneil = new UIMenuItem("O'Neil Ranch");
+            UIMenuItem teleportsolomon = new UIMenuItem("Solomon's Office");
+            UIMenuItem teleportyatch = new UIMenuItem("Yatch");
+
+            teleportMenu.AddItem(teleportwaypoint);
+            teleportMenu.AddItem(teleportchilliad);
+            teleportMenu.AddItem(teleportpbank);
+            teleportMenu.AddItem(teleportpub1);
+            teleportMenu.AddItem(teleportpub2);
+            teleportMenu.AddItem(teleportbell);
+            teleportMenu.AddItem(teleportfib);
+            teleportMenu.AddItem(teleportfloyd);
+            teleportMenu.AddItem(teleportlifeinvader);
+            teleportMenu.AddItem(teleportlester);
+            teleportMenu.AddItem(teleportoneil);
+            teleportMenu.AddItem(teleportsolomon);
+            teleportMenu.AddItem(teleportyatch);
+
+            teleportMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == teleportwaypoint)
+                {
+                    Player player = Game.Player;     
+                    //Player1.Position = World.GetWaypointPosition();
+                    //UI.DrawTexture("./scripts/ModResorces/picname.gif", 1, 1, 9999, new Point(0, 0), new Size(80, 80));
+                    /*Vector3 waypointPos = World.GetWaypointPosition();
+                    if (waypointPos != Vector3.Zero)
+                    {
+                        Game.Player.Character.Position = waypointPos;
+
+         
+                    }*/
+
+                    var markerPosition = World.GetWaypointPosition();
+                    var groundHeight = World.GetGroundHeight(markerPosition);
+
+                    if (!player.Character.IsInVehicle())
+                    {
+                        player.Character.Position = markerPosition + (Vector3.WorldDown * 200.5f);
+                    }
+                    else
+                    {
+                        Vehicle v = player.Character.CurrentVehicle;
+                        v.Position = markerPosition + (Vector3.WorldDown * 200.5f);
+                    }
+
+
+                }
+
+                if (item == teleportchilliad)
+                {
+                    Player player = Game.Player;
+                    if (!player.Character.IsInVehicle())
+                    {
+                        player.Character.Position = new Vector3(451.2820f, 5572.9897f, 796.6793f);
+                    }
+                    else
+                    {
+                        Vehicle v = player.Character.CurrentVehicle;
+                        v.Position = new Vector3(451.2820f, 5572.9897f, 796.6793f);
+                    }
+
+      
+                }
+
+
+                if (item == teleportpbank)
+                {
+                    //Pacific Standard Bank Vault X: 255.851 Y: 217.030 Z: 101.683
+                    Player player = Game.Player;
+                    if (!player.Character.IsInVehicle())
+                    {
+                        player.Character.Position = new Vector3(255.851f, 217.030f, 101.683f);
+                    }
+                    else
+                    {
+                        Vehicle v = player.Character.CurrentVehicle;
+                        v.Position = new Vector3(255.851f, 217.030f, 101.683f);
+                    }
+                }
+
+                if (item == teleportpub1)
+                {
+                    //IAA Office X: 117.220 Y: -620.938 Z: 206.047
+                    Player player = Game.Player;
+                    if (!player.Character.IsInVehicle())
+                    {
+                        //player.Character.Position = new Vector3(117.220f,-620.938f,06.047f);
+                        player.Character.Position = new Vector3(-556.5089111328125f, 286.318115234375f, 81.1763f);
+                        Function.Call(Hash.DISABLE_INTERIOR, Function.Call<int>(Hash.GET_INTERIOR_AT_COORDS, -556.5089111328125, 286.318115234375, 81.1763), false);
+                        Function.Call(Hash.CAP_INTERIOR, Function.Call<int>(Hash.GET_INTERIOR_AT_COORDS, -556.5089111328125, 286.318115234375, 81.1763), false);
+                        Function.Call(Hash.REQUEST_IPL, "v_rockclub");
+                        Function.Call(Hash._DOOR_CONTROL, 993120320, -565.1712f, 276.6259f, 83.28626f, false, 0.0f, 0.0f, 0.0f);// front door
+                        Function.Call(Hash._DOOR_CONTROL, 993120320, -561.2866f, 293.5044f, 87.77851f, false, 0.0f, 0.0f, 0.0f);// back door
+
+                    }
+                    else
+                    {
+                        Vehicle v = player.Character.CurrentVehicle;
+                        v.Position = new Vector3(255.851f, 217.030f, 101.683f);
+                    }
+                }
+
+                if (item == teleportpub2)
+                {
+                    Player player = Game.Player;
+                    if (!player.Character.IsInVehicle())
+                    {
+                        player.Character.Position = new Vector3(-1388.0013427734375f, -618.419677734375f, 30.819599151611328f);
+                        Function.Call(Hash.DISABLE_INTERIOR, Function.Call<int>(Hash.GET_INTERIOR_AT_COORDS, -1388.0013427734375, -618.419677734375, 30.819599151611328), false);
+                        Function.Call(Hash.REQUEST_IPL, "v_bahama");
+                    }
+                    else
+                    {
+                        Vehicle v = player.Character.CurrentVehicle;
+                        v.Position = new Vector3(-1388.0013427734375f, -618.419677734375f, 30.819599151611328f);
+
+                    }
+                }
+
+                if (item == teleportbell)
+                {
+                    Player player = Game.Player;
+                    if (!player.Character.IsInVehicle())
+                    {
+                        player.Character.Position = new Vector3(-72.68752f, 6253.72656f, 31.08991f);
+                        Function.Call(Hash.REQUEST_IPL, "CS1_02_cf_onmission1");
+                        Function.Call(Hash.REQUEST_IPL, "CS1_02_cf_onmission2");
+                        Function.Call(Hash.REQUEST_IPL, "CS1_02_cf_onmission3");
+                        Function.Call(Hash.REQUEST_IPL, "CS1_02_cf_onmission4");
+                        Function.Call(Hash.REMOVE_IPL, "CS1_02_cf_offmission");
+                    }
+                    else
+                    {
+                        Vehicle v = player.Character.CurrentVehicle;
+                        v.Position = new Vector3(-72.68752f, 6253.72656f, 31.08991f);
+
+                    }
+                }
+
+                if (item == teleportfib)
+                {
+                    Player player = Game.Player;
+                    if (!player.Character.IsInVehicle())
+                    {
+                        player.Character.Position = new Vector3(110.4f, -744.2f, 45.7f);
+                        Function.Call(Hash.REQUEST_IPL, "FIBlobby");
+                        Function.Call(Hash.REMOVE_IPL, "FIBlobbyfake");
+                        Function.Call(Hash._DOOR_CONTROL, -1517873911, 106.3793f, -742.6982f, 46.51962f, false, 0.0f, 0.0f, 0.0f);
+                        Function.Call(Hash._DOOR_CONTROL, -90456267, 105.7607f, -746.646f, 46.18266f, false, 0.0f, 0.0f, 0.0f);
+                    }
+                    else
+                    {
+                        Vehicle v = player.Character.CurrentVehicle;
+                        v.Position = new Vector3(110.4f, -744.2f, 45.7f);
+
+                    }
+                }
+
+                if (item == teleportfloyd)
+                {
+                    {
+                        Player player = Game.Player;
+                        if (!player.Character.IsInVehicle())
+                        {
+                            player.Character.Position = new Vector3(-1149.709f, -1521.088f, 10.78267f);
+                            Function.Call(Hash.REMOVE_IPL, "vb_30_crimetape");
+                            Function.Call(Hash._DOOR_CONTROL, -607040053, -1149.709f, -1521.088f, 10.78267f, false, 0.0f, 0.0f, 0.0f);
+                        }
+                        else
+                        {
+                            Vehicle v = player.Character.CurrentVehicle;
+                            v.Position = new Vector3(-1149.709f, -1521.088f, 10.78267f);
+
+                        }
+                    }
+                }
+
+                if (item == teleportlifeinvader)
+                {
+                    {
+                        Player player = Game.Player;
+                        if (!player.Character.IsInVehicle())
+                        {
+                            player.Character.Position = new Vector3(-1047.9f, -233.0f, 39.0f);
+                            Function.Call(Hash.REQUEST_IPL, "facelobby");  // lifeinvader
+                            Function.Call(Hash.REMOVE_IPL, "facelobbyfake");
+                            Function.Call(Hash._DOOR_CONTROL, -340230128, -1042.518, -240.6915, 38.11796, true, 0.0f, 0.0f, -1.0f);
+                        }
+                        else
+                        {
+                            Vehicle v = player.Character.CurrentVehicle;
+                            v.Position = new Vector3(-1047.9f, -233.0f, 39.0f);
+
+                        }
+                    }
+                }
+
+                if (item == teleportlester)
+                {
+                    {
+                        Player player = Game.Player;
+                        if (!player.Character.IsInVehicle())
+                        {
+                            player.Character.Position = new Vector3(1274.933837890625f, -1714.7255859375f, 53.77149963378906f);
+                            Function.Call(Hash.DISABLE_INTERIOR, Function.Call<int>(Hash.GET_INTERIOR_AT_COORDS, 1274.933837890625, -1714.7255859375, 53.77149963378906), false);
+                            Function.Call(Hash.REQUEST_IPL, "v_lesters");
+                            Function.Call(Hash._DOOR_CONTROL, 1145337974, 1273.816f, -1720.697f, 54.92143f, false, 0.0f, 0.0f, 0.0f);
+                        }
+                        else
+                        {
+                            Vehicle v = player.Character.CurrentVehicle;
+                            v.Position = new Vector3(1274.933837890625f, -1714.7255859375f, 53.77149963378906f);
+
+                        }
+                    }
+                }
+
+                if (item == teleportoneil)
+                {
+                    {
+                        Player player = Game.Player;
+                        if (!player.Character.IsInVehicle())
+                        {
+                            player.Character.Position = new Vector3(2441.2f, 4968.5f, 51.7f);
+                            Function.Call(Hash.REMOVE_IPL, "farm_burnt");
+                            Function.Call(Hash.REMOVE_IPL, "farm_burnt_lod");
+                            Function.Call(Hash.REMOVE_IPL, "farm_burnt_props");
+                            Function.Call(Hash.REMOVE_IPL, "farmint_cap");
+                            Function.Call(Hash.REMOVE_IPL, "farmint_cap_lod");
+                            Function.Call(Hash.REQUEST_IPL, "farm");
+                            Function.Call(Hash.REQUEST_IPL, "farmint");
+                            Function.Call(Hash.REQUEST_IPL, "farm_lod");
+                            Function.Call(Hash.REQUEST_IPL, "farm_props");
+
+                        }
+                        else
+                        {
+                            Vehicle v = player.Character.CurrentVehicle;
+                            v.Position = new Vector3(2441.2f, 4968.5f, 51.7f);
+
+                        }
+                    }
+                }
+
+
+                if (item == teleportsolomon)
+                {
+                    {
+                        Player player = Game.Player;
+                        if (!player.Character.IsInVehicle())
+                        {
+                            player.Character.Position = new Vector3(-1005.663208f, -478.3460998535156f, 49.0265f);
+                            Function.Call(Hash.DISABLE_INTERIOR, Function.Call<int>(Hash.GET_INTERIOR_AT_COORDS, -1005.663208f, -478.3460998535156f, 49.0265f), false);
+                            Function.Call(Hash.REQUEST_IPL, "v_58_sol_office");
+                        }
+                        else
+                        {
+                            Vehicle v = player.Character.CurrentVehicle;
+                            v.Position = new Vector3(-1005.663208f, -478.3460998535156f, 49.0265f);
+
+                        }
+                    }
+                }
+
+                if (item == teleportyatch)
+                {
+                    Player player = Game.Player;
+                    if (!player.Character.IsInVehicle())
+                    {
+                        player.Character.Position = new Vector3(-2045.8f, -1031.2f, 11.9f);
+                        Function.Call(Hash.REQUEST_IPL, "hei_yacht_heist");
+                        Function.Call(Hash.REQUEST_IPL, "hei_yacht_heist_Bar");
+                        Function.Call(Hash.REQUEST_IPL, "hei_yacht_heist_Bedrm");
+                        Function.Call(Hash.REQUEST_IPL, "hei_yacht_heist_Bridge");
+                        Function.Call(Hash.REQUEST_IPL, "hei_yacht_heist_DistantLights");
+                        Function.Call(Hash.REQUEST_IPL, "hei_yacht_heist_enginrm");
+                        Function.Call(Hash.REQUEST_IPL, "hei_yacht_heist_LODLights");
+                        Function.Call(Hash.REQUEST_IPL, "hei_yacht_heist_Lounge");
+                    }
+                    else
+                    {
+                        Vehicle v = player.Character.CurrentVehicle;
+                        v.Position = new Vector3(-2045.8f, -1031.2f, 11.9f);
+
+                    }
+                }
+
+
+
+            };
+        }
+
         void SetupBodyguardFunctions()
         {
             SpawnBodyguard();
@@ -422,10 +895,16 @@ namespace ModMenu
                 {
                     if (checked_ == true)
                     {
-                        UI.Notify("Unlimite Ammo: ~b~ON");
-                       
+                        UI.Notify("Unlimited Ammo: ~b~ON");
 
-                        Function.Call(Hash.SET_PED_INFINITE_AMMO_CLIP,Game.Player.Character);
+                        InfiniteAmmo = !InfiniteAmmo;
+     
+                        /*Ped PlayerONE = Game.Player.Character;
+                        PlayerONE.Weapons.Give(WeaponHash.CarbineRifle, 20, true, true);
+                        Weapon currentweapon = PlayerONE.Weapons.Current;
+                        currentweapon.Ammo = currentweapon.MaxAmmo;*/
+                       
+                        //Function.Call(Hash.SET_PED_INFINITE_AMMO_CLIP,Game.Player.Character);
                         //Function.Call(Hash.SET_PED_INFINITE_AMMO,Game.Player.Character.Weapons.Current);
                         
 
@@ -433,8 +912,9 @@ namespace ModMenu
 
                     if (checked_ == false)
                     {
-                        Function.Call(Hash.GET_MAX_AMMO_IN_CLIP);
-                        UI.Notify("Unlimite Ammo: ~r~OFF");
+                        //Function.Call(Hash.GET_MAX_AMMO_IN_CLIP,Game.Player.Character);
+                        UI.Notify("Unlimited Ammo: ~r~OFF");
+                        InfiniteAmmo = false;
                         
                     }//end false check
                 }
@@ -587,9 +1067,8 @@ namespace ModMenu
                 {
                     if (checked_ == true)
                     {
-                        UI.Notify("Never Wanted: ~g~GON");
-                        Game.Player.WantedLevel = 0;
-                        Game.Player.WantedLevel = 0;
+                        UI.Notify("Never Wanted: ~g~ON");
+                        neverWantedOn = !neverWantedOn;
 
 
                     }
@@ -598,11 +1077,17 @@ namespace ModMenu
                     {
                         UI.Notify("Never Wanted: ~r~OFF");
                         //Game.Player.WantedLevel = 0;
+                        neverWantedOn = false;
 
                     }
                 }
             };
 
+        }
+
+        void superJump()
+        {
+            
         }
 
 
@@ -1529,6 +2014,17 @@ namespace ModMenu
         {
             if (modMenuPool != null)
                 modMenuPool.ProcessMenus();
+            if (neverWantedOn)
+            {
+                Game.Player.WantedLevel = 0;
+            }
+
+            if (InfiniteAmmo)
+            {
+                Ped PlayerONE = Game.Player.Character;
+                Weapon currentweapon = PlayerONE.Weapons.Current;
+                currentweapon.Ammo = currentweapon.MaxAmmo;
+            }
         }
 
         void onKeyDown(object sender, KeyEventArgs e)
@@ -1548,6 +2044,7 @@ namespace ModMenu
                 vehicleMenu.SetBannerType("scripts\\carBanner.jpg");
                 cashMenu.SetBannerType("scripts\\moneyBanner.jpg");
                 weatherMenu.SetBannerType("scripts\\weatherBanner.jpg");
+                teleportMenu.SetBannerType("scripts\\teleportBanner.jpg");
                 UI.Notify("Essential Menu v1.0");
                 
 
