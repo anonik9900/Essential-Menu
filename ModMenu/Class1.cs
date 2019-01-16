@@ -31,10 +31,11 @@ namespace ModMenu
         UIMenu bodyguardMenu;
         UIMenu miscMenu;
         UIMenu weatherMenu;
+        UIMenu timeMenu;
         UIMenu teleportMenu;
         UIMenu yanktonMenu;
 
-        UIMenuItem resetWantedLevel;
+        //UIMenuItem resetWantedLevel;
         UIMenuItem KillPlayerItem;
 
 
@@ -61,6 +62,7 @@ namespace ModMenu
             bodyguardMenu = modMenuPool.AddSubMenu(mainMenu, "Bodyguard Menu");
             miscMenu = modMenuPool.AddSubMenu(mainMenu, "Misc Options");
             weatherMenu = modMenuPool.AddSubMenu(mainMenu, "Weather Options");
+            timeMenu = modMenuPool.AddSubMenu(mainMenu, "Time Options");
             teleportMenu = modMenuPool.AddSubMenu(mainMenu, "Teleport Options");
             yanktonMenu = modMenuPool.AddSubMenu(mainMenu, "North Yankton Options");
 
@@ -71,6 +73,7 @@ namespace ModMenu
             SetupBodyguardFunctions();
             SetupMiscFunctions();
             SetupWeatherFunctions();
+            SetupTimeFunctions();
             SetupTeleportOptions();
             SetupYanktonOptions();
         }
@@ -98,6 +101,215 @@ namespace ModMenu
             VehicleSelectorMenu();
             VehicleSpawnByName();
             VehicleFixHealth();
+        }
+
+        void SetupTimeFunctions()
+        {
+                  
+            UIMenuItem time1am = new UIMenuItem("Set Time To: ~o~01:00");
+            UIMenuItem time2am = new UIMenuItem("Set Time To: ~o~02:00");
+            UIMenuItem time3am = new UIMenuItem("Set Time To: ~o~03:00");
+            UIMenuItem time4am = new UIMenuItem("Set Time To: ~o~04:00");
+            UIMenuItem time5am = new UIMenuItem("Set Time To: ~o~05:00");
+            UIMenuItem time6am = new UIMenuItem("Set Time To: ~o~06:00");
+            UIMenuItem time7am = new UIMenuItem("Set Time To: ~o~07:00");
+                UIMenuItem time8am = new UIMenuItem("Set Time To: ~o~08:00");
+                UIMenuItem time9am = new UIMenuItem("Set Time To: ~o~09:00");
+                UIMenuItem time10am = new UIMenuItem("Set Time To: ~o~10:00");
+                UIMenuItem time11am = new UIMenuItem("Set Time To: ~o~11:00");
+                UIMenuItem time12am = new UIMenuItem("Set Time To: ~o~12:00");
+                UIMenuItem time13pm = new UIMenuItem("Set Time To: ~o~13:00");
+                UIMenuItem time14pm = new UIMenuItem("Set Time To: ~o~14:00");
+            UIMenuItem time15pm = new UIMenuItem("Set Time To: ~o~15:00");
+            UIMenuItem time16pm = new UIMenuItem("Set Time To: ~o~16:00");
+            UIMenuItem time17pm = new UIMenuItem("Set Time To: ~o~17:00");
+            UIMenuItem time18pm = new UIMenuItem("Set Time To: ~o~18:00");
+            UIMenuItem time19pm = new UIMenuItem("Set Time To: ~o~19:00");
+            UIMenuItem time20pm = new UIMenuItem("Set Time To: ~o~20:00");
+            UIMenuItem time21pm = new UIMenuItem("Set Time To: ~o~21:00");
+            UIMenuItem time22pm = new UIMenuItem("Set Time To: ~o~22:00");
+            UIMenuItem time23pm = new UIMenuItem("Set Time To: ~o~23:00");
+            UIMenuItem time0am = new UIMenuItem("Set Time To: ~o~00:00");
+            timeMenu.AddItem(time1am);
+            timeMenu.AddItem(time2am);
+            timeMenu.AddItem(time3am);
+            timeMenu.AddItem(time4am);
+            timeMenu.AddItem(time5am);
+            timeMenu.AddItem(time6am);
+            timeMenu.AddItem(time7am);
+            timeMenu.AddItem(time8am);
+                timeMenu.AddItem(time9am);
+                timeMenu.AddItem(time10am);
+                timeMenu.AddItem(time11am);
+                timeMenu.AddItem(time12am);
+                timeMenu.AddItem(time13pm);
+                timeMenu.AddItem(time14pm);
+            timeMenu.AddItem(time15pm);
+            timeMenu.AddItem(time16pm);
+            timeMenu.AddItem(time17pm);
+            timeMenu.AddItem(time18pm);
+            timeMenu.AddItem(time19pm);
+            timeMenu.AddItem(time20pm);
+            timeMenu.AddItem(time21pm);
+            timeMenu.AddItem(time22pm);
+            timeMenu.AddItem(time23pm);
+            timeMenu.AddItem(time0am);
+
+
+            timeMenu.OnItemSelect += (sender, item, index) =>
+                {
+
+                    if (item == time1am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 01, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~01:00");
+                    }
+
+                    if (item == time2am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 02, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~02:00");
+                    }
+
+                    if (item == time3am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 03, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~03:00");
+                    }
+
+                    if (item == time4am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 04, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~04:00");
+                    }
+
+                    if (item == time5am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 05, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~05:00");
+                    }
+
+                    if (item == time6am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 06, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~06:00");
+                    }
+
+                    if (item == time7am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 07, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~07:00");
+                    }
+
+                    if (item == time8am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 08, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~08:00");
+                    }
+
+                    if (item == time9am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 09, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~09:00");
+                    }
+
+                    if (item == time10am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 10, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~10:00");
+                    //12 = Hour
+                    //30 = Minute
+                    //00 = Second
+                    }
+
+                    if (item == time11am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 11, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~10:00");
+                    }
+
+                    if (item == time12am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 12, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~12:00");
+                    }
+
+                    if (item == time13pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 13, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~13:00");
+                    }
+
+                    if (item == time14pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 14, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~14:00");
+                    }
+
+                    if (item == time15pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 15, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~15:00");
+                    }
+
+                    if (item == time16pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 16, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~16:00");
+                    }
+
+                    if (item == time17pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 17, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~17:00");
+                    }
+
+                    if (item == time18pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 18, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~18:00");
+                    }
+
+                    if (item == time19pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 19, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~19:00");
+                    }
+
+                    if (item == time20pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 20, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~20:00");
+                    }
+
+                    if (item == time21pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 21, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~21:00");
+                    }
+
+                    if (item == time22pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 22, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~22:00");
+                    }
+
+                    if (item == time23pm)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 23, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~23:00");
+                    }
+
+                    if (item == time0am)
+                    {
+                        Function.Call(Hash.SET_CLOCK_TIME, 00, 00, 00);
+                        UI.ShowSubtitle("Time Setted To: ~g~00:00");
+                    }
+                };
+
+       
+
+    
         }
 
         void SetupWeatherFunctions()
