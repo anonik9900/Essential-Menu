@@ -1,3 +1,13 @@
+Middle-Uptate build 180
+
+*Added New Game Vision Options [Night-Vision, Thermal Vision]
+*Added New Online Options Category
+*Added New Online Money Drop [Not Working Online for now]
+*Added New Badge on Never Wanted Options
+*Fixed Some Bugs
+*Improved Source Code
+
+
 Big-Update build 170
 
 *Completed The Infinite Ammo Function
