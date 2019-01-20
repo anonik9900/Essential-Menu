@@ -2,18 +2,20 @@
 
 GTA V Mod Menu with NativeUI written in C#<br>
 
-<img src ="https://github.com/anonik9900/Essential-Menu/blob/master/preview/preview4.png?raw=true">
+<img src ="https://github.com/anonik9900/Essential-Menu/blob/master/preview/preview5.png?raw=true">
 
 
 <h3> [Features] </h3>
 <p>
   <ul>
     <li>Player Options</li>
+    <li>Online Options</li>
     <li>Vehicle Options</li>
     <li>Weapon Options</li>
     <li>Misc Options</li>
     <li>Money Options</li>
     <li>Bodyguard Menu</li>
+    <li>Vision Options</li>
     <li>Misc Options</li>
     <li>Weather Options</li>
     <li>Time Options</li>
