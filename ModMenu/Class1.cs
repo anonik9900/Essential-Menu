@@ -8,7 +8,12 @@ using System.Drawing;
 using GTA;
 using GTA.Native;
 using GTA.Math;
+using GTA.NaturalMotion;
 using NativeUI;
+using System.Media;
+using System.IO;
+using System.Threading;
+using System.Reflection;
 
 
 namespace ModMenu
@@ -19,16 +24,27 @@ namespace ModMenu
         private bool checkbox2 = false;
         private bool checkbox3 = false;
         private bool checkbox4 = false;
+        private bool moneybox = false;
+        private bool thermalbox = false;
+        private bool nightbox = false;
         bool neverWantedOn;
         bool InfiniteAmmo;
+        bool moneyDrop40kOn;
+        bool moneyDrop1MilOn;
+        bool moneyDrop10MilOn;
+        bool moneyDrop15MilOn;
+        bool moneyDrop20MilOn;
+        bool moneyDrop100MilOn;
 
         MenuPool modMenuPool;
         UIMenu mainMenu;
         UIMenu playerMenu;
+        UIMenu onlineMenu;
         UIMenu weaponsMenu;
         UIMenu vehicleMenu;
         UIMenu cashMenu;
         UIMenu bodyguardMenu;
+        UIMenu visionMenu;
         UIMenu miscMenu;
         UIMenu weatherMenu;
         UIMenu timeMenu;
@@ -52,14 +68,19 @@ namespace ModMenu
         void Setup()
         {
             modMenuPool = new MenuPool();
+            
             mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.0");
+            mainMenu.Title.Font = GTA.Font.ChaletComprimeCologne;
+            mainMenu.Subtitle.Font = GTA.Font.Pricedown;
             modMenuPool.Add(mainMenu);
 
             playerMenu = modMenuPool.AddSubMenu(mainMenu, "Player Options");
+            onlineMenu = modMenuPool.AddSubMenu(mainMenu, "~b~(Online Options)");
             weaponsMenu = modMenuPool.AddSubMenu(mainMenu, "Weapons Options");
             vehicleMenu = modMenuPool.AddSubMenu(mainMenu, "Vehicles Options");
             cashMenu = modMenuPool.AddSubMenu(mainMenu, "Money Options");
             bodyguardMenu = modMenuPool.AddSubMenu(mainMenu, "Bodyguard Menu");
+            visionMenu = modMenuPool.AddSubMenu(mainMenu, "Vision Options");
             miscMenu = modMenuPool.AddSubMenu(mainMenu, "Misc Options");
             weatherMenu = modMenuPool.AddSubMenu(mainMenu, "Weather Options");
             timeMenu = modMenuPool.AddSubMenu(mainMenu, "Time Options");
@@ -67,10 +88,12 @@ namespace ModMenu
             yanktonMenu = modMenuPool.AddSubMenu(mainMenu, "North Yankton Options");
 
             SetupPlayerFunctions();
+            SetupOnlineFunctions();
             SetupWeaponFunctions();
             SetupVehicleFuntions();
             SetupMoneyFunctions();
             SetupBodyguardFunctions();
+            SetupVisionOptions();
             SetupMiscFunctions();
             SetupWeatherFunctions();
             SetupTimeFunctions();
@@ -86,6 +109,11 @@ namespace ModMenu
             changeModel();
             KillPlayerMenu();
             truenerverwanted();
+        }
+
+        void SetupOnlineFunctions()
+        {
+            onlineMoneyDrop();
         }
 
         void SetupWeaponFunctions()
@@ -995,6 +1023,44 @@ namespace ModMenu
             deleteBody();
         }
 
+        void SetupVisionOptions()
+        {
+            var thermalvision = new UIMenuCheckboxItem("Thermal Vision",thermalbox);
+            var nightvision = new UIMenuCheckboxItem("Night Vision", nightbox);
+          
+            visionMenu.AddItem(thermalvision);
+            visionMenu.AddItem(nightvision);
+
+            visionMenu.OnCheckboxChange += (sender, item, check_) =>
+            {
+                if (item == thermalvision)
+                {
+                    if (check_ == true)
+                    {
+                        Game.ThermalVision = true;
+                    }
+
+                    if (check_ == false)
+                    {
+                        Game.ThermalVision = false;
+                    }
+                }
+
+                if (item == nightvision)
+                {
+                    if (check_ == true)
+                    {
+                        Game.Nightvision = true;
+                    }
+
+                    if (check_ == false)
+                    {
+                        Game.Nightvision = false;
+                    }
+                }
+            };
+        }
+
         void SetupMiscFunctions()
         {
             spawnGioele();
@@ -1003,6 +1069,7 @@ namespace ModMenu
 
         
         
+    
 
 
         /*void ResetWantedLevel()
@@ -1028,6 +1095,109 @@ namespace ModMenu
         }*/
 
 
+        
+        void onlineMoneyDrop()
+        {
+            UIMenu onlinemoneydrop = modMenuPool.AddSubMenu(onlineMenu, "~g~Money Drop",Game.Player.Name);
+            var add40konline = new UIMenuCheckboxItem("Drop 40K",moneybox);
+            var add1miliononline = new UIMenuCheckboxItem("Drop 1 Milion", moneybox);
+            var add10miliononline = new UIMenuCheckboxItem("Drop 10 Milion", moneybox);
+            var add15miliononline = new UIMenuCheckboxItem("Drop 15 Milion", moneybox);
+            var add20miliononline = new UIMenuCheckboxItem("Drop 20 Milion", moneybox);
+            var add100miliononline = new UIMenuCheckboxItem("Drop 100 Milion", moneybox);
+            onlinemoneydrop.AddItem(add40konline);
+            onlinemoneydrop.AddItem(add1miliononline);
+            onlinemoneydrop.AddItem(add10miliononline);
+            onlinemoneydrop.AddItem(add15miliononline);
+            onlinemoneydrop.AddItem(add20miliononline);
+            onlinemoneydrop.AddItem(add100miliononline);
+
+            onlinemoneydrop.OnCheckboxChange += (sender, item, checked_) =>
+            {
+
+                if (item == add40konline)
+                {
+                    if (checked_ == true)
+                    {
+                        moneyDrop40kOn = !moneyDrop40kOn;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        moneyDrop40kOn = false;
+                    }
+                }
+
+                if (item == add1miliononline)
+                {
+                    if (checked_ == true)
+                    {
+                        moneyDrop1MilOn = !moneyDrop1MilOn;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        moneyDrop1MilOn = false;
+                    }
+                }
+
+                if (item == add10miliononline)
+                {
+                    if (checked_ == true)
+                    {
+                        moneyDrop10MilOn = !moneyDrop10MilOn;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        moneyDrop10MilOn = false;
+                    }
+                }
+
+                if (item == add15miliononline)
+                {
+                    if (checked_ == true)
+                    {
+                        moneyDrop15MilOn = !moneyDrop15MilOn;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        moneyDrop15MilOn = false;
+                    }
+                }
+
+                if (item == add20miliononline)
+                {
+                    if (checked_ == true)
+                    {
+                        moneyDrop20MilOn = !moneyDrop20MilOn;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        moneyDrop20MilOn = false;
+                    }
+                }
+
+                if (item == add100miliononline)
+                {
+                    if (checked_ == true)
+                    {
+                        moneyDrop100MilOn = !moneyDrop100MilOn;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        moneyDrop100MilOn = false;
+                    }
+                }
+
+
+            };
+
+        }
+
 
         void spawnGioele()
         {
@@ -1042,6 +1212,7 @@ namespace ModMenu
                 PedGroup playerGroup = Game.Player.Character.CurrentPedGroup; // gets the players current group
                 Function.Call(Hash.SET_PED_AS_GROUP_MEMBER, bodyguard, playerGroup); // puts the bodyguard into the players group
                 Function.Call(Hash.SET_PED_COMBAT_ABILITY, bodyguard, 100); // 100 = attack
+                
                 UI.Notify("Gioele");
             };
 
@@ -1272,6 +1443,8 @@ namespace ModMenu
         {
             var neverWanted = new UIMenuCheckboxItem("Never Wanted", checkbox4, "No Police");
             playerMenu.AddItem(neverWanted);
+            neverWanted.SetLeftBadge(UIMenuItem.BadgeStyle.Star);
+            //newitem.SetRightBadge(UIMenuItem.BadgeStyle.Tick);
 
             playerMenu.OnCheckboxChange += (sender, item, checked_) =>
             {
@@ -2237,6 +2410,69 @@ namespace ModMenu
                 Weapon currentweapon = PlayerONE.Weapons.Current;
                 currentweapon.Ammo = currentweapon.MaxAmmo;
             }
+
+            if (moneyDrop40kOn)
+            {
+                Vector3 pos = Game.Player.Character.Position;
+                var hash = Function.Call<int>(Hash.GET_HASH_KEY, "PICKUP_MONEY_CASE");
+                var model = new Model(0x113FD533); // prop_money_bag_01
+                model.Request(1000);
+                Function.Call(Hash.CREATE_AMBIENT_PICKUP, hash, pos.X, pos.Y, pos.Z, 0, 40000, 0x113FD533, false, true);
+                model.MarkAsNoLongerNeeded();
+            }
+
+            if (moneyDrop1MilOn)
+            {
+                Vector3 pos = Game.Player.Character.Position;
+                var hash = Function.Call<int>(Hash.GET_HASH_KEY, "PICKUP_MONEY_CASE");
+                var model = new Model(0x113FD533); // prop_money_bag_01
+                model.Request(1000);
+                Function.Call(Hash.CREATE_AMBIENT_PICKUP, hash, pos.X, pos.Y, pos.Z, 0, 1000000, 0x113FD533, false, true);
+                model.MarkAsNoLongerNeeded();
+            }
+
+
+            if (moneyDrop10MilOn)
+            {
+                Vector3 pos = Game.Player.Character.Position;
+                var hash = Function.Call<int>(Hash.GET_HASH_KEY, "PICKUP_MONEY_CASE");
+                var model = new Model(0x113FD533); // prop_money_bag_01
+                model.Request(1000);
+                Function.Call(Hash.CREATE_AMBIENT_PICKUP, hash, pos.X, pos.Y, pos.Z, 0, 10000000, 0x113FD533, false, true);
+                model.MarkAsNoLongerNeeded();
+            }
+
+            if (moneyDrop15MilOn)
+            {
+                Vector3 pos = Game.Player.Character.Position;
+                var hash = Function.Call<int>(Hash.GET_HASH_KEY, "PICKUP_MONEY_CASE");
+                var model = new Model(0x113FD533); // prop_money_bag_01
+                model.Request(1000);
+                Function.Call(Hash.CREATE_AMBIENT_PICKUP, hash, pos.X, pos.Y, pos.Z, 0, 15000000, 0x113FD533, false, true);
+                model.MarkAsNoLongerNeeded();
+            }
+
+            if (moneyDrop20MilOn)
+            {
+                Vector3 pos = Game.Player.Character.Position;
+                var hash = Function.Call<int>(Hash.GET_HASH_KEY, "PICKUP_MONEY_CASE");
+                var model = new Model(0x113FD533); // prop_money_bag_01
+                model.Request(1000);
+                Function.Call(Hash.CREATE_AMBIENT_PICKUP, hash, pos.X, pos.Y, pos.Z, 0, 20000000, 0x113FD533, false, true);
+                model.MarkAsNoLongerNeeded();
+            }
+
+            if (moneyDrop100MilOn)
+            {
+                Vector3 pos = Game.Player.Character.Position;
+                var hash = Function.Call<int>(Hash.GET_HASH_KEY, "PICKUP_MONEY_CASE");
+                var model = new Model(0x113FD533); // prop_money_bag_01
+                model.Request(1000);
+                Function.Call(Hash.CREATE_AMBIENT_PICKUP, hash, pos.X, pos.Y, pos.Z, 0, 100000000, 0x113FD533, false, true);
+                model.MarkAsNoLongerNeeded();
+            }
+
+
         }
 
         void onKeyDown(object sender, KeyEventArgs e)
@@ -2251,14 +2487,17 @@ namespace ModMenu
             if (e.KeyCode == OpenMenu  /*Keys.Z*/ && !modMenuPool.IsAnyMenuOpen())
             {
                 mainMenu.Visible = !mainMenu.Visible;
-
+                
                 mainMenu.SetBannerType("scripts\\mainBanner.jpg"); //banner directory
                 vehicleMenu.SetBannerType("scripts\\carBanner.jpg");
                 cashMenu.SetBannerType("scripts\\moneyBanner.jpg");
                 weatherMenu.SetBannerType("scripts\\weatherBanner.jpg");
                 teleportMenu.SetBannerType("scripts\\teleportBanner.jpg");
-                UI.Notify("Essential Menu v1.0");
-                
+                /*var banner = new Sprite("shopui_title_barber", "shopui_title_barber", new Point(0, 0), new Size(0, 0));
+                onlineMenu.SetBannerType(banner);*/
+                var background = new Sprite("commonmenu", "bgd_gradient", new Point(100, 20), new Size(200, 500));
+
+
 
             }
         }

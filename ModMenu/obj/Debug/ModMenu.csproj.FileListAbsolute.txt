@@ -4,3 +4,5 @@ C:\Users\Nicholas Impieri\Documents\Visual Studio 2017\Projects\ModMenu\ModMenu\
 C:\Users\Nicholas Impieri\Documents\Visual Studio 2017\Projects\ModMenu\ModMenu\bin\Debug\ModMenu.pdb
 C:\Users\Nicholas Impieri\Documents\Visual Studio 2017\Projects\ModMenu\ModMenu\obj\Debug\ModMenu.dll
 C:\Users\Nicholas Impieri\Documents\Visual Studio 2017\Projects\ModMenu\ModMenu\obj\Debug\ModMenu.pdb
+C:\Users\Nicholas Impieri\Documents\Visual Studio 2017\Projects\ModMenu\ModMenu\bin\Debug\NativeUI.dll
+C:\Users\Nicholas Impieri\Documents\Visual Studio 2017\Projects\ModMenu\ModMenu\bin\Debug\ScriptHookVDotNet2.dll
