@@ -53,7 +53,7 @@ namespace ModMenu
 
         //UIMenuItem resetWantedLevel;
         UIMenuItem KillPlayerItem;
-
+        
 
 
         public Class1()
@@ -129,6 +129,7 @@ namespace ModMenu
             VehicleSelectorMenu();
             VehicleSpawnByName();
             VehicleFixHealth();
+            SpawnCarTrue();
         }
 
         void SetupTimeFunctions()
@@ -1377,6 +1378,134 @@ namespace ModMenu
                     Function.Call(Hash.SET_VEHICLE_TYRE_FIXED,Game.Player.Character.CurrentVehicle);
                 }
             };
+        }
+
+
+        void SpawnCarTrue()
+        {
+            UIMenu maincategory = modMenuPool.AddSubMenu(vehicleMenu, "Vehicle Spawner");
+            UIMenu Supercat  = modMenuPool.AddSubMenu(maincategory, "Super");
+
+            UIMenuItem car811Item = new UIMenuItem("811");
+            UIMenuItem adderItem = new UIMenuItem("Adder");
+            UIMenuItem bansheeItem = new UIMenuItem("Banshee");
+            UIMenuItem banshee2Item = new UIMenuItem("Banshee 900R");
+            UIMenuItem bulletItem = new UIMenuItem("Bullet");
+            UIMenuItem cheetahItem = new UIMenuItem("Cheetah");
+            UIMenuItem entityxfItem = new UIMenuItem("Entity XF");
+            UIMenuItem etr1Item = new UIMenuItem("ETR1");
+            UIMenuItem fmjItem = new UIMenuItem("FMJ");
+            UIMenuItem gp1Item = new UIMenuItem("GP1");
+            UIMenuItem infernusItem = new UIMenuItem("Infernus");
+
+            Supercat.AddItem(car811Item);
+            Supercat.AddItem(adderItem);
+            Supercat.AddItem(bansheeItem);
+            Supercat.AddItem(banshee2Item);
+            Supercat.AddItem(bulletItem);
+            Supercat.AddItem(cheetahItem);
+            Supercat.AddItem(entityxfItem);
+            Supercat.AddItem(etr1Item);
+            Supercat.AddItem(fmjItem);
+            Supercat.AddItem(gp1Item);
+            Supercat.AddItem(infernusItem);
+
+            Supercat.OnItemSelect += (sender, item, index) =>
+            {
+
+                if (item == car811Item)
+                {
+
+                    World.CreateVehicle(new Model("pfister811"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == adderItem)
+                {
+
+                    World.CreateVehicle(new Model("Adder"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == bansheeItem)
+                {
+
+                    World.CreateVehicle(new Model("banshee"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == banshee2Item)
+                {
+
+                    World.CreateVehicle(new Model("banshee2"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == bulletItem)
+                {
+
+                    World.CreateVehicle(new Model("bullet"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == cheetahItem)
+                {
+
+                    World.CreateVehicle(new Model("cheetah"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == entityxfItem)
+                {
+
+                    World.CreateVehicle(new Model("entityfx"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == etr1Item)
+                {
+
+                    World.CreateVehicle(new Model("sheava"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == fmjItem)
+                {
+
+                    World.CreateVehicle(new Model("fmj"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == gp1Item)
+                {
+
+                    World.CreateVehicle(new Model("gp1"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+
+                if (item == infernusItem)
+                {
+
+                    World.CreateVehicle(new Model("infernus"), Game.Player.Character.Position);
+                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+
+                }
+            };
+
+
+
+
+
         }
 
         void Godmode()
