@@ -27,6 +27,7 @@ namespace ModMenu
         private bool moneybox = false;
         private bool thermalbox = false;
         private bool nightbox = false;
+        private bool drugbox = false;
         bool neverWantedOn;
         bool InfiniteAmmo;
         bool moneyDrop40kOn;
@@ -69,7 +70,7 @@ namespace ModMenu
         {
             modMenuPool = new MenuPool();
             
-            mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.0");
+            mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.2");
             mainMenu.Title.Font = GTA.Font.ChaletComprimeCologne;
             mainMenu.Subtitle.Font = GTA.Font.Pricedown;
             modMenuPool.Add(mainMenu);
@@ -482,7 +483,17 @@ namespace ModMenu
             UIMenuItem add20milion = new UIMenuItem("Add: ~g~20.000.000");
             UIMenuItem add100milion = new UIMenuItem("Add: ~g~100.000.000");
             UIMenuItem add1bilion = new UIMenuItem("Add: ~g~1.000.000.000");
+            UIMenuItem rem10k = new UIMenuItem("Remove: ~r~10k");
+            UIMenuItem rem50k = new UIMenuItem("Remove: ~r~50k");
+            UIMenuItem rem100k = new UIMenuItem("Remove: ~r~100k");
+            UIMenuItem rem500k = new UIMenuItem("Remove: ~r~500k");
+            UIMenuItem rem1milion = new UIMenuItem("Remove: ~r~1.000.000");
+            UIMenuItem rem5milion = new UIMenuItem("Remove: ~r~5.000.000");
+            UIMenuItem rem20milion = new UIMenuItem("Remove: ~r~20.000.000");
+            UIMenuItem rem100milion = new UIMenuItem("Remove: ~r~100.000.000");
+            UIMenuItem rem1bilion = new UIMenuItem("Remove: ~r~1.000.000.000");
 
+            //Add Cash
             cashMenu.AddItem(add10k);
             cashMenu.AddItem(add50k);
             cashMenu.AddItem(add100k);
@@ -492,6 +503,17 @@ namespace ModMenu
             cashMenu.AddItem(add20milion);
             cashMenu.AddItem(add100milion);
             cashMenu.AddItem(add1bilion);
+
+            //Remove Cash
+            cashMenu.AddItem(rem10k);
+            cashMenu.AddItem(rem50k);
+            cashMenu.AddItem(rem100k);
+            cashMenu.AddItem(rem500k);
+            cashMenu.AddItem(rem1milion);
+            cashMenu.AddItem(rem5milion);
+            cashMenu.AddItem(rem20milion);
+            cashMenu.AddItem(rem100milion);
+            cashMenu.AddItem(rem1bilion);
 
             cashMenu.OnItemSelect += (sender, item, index) =>
             {
@@ -548,6 +570,60 @@ namespace ModMenu
                 {
                     UI.Notify("1.000.000.000 $ has been added to your account");
                     Game.Player.Money += 1000000000;
+                }
+
+                if (item == rem10k)
+                {
+                    UI.Notify("10.000 $ has been removed to your account");
+                    Game.Player.Money -= 10000;
+                }
+
+                if (item == rem50k)
+                {
+                    UI.Notify("50.000 $ has been removed to your account");
+                    Game.Player.Money -= 50000;
+                }
+
+                if (item == rem100k)
+                {
+                    UI.Notify("100.000 $ has been removed to your account");
+                    Game.Player.Money -= 100000;
+                }
+
+                if (item == rem500k)
+                {
+                    UI.Notify("500.000 $ has been removed to your account");
+                    Game.Player.Money -= 500000;
+                }
+
+                if (item == rem1milion)
+                {
+                    UI.Notify("1.000.000 $ has been removed to your account");
+                    Game.Player.Money -= 1000000;
+                }
+
+                if (item == rem5milion)
+                {
+                    UI.Notify("5.000.000 $ has been removed to your account");
+                    Game.Player.Money -= 5000000;
+                }
+
+                if (item == rem20milion)
+                {
+                    UI.Notify("20.000.000 $ has been removed to your account");
+                    Game.Player.Money -= 20000000;
+                }
+
+                if (item == rem100milion)
+                {
+                    UI.Notify("100.000.000 $ has been removed to your account");
+                    Game.Player.Money -= 100000000;
+                }
+
+                if (item == rem1bilion)
+                {
+                    UI.Notify("1.000.000.000 $ has been removed to your account");
+                    Game.Player.Money -= 1000000000;
                 }
             };
         }
@@ -1028,9 +1104,11 @@ namespace ModMenu
         {
             var thermalvision = new UIMenuCheckboxItem("Thermal Vision",thermalbox);
             var nightvision = new UIMenuCheckboxItem("Night Vision", nightbox);
+            var drugvision = new UIMenuCheckboxItem("Drug Vision", drugbox);
           
             visionMenu.AddItem(thermalvision);
             visionMenu.AddItem(nightvision);
+            visionMenu.AddItem(drugvision);
 
             visionMenu.OnCheckboxChange += (sender, item, check_) =>
             {
@@ -1057,6 +1135,19 @@ namespace ModMenu
                     if (check_ == false)
                     {
                         Game.Nightvision = false;
+                    }
+                }
+
+                if (item == drugvision)
+                {
+                    if(check_ == true)
+                    {
+                        Function.Call(Hash._START_SCREEN_EFFECT, "RaceTurbo", 10000, false);
+                    }
+
+                    if (check_ == false)
+                    {
+                        Function.Call(Hash._STOP_SCREEN_EFFECT, "RaceTurbo");
                     }
                 }
             };
@@ -1920,7 +2011,9 @@ namespace ModMenu
             {
                 if (item == KillPlayerItem)
                 {
-                    Game.Player.Character.Health = -1;
+                    Ped player = Game.Player.Character;
+                    player.Health = 0;
+             
                 }
             };
         }
@@ -2192,6 +2285,16 @@ namespace ModMenu
 
             //Shotgun
             UIMenuItem body6Item = new UIMenuItem("~r~Shotguns");
+            UIMenuItem pumpItem = new UIMenuItem("Pump Shotgun");
+            UIMenuItem sawItem = new UIMenuItem("Sawnoff Shotgun");
+            UIMenuItem bullupItem = new UIMenuItem("Bullup Shotgun");
+            UIMenuItem assaultItem = new UIMenuItem("Assault Shotgun");
+            UIMenuItem musketItem = new UIMenuItem("Musket");
+            UIMenuItem pump2Item = new UIMenuItem("Pump Mk2 Shotgun");
+            UIMenuItem heavyItem = new UIMenuItem("Heavy Shotgun");
+            UIMenuItem dbshotItem = new UIMenuItem("Double Barrel Shotgun");
+            UIMenuItem sweeperItem = new UIMenuItem("Sweeper Shotgun");
+            UIMenuItem combatItem = new UIMenuItem("Combat Shotgun");
 
             //Melee Weapon
             mainWeapon.AddItem(bodyItem);
@@ -2258,6 +2361,17 @@ namespace ModMenu
             mainWeapon.AddItem(marskmanrifleItem);
 
             //Shotgun
+            mainWeapon.AddItem(body6Item);
+            mainWeapon.AddItem(pumpItem);
+            mainWeapon.AddItem(sawItem);
+            mainWeapon.AddItem(bullupItem);
+            mainWeapon.AddItem(assaultItem);
+            mainWeapon.AddItem(musketItem);
+            mainWeapon.AddItem(pump2Item);
+            mainWeapon.AddItem(heavyItem);
+            mainWeapon.AddItem(dbshotItem);
+            mainWeapon.AddItem(sweeperItem);
+            mainWeapon.AddItem(combatItem);
 
 
             mainWeapon.OnItemSelect += (sender, item, index) =>
@@ -2515,6 +2629,55 @@ namespace ModMenu
                 }
 
                 //Shotgun
+                if (item == pumpItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.PumpShotgun, 9999, true, true);
+                }
+
+                if (item == sawItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.SawnOffShotgun, 9999, true, true);
+                }
+
+                if (item == bullupItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.BullpupShotgun, 9999, true, true);
+                }
+
+                if (item == assaultItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.AssaultShotgun, 9999, true, true);
+                }
+
+                if (item == musketItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.Musket, 9999, true, true);
+                }
+
+                if (item == pump2Item)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.PumpShotgunMk2, 9999, true, true);
+                }
+
+                if (item == heavyItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.HeavyShotgun, 9999, true, true);
+                }
+
+                if (item == dbshotItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.DoubleBarrelShotgun, 9999, true, true);
+                }
+
+                if (item == sweeperItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.SweeperShotgun, 9999, true, true);
+                }
+
+                if (item == combatItem)
+                {
+                    Game.Player.Character.Weapons.Give(WeaponHash.CombatShotgun, 9999, true, true);
+                }
             };
 
 
@@ -2618,6 +2781,7 @@ namespace ModMenu
                 mainMenu.Visible = !mainMenu.Visible;
                 
                 mainMenu.SetBannerType("scripts\\mainBanner.jpg"); //banner directory
+                weaponsMenu.SetBannerType("scripts\\weaponsBanner.jpg");
                 vehicleMenu.SetBannerType("scripts\\carBanner.jpg");
                 cashMenu.SetBannerType("scripts\\moneyBanner.jpg");
                 weatherMenu.SetBannerType("scripts\\weatherBanner.jpg");
