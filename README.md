@@ -15,7 +15,6 @@ GTA V Mod Menu with NativeUI written in C#<br>
     <li>Money Options</li>
     <li>Bodyguard Menu</li>
     <li>Vision Options</li>
-    <li>Misc Options</li>
     <li>Weather Options</li>
     <li>Time Options</li>
     <li>Teleport Options</li>
