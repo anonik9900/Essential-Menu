@@ -12,7 +12,6 @@ GTA V Mod Menu with NativeUI written in C#<br>
     <li>Online Options</li>
     <li>Vehicle Options</li>
     <li>Weapon Options</li>
-    <li>Misc Options</li>
     <li>Money Options</li>
     <li>Bodyguard Menu</li>
     <li>Vision Options</li>
@@ -21,6 +20,7 @@ GTA V Mod Menu with NativeUI written in C#<br>
     <li>Time Options</li>
     <li>Teleport Options</li>
     <li>North Yankton Options</li>
+    <li>Credits</li>
     </ul
    </p>
    
