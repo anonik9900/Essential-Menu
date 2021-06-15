@@ -39,7 +39,7 @@ GTA V Mod Menu with NativeUI written in C#<br>
      <li><a href="http://www.dev-c.com/gtav/scripthookv/">ScriptHookV</a></li>
      <li><a href="https://it.gta5-mods.com/tools/scripthookv-net">ScriptHookV.NET</a></li>
      <li><a href="http://gtaforums.com/topic/809284-net-nativeui/">NativeUI</a></li>
-     <li><a href="https://www.microsoft.com/it-it/download/details.aspx?id=42642">Microsoft .NET Framework 4.5.2</a></li>
+     <li><a href="https://www.microsoft.com/it-it/download/details.aspx?id=42642">Microsoft .NET Framework 4.8</a></li>
      </ul>
      </p>
      
