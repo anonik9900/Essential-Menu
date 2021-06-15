@@ -1,3 +1,24 @@
+Major Update beta v1.2
+
+*Added some new Game Vision Options
+*Added new credits section
+*Deleted misc options (not usefull)
+*Added SuperJump in player Options
+*Added all shotguns inside the Weapons Options
+*Added new vehicle inside the Vehicle Spawner sections
+*Added new banner for weapons Options
+*Fixed Suicide Options
+*Fixed and improved car spawner
+*Fixed,improved and added new Vehicle godmode
+*Improved Stabilty and Source code
+*Tested with the latest GTA V Update (15/06/2021)
+
+
+
+
+
+
+
 Middle-Uptate build 180
 
 *Added New Game Vision Options [Night-Vision, Thermal Vision]

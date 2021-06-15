@@ -28,6 +28,13 @@ namespace ModMenu
         private bool thermalbox = false;
         private bool nightbox = false;
         private bool drugbox = false;
+        private bool bikerbox = false;
+        private bool chopbox = false;
+        private bool tazbox = false;
+        private bool dneonbox = false;
+        private bool jumpbox = false;
+        private bool invcarbox = false;
+        public static bool CanPlayerSuperJump { get; set; }
         bool neverWantedOn;
         bool InfiniteAmmo;
         bool moneyDrop40kOn;
@@ -51,6 +58,7 @@ namespace ModMenu
         UIMenu timeMenu;
         UIMenu teleportMenu;
         UIMenu yanktonMenu;
+        UIMenu creditsMenu;
 
         //UIMenuItem resetWantedLevel;
         UIMenuItem KillPlayerItem;
@@ -68,8 +76,10 @@ namespace ModMenu
 
         void Setup()
         {
+       
             modMenuPool = new MenuPool();
             
+
             mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.2");
             mainMenu.Title.Font = GTA.Font.ChaletComprimeCologne;
             mainMenu.Subtitle.Font = GTA.Font.Pricedown;
@@ -82,11 +92,11 @@ namespace ModMenu
             cashMenu = modMenuPool.AddSubMenu(mainMenu, "Money Options");
             bodyguardMenu = modMenuPool.AddSubMenu(mainMenu, "Bodyguard Menu");
             visionMenu = modMenuPool.AddSubMenu(mainMenu, "Vision Options");
-            miscMenu = modMenuPool.AddSubMenu(mainMenu, "Misc Options");
             weatherMenu = modMenuPool.AddSubMenu(mainMenu, "Weather Options");
             timeMenu = modMenuPool.AddSubMenu(mainMenu, "Time Options");
             teleportMenu = modMenuPool.AddSubMenu(mainMenu, "Teleport Options");
             yanktonMenu = modMenuPool.AddSubMenu(mainMenu, "North Yankton Options");
+            creditsMenu = modMenuPool.AddSubMenu(mainMenu, "Credits");
 
             SetupPlayerFunctions();
             SetupOnlineFunctions();
@@ -95,11 +105,16 @@ namespace ModMenu
             SetupMoneyFunctions();
             SetupBodyguardFunctions();
             SetupVisionOptions();
-            SetupMiscFunctions();
             SetupWeatherFunctions();
             SetupTimeFunctions();
             SetupTeleportOptions();
             SetupYanktonOptions();
+            SetupCreditsFunctions();
+
+
+
+
+
         }
 
         void SetupPlayerFunctions()
@@ -110,6 +125,7 @@ namespace ModMenu
             changeModel();
             KillPlayerMenu();
             truenerverwanted();
+            superJumpPlayer();
         }
 
         void SetupOnlineFunctions()
@@ -127,10 +143,42 @@ namespace ModMenu
 
         void SetupVehicleFuntions()
         {
+            CarInvincible();
             VehicleSelectorMenu();
             VehicleSpawnByName();
             VehicleFixHealth();
             SpawnCarTrue();
+
+        }
+
+        void SetupCreditsFunctions()
+        {
+
+            /* UIMenuItem spawngioele = new UIMenuItem("Gioele Spawn");
+             miscMenu.AddItem(spawngioele);
+
+             miscMenu.OnItemSelect += (sender, item, index) =>
+             {
+                 Ped bodyguard = World.CreatePed(new Model(PedHash.Armoured02SMM), Game.Player.Character.Position);
+                 bodyguard.Weapons.Give(WeaponHash.Pistol, 9999, true, true);
+                 bodyguard.Armor = 100; // Armor ranges from 1-100
+                 PedGroup playerGroup = Game.Player.Character.CurrentPedGroup; // gets the players current group
+                 Function.Call(Hash.SET_PED_AS_GROUP_MEMBER, bodyguard, playerGroup); // puts the bodyguard into the players group
+                 Function.Call(Hash.SET_PED_COMBAT_ABILITY, bodyguard, 100); // 100 = attack
+
+                 UI.Notify("Gioele");
+             };*/
+
+            UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
+            UIMenuItem templateItem = new UIMenuItem("~r~UI by: NativeUI");
+            UIMenuItem sdkItem = new UIMenuItem("~b~Sdk ScripthookV [Alexander Blade]");
+            UIMenuItem sdkItem2 = new UIMenuItem("~y~Sdk ScripthookVDotNet [Crosire]");
+            creditsMenu.AddItem(authorItem);
+            creditsMenu.AddItem(templateItem);
+            creditsMenu.AddItem(sdkItem);
+            creditsMenu.AddItem(sdkItem2);
+
+
         }
 
         void SetupTimeFunctions()
@@ -1105,10 +1153,18 @@ namespace ModMenu
             var thermalvision = new UIMenuCheckboxItem("Thermal Vision",thermalbox);
             var nightvision = new UIMenuCheckboxItem("Night Vision", nightbox);
             var drugvision = new UIMenuCheckboxItem("Drug Vision", drugbox);
+            var bikervision = new UIMenuCheckboxItem("Biker Vision", bikerbox);
+            var chopvision = new UIMenuCheckboxItem("Chop Vision", chopbox);
+            var tazemevision = new UIMenuCheckboxItem("DontTazeme", tazbox);
+            var deadlineneonvision = new UIMenuCheckboxItem("Deadline Neon", dneonbox);
           
             visionMenu.AddItem(thermalvision);
             visionMenu.AddItem(nightvision);
             visionMenu.AddItem(drugvision);
+            visionMenu.AddItem(bikervision);
+            visionMenu.AddItem(chopvision);
+            visionMenu.AddItem(tazemevision);
+            visionMenu.AddItem(deadlineneonvision);
 
             visionMenu.OnCheckboxChange += (sender, item, check_) =>
             {
@@ -1142,20 +1198,71 @@ namespace ModMenu
                 {
                     if(check_ == true)
                     {
-                        Function.Call(Hash._START_SCREEN_EFFECT, "RaceTurbo", 10000, false);
+                        Function.Call(Hash._START_SCREEN_EFFECT, "DMT_flight", false);
                     }
 
                     if (check_ == false)
                     {
-                        Function.Call(Hash._STOP_SCREEN_EFFECT, "RaceTurbo");
+                        Function.Call(Hash._STOP_SCREEN_EFFECT, "DMT_flight");
                     }
                 }
-            };
-        }
 
-        void SetupMiscFunctions()
-        {
-            spawnGioele();
+                if (item == bikervision)
+                {
+                    if (check_ == true)
+                    {
+                        Function.Call(Hash._START_SCREEN_EFFECT, "BikerFilter", false);
+                    }
+
+                    if (check_ == false)
+                    {
+                        Function.Call(Hash._STOP_SCREEN_EFFECT, "BikerFilter");
+                    }
+                }
+
+                if (item == chopvision)
+                {
+                    if (check_ == true)
+                    {
+                        Function.Call(Hash._START_SCREEN_EFFECT, "ChopVision", false);
+                    }
+
+                    if (check_ == false)
+                    {
+                        Function.Call(Hash._STOP_SCREEN_EFFECT, "ChopVision");
+                    }
+                }
+
+                if (item == tazemevision)
+                {
+                    if (check_ == true)
+                    {
+                        Function.Call(Hash._START_SCREEN_EFFECT, "Dont_tazeme_bro", false);
+                    }
+
+                    if (check_ == false)
+                    {
+                        Function.Call(Hash._STOP_SCREEN_EFFECT, "Dont_tazeme_bro");
+                    }
+                }
+
+                if (item == deadlineneonvision)
+                {
+                    if (check_ == true)
+                    {
+                        Function.Call(Hash._START_SCREEN_EFFECT, "DeadlineNeon", false);
+                        //BigMessageThread.MessageInstance.ShowMissionPassedMessage("ciao", 5000);
+ 
+                    }
+
+                        if (check_ == false)
+                    {
+                        Function.Call(Hash._STOP_SCREEN_EFFECT, "DeadlineNeon");
+
+                    }
+                }
+
+            };
         }
 
 
@@ -1291,24 +1398,7 @@ namespace ModMenu
         }
 
 
-        void spawnGioele()
-        {
-            UIMenuItem spawngioele = new UIMenuItem("Gioele Spawn");
-            miscMenu.AddItem(spawngioele);
 
-            miscMenu.OnItemSelect += (sender, item, index) =>
-            {
-                Ped bodyguard = World.CreatePed(new Model(PedHash.Armoured02SMM), Game.Player.Character.Position);
-                bodyguard.Weapons.Give(WeaponHash.Pistol, 9999, true, true);
-                bodyguard.Armor = 100; // Armor ranges from 1-100
-                PedGroup playerGroup = Game.Player.Character.CurrentPedGroup; // gets the players current group
-                Function.Call(Hash.SET_PED_AS_GROUP_MEMBER, bodyguard, playerGroup); // puts the bodyguard into the players group
-                Function.Call(Hash.SET_PED_COMBAT_ABILITY, bodyguard, 100); // 100 = attack
-                
-                UI.Notify("Gioele");
-            };
-
-        }
         
 
         void WeaponSelectorMenu()
@@ -1472,6 +1562,43 @@ namespace ModMenu
         }
 
 
+        void CarInvincible()
+        {
+            var CarPlayerInvincible = new UIMenuCheckboxItem("Invincible Car", invcarbox, "Active car godmode, only if you are inside vehicle");
+            vehicleMenu.AddItem(CarPlayerInvincible);
+
+            vehicleMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == CarPlayerInvincible)
+                {
+                    if (checked_ == true)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+                        if (!player2.IsInVehicle()) return;
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+
+                        player2.CurrentVehicle.IsInvincible = true;
+                        UI.Notify("Car Invincible: ~g~ON");
+
+
+                    }
+
+                    if (checked_ == false)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+                        if (!player2.IsInVehicle()) return;
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+
+                        player2.CurrentVehicle.IsInvincible = false;
+                        UI.Notify("Car Invincible: ~R~OFF");
+                    }
+                }
+            };
+        }
+
+
         void SpawnCarTrue()
         {
             UIMenu maincategory = modMenuPool.AddSubMenu(vehicleMenu, "Vehicle Spawner");
@@ -1479,6 +1606,7 @@ namespace ModMenu
 
             UIMenuItem car811Item = new UIMenuItem("811");
             UIMenuItem adderItem = new UIMenuItem("Adder");
+            UIMenuItem autarchItem = new UIMenuItem("Autarch");
             UIMenuItem bansheeItem = new UIMenuItem("Banshee");
             UIMenuItem banshee2Item = new UIMenuItem("Banshee 900R");
             UIMenuItem bulletItem = new UIMenuItem("Bullet");
@@ -1491,6 +1619,7 @@ namespace ModMenu
 
             Supercat.AddItem(car811Item);
             Supercat.AddItem(adderItem);
+            Supercat.AddItem(autarchItem);
             Supercat.AddItem(bansheeItem);
             Supercat.AddItem(banshee2Item);
             Supercat.AddItem(bulletItem);
@@ -1504,91 +1633,113 @@ namespace ModMenu
             Supercat.OnItemSelect += (sender, item, index) =>
             {
 
+
+
                 if (item == car811Item)
                 {
 
-                    World.CreateVehicle(new Model("pfister811"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle car811 = World.CreateVehicle(new Model("pfister811"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(car811, VehicleSeat.Driver);
 
                 }
 
                 if (item == adderItem)
                 {
 
-                    World.CreateVehicle(new Model("Adder"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                   Vehicle adder = World.CreateVehicle(new Model("Adder"), Game.Player.Character.Position);
+                   Ped gameped = Game.Player.Character;
+                   gameped.Task.WarpIntoVehicle(adder, VehicleSeat.Driver);
+
+                }
+
+                if (item == autarchItem)
+                {
+
+                   Vehicle autarch = World.CreateVehicle(new Model("autarch"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(autarch, VehicleSeat.Driver);
 
                 }
 
                 if (item == bansheeItem)
                 {
 
-                    World.CreateVehicle(new Model("banshee"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle banshee = World.CreateVehicle(new Model("banshee"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(banshee, VehicleSeat.Driver);
 
                 }
 
                 if (item == banshee2Item)
                 {
 
-                    World.CreateVehicle(new Model("banshee2"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle banshee2 = World.CreateVehicle(new Model("banshee2"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(banshee2, VehicleSeat.Driver);
 
                 }
 
                 if (item == bulletItem)
                 {
 
-                    World.CreateVehicle(new Model("bullet"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle bullet = World.CreateVehicle(new Model("bullet"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(bullet, VehicleSeat.Driver);
 
                 }
 
                 if (item == cheetahItem)
                 {
 
-                    World.CreateVehicle(new Model("cheetah"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle cheetah = World.CreateVehicle(new Model("cheetah"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(cheetah, VehicleSeat.Driver);
 
                 }
 
                 if (item == entityxfItem)
                 {
 
-                    World.CreateVehicle(new Model("entityfx"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle entityfx = World.CreateVehicle(new Model("entityfx"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(entityfx, VehicleSeat.Driver);
 
                 }
 
                 if (item == etr1Item)
                 {
 
-                    World.CreateVehicle(new Model("sheava"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle sheava = World.CreateVehicle(new Model("sheava"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(sheava, VehicleSeat.Driver);
 
                 }
 
                 if (item == fmjItem)
                 {
 
-                    World.CreateVehicle(new Model("fmj"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle fmj = World.CreateVehicle(new Model("fmj"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(fmj, VehicleSeat.Driver);
 
                 }
 
                 if (item == gp1Item)
                 {
 
-                    World.CreateVehicle(new Model("gp1"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle gp1 = World.CreateVehicle(new Model("gp1"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(gp1, VehicleSeat.Driver);
 
                 }
 
                 if (item == infernusItem)
                 {
 
-                    World.CreateVehicle(new Model("infernus"), Game.Player.Character.Position);
-                    //GTA.World.CreateVehicle(new Model("Zentorno"), spawnLoc);
+                    Vehicle infernus = World.CreateVehicle(new Model("infernus"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(infernus, VehicleSeat.Driver);
 
                 }
             };
@@ -1645,7 +1796,7 @@ namespace ModMenu
                         UI.Notify("Wanted Level Reset");
 
 
-                        }
+                    }
 
                         
                     }
@@ -1690,10 +1841,33 @@ namespace ModMenu
 
         }
 
-        void superJump()
+        void superJumpPlayer()
         {
-            
+            var SuperJumpPlayer1 = new UIMenuCheckboxItem("Super Jump", jumpbox, "Active Super Jump");
+            playerMenu.AddItem(SuperJumpPlayer1);
+            SuperJumpPlayer1.SetLeftBadge(UIMenuItem.BadgeStyle.Gun);
+
+            playerMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == SuperJumpPlayer1)
+                {
+                    if (checked_ == true)
+                    {
+                        CanPlayerSuperJump = !CanPlayerSuperJump;
+                        UI.Notify("Super Jump: ~g~ON");
+                    }
+
+                    if (checked_ == false)
+                    {
+                        CanPlayerSuperJump = false;
+                        UI.Notify("Super Jump: ~r~OFF");
+                    }
+                }
+            };
         }
+
+
+
 
 
         
@@ -2764,6 +2938,9 @@ namespace ModMenu
                 model.MarkAsNoLongerNeeded();
             }
 
+            if (CanPlayerSuperJump)
+                Function.Call(Hash.SET_SUPER_JUMP_THIS_FRAME, Game.Player);
+
 
         }
 
@@ -2780,15 +2957,19 @@ namespace ModMenu
             {
                 mainMenu.Visible = !mainMenu.Visible;
                 
+
                 mainMenu.SetBannerType("scripts\\mainBanner.jpg"); //banner directory
                 weaponsMenu.SetBannerType("scripts\\weaponsBanner.jpg");
                 vehicleMenu.SetBannerType("scripts\\carBanner.jpg");
                 cashMenu.SetBannerType("scripts\\moneyBanner.jpg");
                 weatherMenu.SetBannerType("scripts\\weatherBanner.jpg");
                 teleportMenu.SetBannerType("scripts\\teleportBanner.jpg");
-                /*var banner = new Sprite("shopui_title_barber", "shopui_title_barber", new Point(0, 0), new Size(0, 0));
-                onlineMenu.SetBannerType(banner);*/
+                var banner = new Sprite("shopui_title_movie_masks", "shopui_title_movie_masks", new Point(0, 0), new Size(0, 0));
+                visionMenu.SetBannerType(banner);
+                creditsMenu.SetBannerType("scripts\\mainBanner.jpg");
+                
                 var background = new Sprite("commonmenu", "bgd_gradient", new Point(100, 20), new Size(200, 500));
+                
 
 
 
