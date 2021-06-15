@@ -53,7 +53,6 @@ namespace ModMenu
         UIMenu cashMenu;
         UIMenu bodyguardMenu;
         UIMenu visionMenu;
-        UIMenu miscMenu;
         UIMenu weatherMenu;
         UIMenu timeMenu;
         UIMenu teleportMenu;
@@ -1521,6 +1520,8 @@ namespace ModMenu
             };
         }
 
+        
+
         void VehicleSpawnByName()
         {
             UIMenuItem vehicleSpawnItem = new UIMenuItem("Spawn Vehicle By Name");
@@ -1604,6 +1605,9 @@ namespace ModMenu
             UIMenu maincategory = modMenuPool.AddSubMenu(vehicleMenu, "Vehicle Spawner");
             UIMenu Supercat  = modMenuPool.AddSubMenu(maincategory, "Super");
 
+            
+            
+            //Super Models
             UIMenuItem car811Item = new UIMenuItem("811");
             UIMenuItem adderItem = new UIMenuItem("Adder");
             UIMenuItem autarchItem = new UIMenuItem("Autarch");
@@ -1616,7 +1620,19 @@ namespace ModMenu
             UIMenuItem fmjItem = new UIMenuItem("FMJ");
             UIMenuItem gp1Item = new UIMenuItem("GP1");
             UIMenuItem infernusItem = new UIMenuItem("Infernus");
+            UIMenuItem cycloneItem = new UIMenuItem("Cyclone");
+            UIMenuItem entity2Item = new UIMenuItem("Entity 2");
+            UIMenuItem emerusItem = new UIMenuItem("Emerus");
+            UIMenuItem furiaItem = new UIMenuItem("Furia");
+            UIMenuItem italigtbItem = new UIMenuItem("Itali Gtb");
+            UIMenuItem italigtb2Item = new UIMenuItem("Itali Gtb-2");
+            UIMenuItem kriegerItem = new UIMenuItem("Krieger");
+            UIMenuItem le7bItem = new UIMenuItem("le7b");
+            UIMenuItem neroItem = new UIMenuItem("Nero");
+            UIMenuItem nero2Item = new UIMenuItem("Nero2");
+            UIMenuItem osirisItem = new UIMenuItem("osiris");
 
+            //Super Models
             Supercat.AddItem(car811Item);
             Supercat.AddItem(adderItem);
             Supercat.AddItem(autarchItem);
@@ -1629,6 +1645,17 @@ namespace ModMenu
             Supercat.AddItem(fmjItem);
             Supercat.AddItem(gp1Item);
             Supercat.AddItem(infernusItem);
+            Supercat.AddItem(cycloneItem);
+            Supercat.AddItem(entity2Item);
+            Supercat.AddItem(emerusItem);
+            Supercat.AddItem(furiaItem);
+            Supercat.AddItem(italigtbItem);
+            Supercat.AddItem(italigtb2Item);
+            Supercat.AddItem(kriegerItem);
+            Supercat.AddItem(le7bItem);
+            Supercat.AddItem(neroItem);
+            Supercat.AddItem(nero2Item);
+            Supercat.AddItem(osirisItem);
 
             Supercat.OnItemSelect += (sender, item, index) =>
             {
@@ -1742,6 +1769,107 @@ namespace ModMenu
                     gameped.Task.WarpIntoVehicle(infernus, VehicleSeat.Driver);
 
                 }
+
+                if (item == cycloneItem)
+                {
+
+                    Vehicle cyclone = World.CreateVehicle(new Model("cyclone"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(cyclone, VehicleSeat.Driver);
+
+                }
+
+                if (item == entity2Item)
+                {
+
+                    Vehicle entity2 = World.CreateVehicle(new Model("entity2"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(entity2, VehicleSeat.Driver);
+
+                }
+
+                if (item == emerusItem)
+                {
+
+                    Vehicle emerus = World.CreateVehicle(new Model("emerus"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(emerus, VehicleSeat.Driver);
+
+                }
+
+                if (item == furiaItem)
+                {
+
+                    Vehicle furia = World.CreateVehicle(new Model("furia"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(furia, VehicleSeat.Driver);
+
+                }
+
+                if (item == italigtbItem)
+                {
+
+                    Vehicle italygtb = World.CreateVehicle(new Model("italygtb"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(italygtb, VehicleSeat.Driver);
+
+                }
+
+                if (item == italigtb2Item)
+                {
+
+                    Vehicle italygtb2 = World.CreateVehicle(new Model("italygtb2"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(italygtb2, VehicleSeat.Driver);
+
+                }
+
+                if (item == kriegerItem)
+                {
+
+                    Vehicle krieger = World.CreateVehicle(new Model("krieger"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(krieger, VehicleSeat.Driver);
+
+                }
+
+                if (item == le7bItem)
+                {
+
+                    Vehicle le7b = World.CreateVehicle(new Model("le7b"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(le7b, VehicleSeat.Driver);
+
+                }
+
+                if (item == neroItem)
+                {
+
+                    Vehicle nero = World.CreateVehicle(new Model("nero"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(nero, VehicleSeat.Driver);
+
+                }
+
+                if (item == nero2Item)
+                {
+
+                    Vehicle nero2 = World.CreateVehicle(new Model("nero2"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(nero2, VehicleSeat.Driver);
+
+                }
+
+                if (item == osirisItem)
+                {
+
+                    Vehicle osiris = World.CreateVehicle(new Model("osiris"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(osiris, VehicleSeat.Driver);
+
+                }
+
+
             };
 
 
@@ -2330,6 +2458,8 @@ namespace ModMenu
 
                     Ped bodyguard = World.CreatePed(PedHash.Marine03SMY, loc);
 
+                    var group = bodyguard;
+
                     bodyguard.Weapons.Give(WeaponHash.SpecialCarbine, 9999, true, true);
 
                     bodyguard.Armor = 100;
@@ -2369,6 +2499,9 @@ namespace ModMenu
 
 
         }
+
+       
+    
 
 
         void deleteBody()
