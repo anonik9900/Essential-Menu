@@ -1,3 +1,16 @@
+Major Update beta4 v1.2
+
+*Fixed Some Bugs
+*Added new vehicle
+*Added and improved SuperJump,Fust Run and Fast Swim
+*Uptaded Menu Banners
+*Added new Car Autopilot
+*Added new Vehicle doors control
+*Improved source code.
+
+
+
+
 Major Update beta v1.2
 
 *Added some new Game Vision Options
