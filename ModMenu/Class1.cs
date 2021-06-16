@@ -2115,6 +2115,10 @@ namespace ModMenu
                 {
                     if (checked_ == true)
                     {
+                        Ped player2 = Game.Player.Character;
+
+                        if (!player2.IsInVehicle()) return;
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
                         UI.Notify("Autopilot: ~g~ENABLED");
                         Vehicle veh = Game.Player.Character.CurrentVehicle;
                         Game.Player.Character.Task.DriveTo(veh, World.GetWaypointPosition(), 0f, 200, 55);
@@ -2122,6 +2126,10 @@ namespace ModMenu
 
                     if (checked_ == false)
                     {
+                        Ped player2 = Game.Player.Character;
+
+                        if (!player2.IsInVehicle()) return;
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
                         UI.Notify("Autopilot: ~r~DISABLED");
                         Game.Player.Character.Task.ClearAll();
                     }
