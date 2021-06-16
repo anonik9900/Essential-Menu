@@ -34,7 +34,21 @@ namespace ModMenu
         private bool dneonbox = false;
         private bool jumpbox = false;
         private bool invcarbox = false;
+        private bool fastrunbox = false;
+        private bool cardriveinbox = false;
+        private bool fastswimbox = false;
+        private bool hidehudbox = false;
+        private bool openrightbackbox = false;
+        private bool openleftbackbox = false;
+        private bool openrightfrontbox = false;
+        private bool openleftfrontbox = false;
+        private bool opentrunkbox = false;
+        private bool openhoodbox = false;
+        private bool openalldoorbox = false;
+
         public static bool CanPlayerSuperJump { get; set; }
+        public static bool canPlayerFastRun { get; set; }
+        public static bool canPlayerFastSwim { get; set; }
         bool neverWantedOn;
         bool InfiniteAmmo;
         bool moneyDrop40kOn;
@@ -125,6 +139,9 @@ namespace ModMenu
             KillPlayerMenu();
             truenerverwanted();
             superJumpPlayer();
+            fastrunPlayer();
+            fastswimPlayer();
+            hideHud();
         }
 
         void SetupOnlineFunctions()
@@ -143,10 +160,12 @@ namespace ModMenu
         void SetupVehicleFuntions()
         {
             CarInvincible();
-            VehicleSelectorMenu();
-            VehicleSpawnByName();
             VehicleFixHealth();
+            VehicleSelectorMenu();
             SpawnCarTrue();
+            carDriveInn();
+            VehicleSpawnByName();
+            OpenCarDoor();
 
         }
 
@@ -1491,6 +1510,8 @@ namespace ModMenu
         {
             UIMenu submenu = modMenuPool.AddSubMenu(vehicleMenu, "Vehicle Selector");
 
+            submenu.SetBannerType("scripts\\carBanner.jpg");
+
             List<dynamic> listOfVehicles = new List<dynamic>();
             VehicleHash[] allVehicleHashes = (VehicleHash[])Enum.GetValues(typeof(VehicleHash));
             for(int i = 0; i < allVehicleHashes.Length; i++)
@@ -1605,8 +1626,9 @@ namespace ModMenu
             UIMenu maincategory = modMenuPool.AddSubMenu(vehicleMenu, "Vehicle Spawner");
             UIMenu Supercat  = modMenuPool.AddSubMenu(maincategory, "Super");
 
-            
-            
+            maincategory.SetBannerType("scripts\\carBanner.jpg");
+            Supercat.SetBannerType("scripts\\carBanner.jpg");
+
             //Super Models
             UIMenuItem car811Item = new UIMenuItem("811");
             UIMenuItem adderItem = new UIMenuItem("Adder");
@@ -1973,7 +1995,7 @@ namespace ModMenu
         {
             var SuperJumpPlayer1 = new UIMenuCheckboxItem("Super Jump", jumpbox, "Active Super Jump");
             playerMenu.AddItem(SuperJumpPlayer1);
-            SuperJumpPlayer1.SetLeftBadge(UIMenuItem.BadgeStyle.Gun);
+            SuperJumpPlayer1.SetLeftBadge(UIMenuItem.BadgeStyle.Star);
 
             playerMenu.OnCheckboxChange += (sender, item, checked_) =>
             {
@@ -1981,6 +2003,7 @@ namespace ModMenu
                 {
                     if (checked_ == true)
                     {
+
                         CanPlayerSuperJump = !CanPlayerSuperJump;
                         UI.Notify("Super Jump: ~g~ON");
                     }
@@ -1996,9 +2019,312 @@ namespace ModMenu
 
 
 
+        void fastrunPlayer()
+        {
+            var fastRunPlayer1 = new UIMenuCheckboxItem("Fast Run", fastrunbox, "Enable Fast Run");
+            playerMenu.AddItem(fastRunPlayer1);
+            fastRunPlayer1.SetLeftBadge(UIMenuItem.BadgeStyle.Star);
 
 
-        
+            playerMenu.OnCheckboxChange += (sender, item, checked_) =>
+           {
+               if (item == fastRunPlayer1)
+               {
+                   if (checked_ == true)
+                   {
+                       canPlayerFastRun = !canPlayerFastRun;
+                       UI.Notify("Fast Run: ~g~ON");;
+                   }
+
+                   if (checked_ == false)
+                   {
+                       canPlayerFastRun = false;
+                       UI.Notify("Fast Run: ~r~OFF");
+
+                   }
+               }
+
+
+           };
+        }
+
+        void fastswimPlayer()
+        {
+            var fastSwimPlayer1 = new UIMenuCheckboxItem("Fast Swim", fastswimbox, "Enable Fast Swim");
+            playerMenu.AddItem(fastSwimPlayer1);
+            fastSwimPlayer1.SetLeftBadge(UIMenuItem.BadgeStyle.Star);
+
+            playerMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == fastSwimPlayer1)
+                {
+                    if (checked_ == true)
+                    {
+                        canPlayerFastSwim = !canPlayerFastSwim;
+                        UI.Notify("Fast Swim: ~g~ON"); ;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        canPlayerFastSwim = false;
+                        UI.Notify("Fast Swim: ~r~OFF");
+
+                    }
+                }
+            };
+        }
+
+        void hideHud()
+        {
+            var hidehud1 = new UIMenuCheckboxItem("Hide HUD", hidehudbox, "Hide Game HUD");
+            playerMenu.AddItem(hidehud1);
+            hidehud1.SetLeftBadge(UIMenuItem.BadgeStyle.Star);
+
+            playerMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == hidehud1)
+                {
+                    if (checked_ == true)
+                    {
+                        Function.Call(Hash.DISPLAY_HUD, 0);
+                        Function.Call(Hash.DISPLAY_RADAR, 0);
+                        UI.Notify("Hud: ~r~OFF"); ;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        Function.Call(Hash.DISPLAY_HUD, 1);
+                        Function.Call(Hash.DISPLAY_RADAR, 1);
+                        UI.Notify("Hud: ~g~ON");
+
+                    }
+                }
+            };
+        }
+
+        void carDriveInn()
+        {
+            var CarDriveTo = new UIMenuCheckboxItem("Car Autopilot", cardriveinbox, "Enable car autopilot to Waypoint");
+            vehicleMenu.AddItem(CarDriveTo);
+
+            CarDriveTo.SetLeftBadge(UIMenuItem.BadgeStyle.Car);
+
+            vehicleMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == CarDriveTo)
+                {
+                    if (checked_ == true)
+                    {
+                        UI.Notify("Autopilot: ~g~ENABLED");
+                        Vehicle veh = Game.Player.Character.CurrentVehicle;
+                        Game.Player.Character.Task.DriveTo(veh, World.GetWaypointPosition(), 0f, 200, 55);
+                    }
+
+                    if (checked_ == false)
+                    {
+                        UI.Notify("Autopilot: ~r~DISABLED");
+                        Game.Player.Character.Task.ClearAll();
+                    }
+                }
+            };
+        }
+
+        void OpenCarDoor()
+
+        {
+            UIMenu opencarmain = modMenuPool.AddSubMenu(vehicleMenu, "Vehicle Doors control","Open vehicles doors");
+            opencarmain.SetBannerType("scripts\\carBanner.jpg");
+
+            //Vehicle doors
+            var Openleftfront = new UIMenuCheckboxItem("Open Car left front door", openleftfrontbox, "Open the car left front door");
+            var Openrightfront = new UIMenuCheckboxItem("Open Car right front door", openrightfrontbox, "Open the car right front door");
+            var Openleftback = new UIMenuCheckboxItem("Open Car left back door", openleftbackbox, "Open the car left back door");
+            var Openrightback = new UIMenuCheckboxItem("Open Car right back door", openrightbackbox, "Open the car right back door");
+            var Opentrunk = new UIMenuCheckboxItem("Open Car Trunk", opentrunkbox, "Open the car trunk");
+            var Openhood = new UIMenuCheckboxItem("Open Car Hood", openhoodbox, "Open the car hood");
+            var Openalldoor = new UIMenuCheckboxItem("Open all doors", openalldoorbox, "Open the car doors");
+
+            Vehicle veh = Game.Player.Character.LastVehicle;
+
+            opencarmain.AddItem(Openleftfront);
+            opencarmain.AddItem(Openrightfront);
+            opencarmain.AddItem(Openleftback);
+            opencarmain.AddItem(Openrightback);
+            opencarmain.AddItem(Opentrunk);
+            opencarmain.AddItem(Openhood);
+            opencarmain.AddItem(Openalldoor);
+
+            opencarmain.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == Openleftfront)
+                {
+                    if (checked_ == true)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+                        
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.OpenDoor(VehicleDoor.FrontLeftDoor, true, true);
+                    }
+
+                    if (checked_ == false)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+                        
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.CloseDoor(VehicleDoor.FrontLeftDoor, true);
+
+                    }
+                }
+
+                if (item == Openrightfront)
+                {
+                    if (checked_ == true)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+    
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.OpenDoor(VehicleDoor.FrontRightDoor, true, true);
+                    }
+
+                    if (checked_ == false)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+     
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.CloseDoor(VehicleDoor.FrontRightDoor, true);
+
+                    }
+                }
+
+                if (item == Openleftback)
+                {
+                    if (checked_ == true)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+  
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.OpenDoor(VehicleDoor.BackLeftDoor, true, true);
+                    }
+
+                    if (checked_ == false)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+     
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.CloseDoor(VehicleDoor.BackLeftDoor, true);
+
+                    }
+                }
+
+                if (item == Openrightback)
+                {
+                    if (checked_ == true)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+      
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.OpenDoor(VehicleDoor.BackRightDoor, true, true);
+                    }
+
+                    if (checked_ == false)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+          
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.CloseDoor(VehicleDoor.BackRightDoor, true);
+
+                    }
+                }
+
+                if (item == Opentrunk)
+                {
+                    if (checked_ == true)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+              
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.OpenDoor(VehicleDoor.Trunk, true, true);
+                    }
+
+                    if (checked_ == false)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+           
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.CloseDoor(VehicleDoor.Trunk, true);
+
+                    }
+                }
+
+                if (item == Openhood)
+                {
+                    if (checked_ == true)
+                    {
+                        Ped player2 = Game.Player.Character;
+
+            
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        
+                        veh.OpenDoor(VehicleDoor.Hood, true, true);
+                    }
+
+                    if (checked_ == false)
+                    {
+                        Ped player2 = Game.Player.Character;
+      
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+                        veh.CloseDoor(VehicleDoor.Hood, true);
+
+                    }
+                }
+
+                if (item == Openalldoor)
+                 {
+                     if (checked_ == true)
+                     {
+                         if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+
+                         veh.OpenDoor(VehicleDoor.FrontLeftDoor, true, true);
+                         veh.OpenDoor(VehicleDoor.FrontRightDoor, true, true);
+                         veh.OpenDoor(VehicleDoor.BackLeftDoor, true, true);
+                         veh.OpenDoor(VehicleDoor.BackRightDoor, true, true);
+                         veh.OpenDoor(VehicleDoor.Trunk, true, true);
+                         veh.OpenDoor(VehicleDoor.Hood, true, true);
+                     }
+
+                     if (checked_ == false)
+                     {
+                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+
+                        veh.CloseDoor(VehicleDoor.FrontLeftDoor, true);
+                         veh.CloseDoor(VehicleDoor.FrontRightDoor, true);
+                         veh.CloseDoor(VehicleDoor.BackLeftDoor, true);
+                         veh.CloseDoor(VehicleDoor.BackRightDoor, true);
+                         veh.CloseDoor(VehicleDoor.Trunk, true);
+                         veh.CloseDoor(VehicleDoor.Hood, true);
+
+                     }
+                 }
+            };
+
+
+        }
+
+
+
+
+
+
 
 
         void changeModel()
@@ -2526,6 +2852,7 @@ namespace ModMenu
         void getWeapon()
         {
             UIMenu mainWeapon = modMenuPool.AddSubMenu(weaponsMenu, "Get Weapon");
+            mainWeapon.SetBannerType("scripts\\weaponsBanner.jpg");
 
             UIMenuItem bodyItem = new UIMenuItem("~r~Melee weapons");
             UIMenuItem knifeItem = new UIMenuItem("Knife");
@@ -3072,7 +3399,20 @@ namespace ModMenu
             }
 
             if (CanPlayerSuperJump)
+            {
                 Function.Call(Hash.SET_SUPER_JUMP_THIS_FRAME, Game.Player);
+            }
+
+            if (canPlayerFastRun)
+            {
+                Function.Call(Hash._SET_MOVE_SPEED_MULTIPLIER, Game.Player, 1.49f);
+                //Function.Call(Hash.SET_PED_MOVE_RATE_OVERRIDE, Game.Player.Handle, 3.0f); // max value is 10.0f (needs to be looped))
+            }
+
+            if (canPlayerFastSwim)
+            {
+                Function.Call(Hash._SET_SWIM_SPEED_MULTIPLIER, Game.Player, 1.49f);
+            }
 
 
         }
