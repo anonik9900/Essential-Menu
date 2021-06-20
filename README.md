@@ -17,6 +17,7 @@ GTA V Mod Menu with NativeUI written in C#<br>
     <li>Vision Options</li>
     <li>Weather Options</li>
     <li>Time Options</li>
+    <li>Misc Options</li>
     <li>Teleport Options</li>
     <li>North Yankton Options</li>
     <li>Credits</li>
