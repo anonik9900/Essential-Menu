@@ -1,3 +1,18 @@
+Major Update v1.2.2
+
+*Fixed Some Bugs
+*Added new Misc Menu
+*Added new Misc Options(delete all peds, delete all vehicle, kill all peds, chaos mode[Beta] ).
+*Added new Player Options (player invisible)
+*Added new Vehicle Options (vehicle invisible)
+*Added Give Player Max Ammo options (Weapons Menu)
+*Added No reload option (infinte ammo in clip) in (Weapons Menu)
+
+
+
+
+
+
 Major Update beta4 v1.2
 
 *Fixed Some Bugs
