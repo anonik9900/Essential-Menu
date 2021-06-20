@@ -16,6 +16,27 @@ using System.Threading;
 using System.Reflection;
 
 
+//Functios to implement
+/*
+if (VisibleP.Checked == true) Game.Player.Character.IsVisible = false;
+else if (VisibleP.Checked == false) Game.Player.Character.IsVisible = true;
+if (VisibleC.Checked == true)
+                {
+                    if (Game.Player.Character.IsSittingInVehicle())
+                    {
+                        Game.Player.Character.CurrentVehicle.IsVisible = false;
+                    }
+                }
+                else if(VisibleC.Checked == false)
+                {
+                    if (Game.Player.Character.IsSittingInVehicle())
+                    {
+                        Game.Player.Character.CurrentVehicle.IsVisible = true;
+                    }
+                }
+*/
+
+
 namespace ModMenu
 {
     public class Class1 : Script
@@ -45,10 +66,20 @@ namespace ModMenu
         private bool opentrunkbox = false;
         private bool openhoodbox = false;
         private bool openalldoorbox = false;
+        private bool norelbox = false;
+        private bool invplayerbox = false;
+        private bool invicarbox = false;
+        private bool chaosbox = false;
+        private bool fpsbox = false;
 
         public static bool CanPlayerSuperJump { get; set; }
         public static bool canPlayerFastRun { get; set; }
         public static bool canPlayerFastSwim { get; set; }
+
+
+
+        protected Ped player;
+        protected Vehicle vehicle;
         bool neverWantedOn;
         bool InfiniteAmmo;
         bool moneyDrop40kOn;
@@ -57,6 +88,9 @@ namespace ModMenu
         bool moneyDrop15MilOn;
         bool moneyDrop20MilOn;
         bool moneyDrop100MilOn;
+        bool canOpendoor;
+        bool noReload;
+        bool showfps;
 
         MenuPool modMenuPool;
         UIMenu mainMenu;
@@ -69,13 +103,15 @@ namespace ModMenu
         UIMenu visionMenu;
         UIMenu weatherMenu;
         UIMenu timeMenu;
+        UIMenu miscMenu;
         UIMenu teleportMenu;
         UIMenu yanktonMenu;
         UIMenu creditsMenu;
+        
 
         //UIMenuItem resetWantedLevel;
         UIMenuItem KillPlayerItem;
-        
+
 
 
         public Class1()
@@ -89,9 +125,9 @@ namespace ModMenu
 
         void Setup()
         {
-       
+
             modMenuPool = new MenuPool();
-            
+
 
             mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.2");
             mainMenu.Title.Font = GTA.Font.ChaletComprimeCologne;
@@ -107,6 +143,7 @@ namespace ModMenu
             visionMenu = modMenuPool.AddSubMenu(mainMenu, "Vision Options");
             weatherMenu = modMenuPool.AddSubMenu(mainMenu, "Weather Options");
             timeMenu = modMenuPool.AddSubMenu(mainMenu, "Time Options");
+            miscMenu = modMenuPool.AddSubMenu(mainMenu, "Misc Options");
             teleportMenu = modMenuPool.AddSubMenu(mainMenu, "Teleport Options");
             yanktonMenu = modMenuPool.AddSubMenu(mainMenu, "North Yankton Options");
             creditsMenu = modMenuPool.AddSubMenu(mainMenu, "Credits");
@@ -120,6 +157,7 @@ namespace ModMenu
             SetupVisionOptions();
             SetupWeatherFunctions();
             SetupTimeFunctions();
+            SetupMiscFunctions();
             SetupTeleportOptions();
             SetupYanktonOptions();
             SetupCreditsFunctions();
@@ -142,6 +180,8 @@ namespace ModMenu
             fastrunPlayer();
             fastswimPlayer();
             hideHud();
+            invisblePlayer();
+            
         }
 
         void SetupOnlineFunctions()
@@ -155,6 +195,7 @@ namespace ModMenu
             GetAllWeapons();
             getWeapon();
             GetAInfiniteAmmo();
+            noReloadCheck();
         }
 
         void SetupVehicleFuntions()
@@ -166,7 +207,15 @@ namespace ModMenu
             carDriveInn();
             VehicleSpawnByName();
             OpenCarDoor();
+            invisbleCar();
 
+
+
+        }
+
+        void SetupMiscFunctions()
+        {
+            miscOptions();
         }
 
         void SetupCreditsFunctions()
@@ -187,7 +236,7 @@ namespace ModMenu
                  UI.Notify("Gioele");
              };*/
 
-            UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
+UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
             UIMenuItem templateItem = new UIMenuItem("~r~UI by: NativeUI");
             UIMenuItem sdkItem = new UIMenuItem("~b~Sdk ScripthookV [Alexander Blade]");
             UIMenuItem sdkItem2 = new UIMenuItem("~y~Sdk ScripthookVDotNet [Crosire]");
@@ -201,7 +250,7 @@ namespace ModMenu
 
         void SetupTimeFunctions()
         {
-                  
+
             UIMenuItem time1am = new UIMenuItem("Set Time To: ~o~01:00");
             UIMenuItem time2am = new UIMenuItem("Set Time To: ~o~02:00");
             UIMenuItem time3am = new UIMenuItem("Set Time To: ~o~03:00");
@@ -209,13 +258,13 @@ namespace ModMenu
             UIMenuItem time5am = new UIMenuItem("Set Time To: ~o~05:00");
             UIMenuItem time6am = new UIMenuItem("Set Time To: ~o~06:00");
             UIMenuItem time7am = new UIMenuItem("Set Time To: ~o~07:00");
-                UIMenuItem time8am = new UIMenuItem("Set Time To: ~o~08:00");
-                UIMenuItem time9am = new UIMenuItem("Set Time To: ~o~09:00");
-                UIMenuItem time10am = new UIMenuItem("Set Time To: ~o~10:00");
-                UIMenuItem time11am = new UIMenuItem("Set Time To: ~o~11:00");
-                UIMenuItem time12am = new UIMenuItem("Set Time To: ~o~12:00");
-                UIMenuItem time13pm = new UIMenuItem("Set Time To: ~o~13:00");
-                UIMenuItem time14pm = new UIMenuItem("Set Time To: ~o~14:00");
+            UIMenuItem time8am = new UIMenuItem("Set Time To: ~o~08:00");
+            UIMenuItem time9am = new UIMenuItem("Set Time To: ~o~09:00");
+            UIMenuItem time10am = new UIMenuItem("Set Time To: ~o~10:00");
+            UIMenuItem time11am = new UIMenuItem("Set Time To: ~o~11:00");
+            UIMenuItem time12am = new UIMenuItem("Set Time To: ~o~12:00");
+            UIMenuItem time13pm = new UIMenuItem("Set Time To: ~o~13:00");
+            UIMenuItem time14pm = new UIMenuItem("Set Time To: ~o~14:00");
             UIMenuItem time15pm = new UIMenuItem("Set Time To: ~o~15:00");
             UIMenuItem time16pm = new UIMenuItem("Set Time To: ~o~16:00");
             UIMenuItem time17pm = new UIMenuItem("Set Time To: ~o~17:00");
@@ -234,12 +283,12 @@ namespace ModMenu
             timeMenu.AddItem(time6am);
             timeMenu.AddItem(time7am);
             timeMenu.AddItem(time8am);
-                timeMenu.AddItem(time9am);
-                timeMenu.AddItem(time10am);
-                timeMenu.AddItem(time11am);
-                timeMenu.AddItem(time12am);
-                timeMenu.AddItem(time13pm);
-                timeMenu.AddItem(time14pm);
+            timeMenu.AddItem(time9am);
+            timeMenu.AddItem(time10am);
+            timeMenu.AddItem(time11am);
+            timeMenu.AddItem(time12am);
+            timeMenu.AddItem(time13pm);
+            timeMenu.AddItem(time14pm);
             timeMenu.AddItem(time15pm);
             timeMenu.AddItem(time16pm);
             timeMenu.AddItem(time17pm);
@@ -313,9 +362,9 @@ namespace ModMenu
                     {
                         Function.Call(Hash.SET_CLOCK_TIME, 10, 00, 00);
                         UI.ShowSubtitle("Time Setted To: ~g~10:00");
-                    //12 = Hour
-                    //30 = Minute
-                    //00 = Second
+                        //12 = Hour
+                        //30 = Minute
+                        //00 = Second
                     }
 
                     if (item == time11am)
@@ -403,9 +452,9 @@ namespace ModMenu
                     }
                 };
 
-       
 
-    
+
+
         }
 
         void SetupWeatherFunctions()
@@ -696,8 +745,8 @@ namespace ModMenu
 
         void SetupYanktonOptions()
         {
-            UIMenuItem loadmap = new UIMenuItem("Load North Yankton","Load and Teleport to the North Yankton Map");
-            UIMenuItem unloadmap = new UIMenuItem("Unload North Yankton","Unload the North Yankton Map");
+            UIMenuItem loadmap = new UIMenuItem("Load North Yankton", "Load and Teleport to the North Yankton Map");
+            UIMenuItem unloadmap = new UIMenuItem("Unload North Yankton", "Unload the North Yankton Map");
 
             yanktonMenu.AddItem(loadmap);
             yanktonMenu.AddItem(unloadmap);
@@ -782,7 +831,7 @@ namespace ModMenu
                         v.Position = new Vector3(3360.19f, -4849.67f, 111.8f);
 
                     }
-                    
+
                 }
 
                 if (item == unloadmap)
@@ -889,7 +938,7 @@ namespace ModMenu
             {
                 if (item == teleportwaypoint)
                 {
-                    Player player = Game.Player;     
+                    Player player = Game.Player;
                     //Player1.Position = World.GetWaypointPosition();
                     //UI.DrawTexture("./scripts/ModResorces/picname.gif", 1, 1, 9999, new Point(0, 0), new Size(80, 80));
                     /*Vector3 waypointPos = World.GetWaypointPosition();
@@ -929,7 +978,7 @@ namespace ModMenu
                         v.Position = new Vector3(451.2820f, 5572.9897f, 796.6793f);
                     }
 
-      
+
                 }
 
 
@@ -1168,14 +1217,14 @@ namespace ModMenu
 
         void SetupVisionOptions()
         {
-            var thermalvision = new UIMenuCheckboxItem("Thermal Vision",thermalbox);
+            var thermalvision = new UIMenuCheckboxItem("Thermal Vision", thermalbox);
             var nightvision = new UIMenuCheckboxItem("Night Vision", nightbox);
             var drugvision = new UIMenuCheckboxItem("Drug Vision", drugbox);
             var bikervision = new UIMenuCheckboxItem("Biker Vision", bikerbox);
             var chopvision = new UIMenuCheckboxItem("Chop Vision", chopbox);
             var tazemevision = new UIMenuCheckboxItem("DontTazeme", tazbox);
             var deadlineneonvision = new UIMenuCheckboxItem("Deadline Neon", dneonbox);
-          
+
             visionMenu.AddItem(thermalvision);
             visionMenu.AddItem(nightvision);
             visionMenu.AddItem(drugvision);
@@ -1214,7 +1263,7 @@ namespace ModMenu
 
                 if (item == drugvision)
                 {
-                    if(check_ == true)
+                    if (check_ == true)
                     {
                         Function.Call(Hash._START_SCREEN_EFFECT, "DMT_flight", false);
                     }
@@ -1270,10 +1319,10 @@ namespace ModMenu
                     {
                         Function.Call(Hash._START_SCREEN_EFFECT, "DeadlineNeon", false);
                         //BigMessageThread.MessageInstance.ShowMissionPassedMessage("ciao", 5000);
- 
+
                     }
 
-                        if (check_ == false)
+                    if (check_ == false)
                     {
                         Function.Call(Hash._STOP_SCREEN_EFFECT, "DeadlineNeon");
 
@@ -1284,9 +1333,9 @@ namespace ModMenu
         }
 
 
-        
-        
-    
+
+
+
 
 
         /*void ResetWantedLevel()
@@ -1312,11 +1361,11 @@ namespace ModMenu
         }*/
 
 
-        
+
         void onlineMoneyDrop()
         {
-            UIMenu onlinemoneydrop = modMenuPool.AddSubMenu(onlineMenu, "~g~Money Drop",Game.Player.Name);
-            var add40konline = new UIMenuCheckboxItem("Drop 40K",moneybox);
+            UIMenu onlinemoneydrop = modMenuPool.AddSubMenu(onlineMenu, "~g~Money Drop", Game.Player.Name);
+            var add40konline = new UIMenuCheckboxItem("Drop 40K", moneybox);
             var add1miliononline = new UIMenuCheckboxItem("Drop 1 Milion", moneybox);
             var add10miliononline = new UIMenuCheckboxItem("Drop 10 Milion", moneybox);
             var add15miliononline = new UIMenuCheckboxItem("Drop 15 Milion", moneybox);
@@ -1417,7 +1466,7 @@ namespace ModMenu
 
 
 
-        
+
 
         void WeaponSelectorMenu()
         {
@@ -1438,7 +1487,7 @@ namespace ModMenu
 
             submenu.OnItemSelect += (sender, item, index) =>
             {
-                if(item == getWeapon)
+                if (item == getWeapon)
                 {
                     int listIndex = list.Index;
                     WeaponHash currentHash = allWeaponHashes[listIndex];
@@ -1481,15 +1530,15 @@ namespace ModMenu
                         UI.Notify("Unlimited Ammo: ~b~ON");
 
                         InfiniteAmmo = !InfiniteAmmo;
-     
+
                         /*Ped PlayerONE = Game.Player.Character;
                         PlayerONE.Weapons.Give(WeaponHash.CarbineRifle, 20, true, true);
                         Weapon currentweapon = PlayerONE.Weapons.Current;
                         currentweapon.Ammo = currentweapon.MaxAmmo;*/
-                       
+
                         //Function.Call(Hash.SET_PED_INFINITE_AMMO_CLIP,Game.Player.Character);
                         //Function.Call(Hash.SET_PED_INFINITE_AMMO,Game.Player.Character.Weapons.Current);
-                        
+
 
                     }//end true check
 
@@ -1498,11 +1547,122 @@ namespace ModMenu
                         //Function.Call(Hash.GET_MAX_AMMO_IN_CLIP,Game.Player.Character);
                         UI.Notify("Unlimited Ammo: ~r~OFF");
                         InfiniteAmmo = false;
-                        
+
                     }//end false check
                 }
             };
         }
+
+        void noReloadCheck()
+        {
+            var noreload_ammo = new UIMenuCheckboxItem("No Reload", norelbox, "Activate NO RELOAD");
+            var maxAmmo = new UIMenuItem("Give Max Ammo", "Give player's Max Ammo");
+            //Game.Player.Character.Weapons.Current.Ammo = Game.Player.Character.Weapons.Current.MaxAmmo;
+            weaponsMenu.AddItem(noreload_ammo);
+            weaponsMenu.AddItem(maxAmmo);
+
+            weaponsMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == noreload_ammo)
+                {
+                    if (checked_ == true)
+                    {
+                        noReload = !noReload;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        noReload = false;
+                        Game.Player.Character.Weapons.Current.InfiniteAmmo = false;
+                        Game.Player.Character.Weapons.Current.InfiniteAmmoClip = false;
+                    }
+                }
+            };
+
+            weaponsMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == maxAmmo)
+                {
+                    Game.Player.Character.Weapons.Current.Ammo = Game.Player.Character.Weapons.Current.MaxAmmo;
+                }
+            };
+        }
+
+
+        void invisblePlayer()
+        {
+            var invPlayer = new UIMenuCheckboxItem("Invisible Player", invplayerbox, "You are invisible yep");
+            playerMenu.AddItem(invPlayer);
+
+            playerMenu.OnCheckboxChange += (sender, item, checked_) =>
+            { 
+                if (item == invPlayer)
+                {
+                    if (checked_ == true)
+                    {
+                        Game.Player.Character.IsVisible = false;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        Game.Player.Character.IsVisible = true;
+                    }
+                }
+            };
+        }
+
+
+        void invisbleCar()
+        {
+            var invCar = new UIMenuCheckboxItem("Invisible Car", invicarbox, "Your car is invisible yep");
+            vehicleMenu.AddItem(invCar);
+
+            vehicleMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == invCar)
+                {
+                    if (checked_ == true)
+                    {
+
+
+                        if (!Game.Player.Character.IsSittingInVehicle())
+                        {
+                            UI.Notify("Not sitting in vehicle");
+                            return;
+                        }
+                        
+
+                        if (Game.Player.Character.IsSittingInVehicle())
+                       {
+                        Game.Player.Character.CurrentVehicle.IsVisible = false;
+                 
+                        }
+
+
+                }
+
+    
+                         
+                    }
+
+                    if (checked_ == false)
+                    {
+
+                    if (!Game.Player.Character.IsSittingInVehicle())
+                    {
+                        UI.Notify("Not sitting in vehicle");
+                        return;
+                    }
+
+                    if (Game.Player.Character.IsSittingInVehicle())
+                    {
+                        Game.Player.Character.CurrentVehicle.IsVisible = true;
+                    }
+                
+                }
+            };
+        }
+
 
 
 
@@ -1514,7 +1674,7 @@ namespace ModMenu
 
             List<dynamic> listOfVehicles = new List<dynamic>();
             VehicleHash[] allVehicleHashes = (VehicleHash[])Enum.GetValues(typeof(VehicleHash));
-            for(int i = 0; i < allVehicleHashes.Length; i++)
+            for (int i = 0; i < allVehicleHashes.Length; i++)
             {
                 listOfVehicles.Add(allVehicleHashes[i]);
             }
@@ -1541,7 +1701,7 @@ namespace ModMenu
             };
         }
 
-        
+
 
         void VehicleSpawnByName()
         {
@@ -1556,7 +1716,7 @@ namespace ModMenu
                     Model model = new Model(modelName);
                     model.Request();
 
-                    if(model.IsInCdImage && model.IsValid)
+                    if (model.IsInCdImage && model.IsValid)
                     {
                         Vehicle v = World.CreateVehicle(model, gamePed.Position, gamePed.Heading);
                         v.PlaceOnGround();
@@ -1575,10 +1735,10 @@ namespace ModMenu
                 if (item == vehiclefixhealth)
                 {
                     UI.Notify("Vehicle Fixed");
-                    Function.Call(Hash.SET_VEHICLE_FIXED,Game.Player.Character.CurrentVehicle);
-                    Function.Call(Hash.FIX_VEHICLE_WINDOW,Game.Player.Character.CurrentVehicle);
-                    Function.Call(Hash.SET_VEHICLE_DEFORMATION_FIXED,Game.Player.Character.CurrentVehicle);
-                    Function.Call(Hash.SET_VEHICLE_TYRE_FIXED,Game.Player.Character.CurrentVehicle);
+                    Function.Call(Hash.SET_VEHICLE_FIXED, Game.Player.Character.CurrentVehicle);
+                    Function.Call(Hash.FIX_VEHICLE_WINDOW, Game.Player.Character.CurrentVehicle);
+                    Function.Call(Hash.SET_VEHICLE_DEFORMATION_FIXED, Game.Player.Character.CurrentVehicle);
+                    Function.Call(Hash.SET_VEHICLE_TYRE_FIXED, Game.Player.Character.CurrentVehicle);
                 }
             };
         }
@@ -1624,7 +1784,7 @@ namespace ModMenu
         void SpawnCarTrue()
         {
             UIMenu maincategory = modMenuPool.AddSubMenu(vehicleMenu, "Vehicle Spawner");
-            UIMenu Supercat  = modMenuPool.AddSubMenu(maincategory, "Super");
+            UIMenu Supercat = modMenuPool.AddSubMenu(maincategory, "Super");
 
             maincategory.SetBannerType("scripts\\carBanner.jpg");
             Supercat.SetBannerType("scripts\\carBanner.jpg");
@@ -1696,16 +1856,16 @@ namespace ModMenu
                 if (item == adderItem)
                 {
 
-                   Vehicle adder = World.CreateVehicle(new Model("Adder"), Game.Player.Character.Position);
-                   Ped gameped = Game.Player.Character;
-                   gameped.Task.WarpIntoVehicle(adder, VehicleSeat.Driver);
+                    Vehicle adder = World.CreateVehicle(new Model("Adder"), Game.Player.Character.Position);
+                    Ped gameped = Game.Player.Character;
+                    gameped.Task.WarpIntoVehicle(adder, VehicleSeat.Driver);
 
                 }
 
                 if (item == autarchItem)
                 {
 
-                   Vehicle autarch = World.CreateVehicle(new Model("autarch"), Game.Player.Character.Position);
+                    Vehicle autarch = World.CreateVehicle(new Model("autarch"), Game.Player.Character.Position);
                     Ped gameped = Game.Player.Character;
                     gameped.Task.WarpIntoVehicle(autarch, VehicleSeat.Driver);
 
@@ -1905,7 +2065,7 @@ namespace ModMenu
 
             var checkbox = new UIMenuCheckboxItem("GodMode", checkbox1, "Activate ~b~GodMode");
 
-           playerMenu.AddItem(checkbox);
+            playerMenu.AddItem(checkbox);
 
             playerMenu.OnCheckboxChange += (sender, item, checked_) =>
             {
@@ -1934,21 +2094,21 @@ namespace ModMenu
 
             playerMenu.OnCheckboxChange += (sender, item, checked_) =>
             {
-            if (item == checkbox)
-            {
-                if (checked_ == true)
+                if (item == checkbox)
                 {
-
-                    if (Game.Player.WantedLevel >= 1)
+                    if (checked_ == true)
                     {
-                        Game.Player.WantedLevel = 0;
 
-                        UI.Notify("Wanted Level Reset");
+                        if (Game.Player.WantedLevel >= 1)
+                        {
+                            Game.Player.WantedLevel = 0;
+
+                            UI.Notify("Wanted Level Reset");
 
 
-                    }
+                        }
 
-                        
+
                     }
 
                     if (checked_ == false)
@@ -2033,7 +2193,7 @@ namespace ModMenu
                    if (checked_ == true)
                    {
                        canPlayerFastRun = !canPlayerFastRun;
-                       UI.Notify("Fast Run: ~g~ON");;
+                       UI.Notify("Fast Run: ~g~ON"); ;
                    }
 
                    if (checked_ == false)
@@ -2137,6 +2297,11 @@ namespace ModMenu
             };
         }
 
+
+
+
+
+
         void OpenCarDoor()
 
         {
@@ -2153,6 +2318,7 @@ namespace ModMenu
             var Openalldoor = new UIMenuCheckboxItem("Open all doors", openalldoorbox, "Open the car doors");
 
             Vehicle veh = Game.Player.Character.LastVehicle;
+            //Vehicle veh = player.IsInVehicle() ? player.CurrentVehicle : player.LastVehicle;
 
             opencarmain.AddItem(Openleftfront);
             opencarmain.AddItem(Openrightfront);
@@ -2170,7 +2336,7 @@ namespace ModMenu
                     {
                         Ped player2 = Game.Player.Character;
 
-                        
+
                         if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
                         veh.OpenDoor(VehicleDoor.FrontLeftDoor, true, true);
                     }
@@ -2179,9 +2345,11 @@ namespace ModMenu
                     {
                         Ped player2 = Game.Player.Character;
 
-                        
+
                         if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
                         veh.CloseDoor(VehicleDoor.FrontLeftDoor, true);
+
+                        
 
                     }
                 }
@@ -2257,9 +2425,13 @@ namespace ModMenu
                     if (checked_ == true)
                     {
                         Ped player2 = Game.Player.Character;
+                        //Ped character = Function.Call(Hash.);
+                        Vehicle car = Game.Player.Character.CurrentVehicle;
 
-              
-                        if (Game.Player.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
+
+
+
+                        if (Game.Player.Character.LastVehicle == null || !Game.Player.LastVehicle.Exists()) return;
                         veh.OpenDoor(VehicleDoor.Trunk, true, true);
                     }
 
@@ -2329,6 +2501,97 @@ namespace ModMenu
         }
 
 
+        void miscOptions()
+        {
+            var deleteallped = new UIMenuItem ("Delete all ped");
+            var killallped = new UIMenuItem("Kill all ped");
+            var deleteallcar = new UIMenuItem("Delete all car");
+            var chaosomod = new UIMenuCheckboxItem("Active Chaos Mode", chaosbox, "All peds attack your Character");
+            var fpsshow = new UIMenuCheckboxItem("Show FPS", fpsbox, "Show your game fps");
+            //PedGroup ped = player.CurrentPedGroup;
+
+            miscMenu.AddItem(deleteallped);
+            miscMenu.AddItem(killallped);
+            miscMenu.AddItem(deleteallcar);
+            miscMenu.AddItem(chaosomod);
+            miscMenu.AddItem(fpsshow);
+
+            miscMenu.OnItemSelect += (sender, item, index) =>
+            {
+
+
+                if (item == killallped)
+                {
+                    foreach (Ped k in World.GetAllPeds())
+                    {
+                        k.Kill();
+                    }
+
+                }
+
+                if (item == deleteallped)
+                {
+                    foreach (Ped p in World.GetAllPeds())
+                    {
+                        p.Delete();
+                    }
+
+                }
+
+                if (item == deleteallcar)
+                {
+                    foreach (Vehicle f in World.GetAllVehicles())
+                    {
+                        f.Delete();
+                    }
+                }
+            
+            
+            };
+
+            miscMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == chaosomod)
+                {
+                    if (checked_ == true)
+                    {
+                        foreach (Ped p in World.GetAllPeds())
+                        {
+                            p.Weapons.Give(WeaponHash.AssaultRifle, 10000, true, true);
+                            p.Weapons.Current.InfiniteAmmo = true;
+                            p.Task.FightAgainst(Game.Player.Character);
+                            Game.Player.Character.Task.ClearAll();
+                        }
+                    }
+
+                    if (checked_ == false)
+                    {
+                        foreach (Ped p in World.GetAllPeds())
+                        {
+                            p.Task.ClearAll();
+                        }
+                    }
+                }
+
+                if (item == fpsshow)
+                {
+                    if (checked_ == true)
+                    {
+                        showfps = !showfps;
+                    }
+
+                    if (checked_ == false)
+                    {
+                        showfps = false;
+                    }
+                }
+            };
+
+
+
+
+
+        }
 
 
 
@@ -3331,6 +3594,11 @@ namespace ModMenu
 
         void onTick(object sender, EventArgs e)
         {
+
+            Ped player = Game.Player.Character;
+            //Get current vehicle if the player it's on vehicle and get the last vehicl
+            Vehicle vehicle = player.IsInVehicle() ? player.CurrentVehicle : player.LastVehicle;
+
             if (modMenuPool != null)
                 modMenuPool.ProcessMenus();
             if (neverWantedOn)
@@ -3421,6 +3689,18 @@ namespace ModMenu
             {
                 Function.Call(Hash._SET_SWIM_SPEED_MULTIPLIER, Game.Player, 1.49f);
             }
+
+            if (noReload)
+            {
+                Game.Player.Character.Weapons.Current.InfiniteAmmo = true;
+                Game.Player.Character.Weapons.Current.InfiniteAmmoClip = true;
+            }
+
+            if (showfps)
+            {
+                UI.ShowSubtitle("~r~Essential Menu~w~ FPS: " + Game.FPS + " / " + Game.Language);
+            }
+
 
 
         }
