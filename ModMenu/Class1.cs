@@ -141,7 +141,7 @@ namespace ModMenu
             modMenuPool = new MenuPool();
 
 
-            mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.2.3", new Point(1480, 50));
+            mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.2.3");
             mainMenu.Title.Font = GTA.Font.ChaletComprimeCologne;
             mainMenu.Subtitle.Font = GTA.Font.Pricedown;
             modMenuPool.Add(mainMenu);
