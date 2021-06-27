@@ -10,3 +10,7 @@ C:\Users\impie\Desktop\Essential-Menu-master\Essential-Menu-master\ModMenu\obj\D
 C:\Users\impie\Desktop\Essential-Menu-master\Essential-Menu-master\ModMenu\obj\Debug\ModMenu.csproj.CoreCompileInputs.cache
 C:\Users\impie\Desktop\Essential-Menu-master\Essential-Menu-master\ModMenu\obj\Debug\ModMenu.dll
 C:\Users\impie\Desktop\Essential-Menu-master\Essential-Menu-master\ModMenu\obj\Debug\ModMenu.pdb
+C:\Users\impie\Desktop\Essential-Menu-1.2.2\Essential-Menu-1.2.2\ModMenu\obj\Debug\ModMenu.csproj.AssemblyReference.cache
+C:\Users\impie\Desktop\Essential-Menu-1.2.2\Essential-Menu-1.2.2\ModMenu\obj\Debug\ModMenu.csproj.CoreCompileInputs.cache
+C:\Users\impie\Desktop\Essential-Menu-1.2.2\Essential-Menu-1.2.2\ModMenu\obj\Debug\ModMenu.dll
+C:\Users\impie\Desktop\Essential-Menu-1.2.2\Essential-Menu-1.2.2\ModMenu\obj\Debug\ModMenu.pdb

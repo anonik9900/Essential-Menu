@@ -18,22 +18,26 @@ using System.Reflection;
 
 //Functios to implement
 /*
-if (VisibleP.Checked == true) Game.Player.Character.IsVisible = false;
-else if (VisibleP.Checked == false) Game.Player.Character.IsVisible = true;
-if (VisibleC.Checked == true)
-                {
-                    if (Game.Player.Character.IsSittingInVehicle())
+                     void ChangeColor(VehicleColor color)
                     {
-                        Game.Player.Character.CurrentVehicle.IsVisible = false;
+                        Vehicle veh = Game.Player.Character.CurrentVehicle;
+                        veh.PrimaryColor = color;
+                        veh.SecondaryColor = color;
+                        UI.Notify("Change Color to " + color.ToString());
                     }
-                }
-                else if(VisibleC.Checked == false)
-                {
-                    if (Game.Player.Character.IsSittingInVehicle())
-                    {
-                        Game.Player.Character.CurrentVehicle.IsVisible = true;
-                    }
-                }
+
+   
+
+  
+ 
+
+
+           var pos = p.Character.Position;
+            var hash = Function.Call<int>(Hash.GET_HASH_KEY, "PICKUP_MONEY_CASE");
+            var model = new Model(0x113FD533); // prop_money_bag_01 
+            model.Request(1000); 
+            Function.Call(Hash.CREATE_AMBIENT_PICKUP, hash, pos.X, pos.Y, pos.Z, 0, 40000, 0x113FD533, false, true);  
+            model.MarkAsNoLongerNeeded();
 */
 
 
@@ -71,6 +75,10 @@ namespace ModMenu
         private bool invicarbox = false;
         private bool chaosbox = false;
         private bool fpsbox = false;
+        private bool moneygunbox = false;
+        private bool firegunbox = false;
+        private bool firefiregunbox = false;
+        private bool freezebox = false;
 
         public static bool CanPlayerSuperJump { get; set; }
         public static bool canPlayerFastRun { get; set; }
@@ -91,6 +99,10 @@ namespace ModMenu
         bool canOpendoor;
         bool noReload;
         bool showfps;
+        bool moneyGun;
+        bool firegun;
+        bool firefiregun;
+        //bool freezeplayer;
 
         MenuPool modMenuPool;
         UIMenu mainMenu;
@@ -129,10 +141,12 @@ namespace ModMenu
             modMenuPool = new MenuPool();
 
 
-            mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.2");
+            mainMenu = new UIMenu("Essential Menu", "Made ~b~By Anonik v1.2.3", new Point(1480, 50));
             mainMenu.Title.Font = GTA.Font.ChaletComprimeCologne;
             mainMenu.Subtitle.Font = GTA.Font.Pricedown;
             modMenuPool.Add(mainMenu);
+
+            
 
             playerMenu = modMenuPool.AddSubMenu(mainMenu, "Player Options");
             onlineMenu = modMenuPool.AddSubMenu(mainMenu, "~b~(Online Options)");
@@ -181,6 +195,7 @@ namespace ModMenu
             fastswimPlayer();
             hideHud();
             invisblePlayer();
+            FreezePlayer1();
             
         }
 
@@ -196,6 +211,9 @@ namespace ModMenu
             getWeapon();
             GetAInfiniteAmmo();
             noReloadCheck();
+            Moneygun1();
+            firegun1();
+            firegun2();
         }
 
         void SetupVehicleFuntions()
@@ -208,6 +226,7 @@ namespace ModMenu
             VehicleSpawnByName();
             OpenCarDoor();
             invisbleCar();
+            pimpcar();
 
 
 
@@ -234,9 +253,16 @@ namespace ModMenu
                  Function.Call(Hash.SET_PED_COMBAT_ABILITY, bodyguard, 100); // 100 = attack
 
                  UI.Notify("Gioele");
+
+
+   
+
+            
+
+
              };*/
 
-UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
+            UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
             UIMenuItem templateItem = new UIMenuItem("~r~UI by: NativeUI");
             UIMenuItem sdkItem = new UIMenuItem("~b~Sdk ScripthookV [Alexander Blade]");
             UIMenuItem sdkItem2 = new UIMenuItem("~y~Sdk ScripthookVDotNet [Crosire]");
@@ -904,6 +930,8 @@ UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
             };
         }
 
+
+
         void SetupTeleportOptions()
         {
             UIMenuItem teleportwaypoint = new UIMenuItem("Waypoint");
@@ -935,9 +963,13 @@ UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
             teleportMenu.AddItem(teleportyatch);
 
             teleportMenu.OnItemSelect += (sender, item, index) =>
+
+
             {
                 if (item == teleportwaypoint)
                 {
+
+
                     Player player = Game.Player;
                     //Player1.Position = World.GetWaypointPosition();
                     //UI.DrawTexture("./scripts/ModResorces/picname.gif", 1, 1, 9999, new Point(0, 0), new Size(80, 80));
@@ -961,6 +993,37 @@ UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
                         Vehicle v = player.Character.CurrentVehicle;
                         v.Position = markerPosition + (Vector3.WorldDown * 200.5f);
                     }
+
+                    
+
+                    Vector3 ToGround(Vector3 position)
+                    {
+                        position.Z = World.GetGroundHeight(new Vector2(position.X, position.Y));
+                        return new Vector3(position.X, position.Y, position.Z);
+                    }
+
+                    Vector3 GetWaypointCoords()
+                    {
+                        Vector3 pos = Function.Call<Vector3>(Hash.GET_BLIP_COORDS, Function.Call<Blip>(Hash.GET_FIRST_BLIP_INFO_ID, 8));
+
+                        if (Function.Call<bool>(Hash.IS_WAYPOINT_ACTIVE) && pos != null || pos != new Vector3(0, 0, 0))
+                        {
+                            Vector3 WayPos = ToGround(pos);
+                            if (WayPos.Z == 0 || WayPos.Z == 1)
+                            {
+                                WayPos = World.GetNextPositionOnStreet(WayPos);
+                                UI.Notify("You spawn to waypoint");
+                            }
+                            return WayPos;
+                        }
+                        else
+                        {
+                            UI.Notify("Waypoint not found!");
+                        }
+                        return Game.Player.Character.Position;
+                    }
+
+                    Game.Player.Character.Position = GetWaypointCoords();
 
 
                 }
@@ -1553,6 +1616,166 @@ UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
             };
         }
 
+        void Moneygun1()
+        {
+            var checkbox_moneygun = new UIMenuCheckboxItem("Money Gun", moneygunbox, "shoot $ 100,000 bags of money with your weapon");
+
+            weaponsMenu.AddItem(checkbox_moneygun);
+
+            weaponsMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == checkbox_moneygun)
+                {
+                    if (checked_ == true)
+                    {
+                        UI.Notify("Money Gun: ~b~ON");
+
+                        moneyGun = !moneyGun;
+                    }
+                    if (checked_ == false)
+                    {
+                        UI.Notify("Money Gun: ~r~OFF");
+                        moneyGun = false;
+                    }
+                }
+            };
+        }
+
+        void firegun1()
+        {
+            var checkbox_firegun = new UIMenuCheckboxItem("Explosive Ammo", firegunbox, "shoot Explosive");
+
+            weaponsMenu.AddItem(checkbox_firegun);
+
+            weaponsMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == checkbox_firegun)
+                {
+                    if (checked_ == true)
+                    {
+                        UI.Notify("Explosive Gun: ~b~ON");
+
+                        firegun = !firegun;
+                    }
+                    if (checked_ == false)
+                    {
+                        UI.Notify("Explosive Gun: ~r~OFF");
+                        firegun = false;
+                    }
+                }
+            };
+        }
+
+
+        void firegun2()
+        {
+            var checkbox_firefiregun = new UIMenuCheckboxItem("Fire Ammo", firefiregunbox, "shoot Firee");
+
+            weaponsMenu.AddItem(checkbox_firefiregun);
+
+            weaponsMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == checkbox_firefiregun)
+                {
+                    if (checked_ == true)
+                    {
+                        UI.Notify("Fire Gun: ~b~ON");
+
+                        firefiregun = !firegun;
+                    }
+                    if (checked_ == false)
+                    {
+                        UI.Notify("Fire Gun: ~r~OFF");
+                        firefiregun = false;
+                    }
+                }
+            };
+        }
+
+
+        void pimpcar()
+        {
+            var carmaxstats = new UIMenuItem("Max car upgrades","Max all car upgrades like: armor,engine");
+            var carminstats = new UIMenuItem("Min car upgrades", "Min all car upgrades like: armor,engine");
+            vehicleMenu.AddItem(carmaxstats);
+            vehicleMenu.AddItem(carminstats);
+
+            vehicleMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == carmaxstats)
+                {
+                    Vehicle veh = Game.Player.Character.CurrentVehicle;
+                    veh.CanTiresBurst = false;
+                    veh.IsStolen = false;
+                    veh.DirtLevel = 0f;
+                    veh.SetMod(VehicleMod.Armor, 5, false);
+                    veh.SetMod(VehicleMod.Brakes, 3, false);
+                    veh.SetMod(VehicleMod.Engine, 4, false);
+                    veh.SetMod(VehicleMod.Suspension, 4, false);
+                    veh.SetMod(VehicleMod.Transmission, 3, false);
+                    veh.ToggleMod(VehicleToggleMod.Turbo, true);
+                    veh.ToggleMod(VehicleToggleMod.XenonHeadlights, true);
+                    veh.ToggleMod(VehicleToggleMod.TireSmoke, true);
+
+                    UI.Notify("~b~MAXED");
+
+                }
+
+                if (item == carminstats)
+                {
+                    Vehicle veh = Game.Player.Character.CurrentVehicle;
+                    veh.CanTiresBurst = true;
+                    veh.SetMod(VehicleMod.Armor, 999, false);
+                    veh.SetMod(VehicleMod.Brakes, 999, false);
+                    veh.SetMod(VehicleMod.Engine, 999, false);
+                    veh.SetMod(VehicleMod.Suspension, 999, false);
+                    veh.SetMod(VehicleMod.Transmission, 999, false);
+                    veh.ToggleMod(VehicleToggleMod.Turbo, false);
+                    veh.ToggleMod(VehicleToggleMod.XenonHeadlights, false);
+                    veh.ToggleMod(VehicleToggleMod.TireSmoke, false);
+                    UI.Notify("~r~RESETED");
+                }
+            };
+        }
+
+        void FreezePlayer1()
+        {
+            var freezecheck = new UIMenuCheckboxItem("Freeze Player", freezebox, "Freeze your current ped and vehicle");
+
+            playerMenu.AddItem(freezecheck);
+            Ped playa = Game.Player.Character;
+            playerMenu.OnCheckboxChange += (sender, item, checked_) =>
+            {
+                if (item == freezecheck)
+                {
+                    if (checked_ == true)
+                    {
+
+                        playa.FreezePosition = true;
+                        if (playa.IsInVehicle())
+                        {
+                            playa.CurrentVehicle.FreezePosition = true;
+                        }
+                        UI.Notify("~b~FREEZED");
+
+                    }
+                       
+                      if (checked_ == false)
+                    {
+                        playa.FreezePosition = false;
+                        if (playa.IsInVehicle())
+                        {
+                            playa.CurrentVehicle.FreezePosition = false;
+                            
+                        }
+                        UI.Notify("~r~UNFREEZED");
+                    }
+                         
+                        
+                    }
+            };
+        }
+
         void noReloadCheck()
         {
             var noreload_ammo = new UIMenuCheckboxItem("No Reload", norelbox, "Activate NO RELOAD");
@@ -2123,6 +2346,7 @@ UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
         void truenerverwanted()
         {
             var neverWanted = new UIMenuCheckboxItem("Never Wanted", checkbox4, "No Police");
+            
             playerMenu.AddItem(neverWanted);
             neverWanted.SetLeftBadge(UIMenuItem.BadgeStyle.Star);
             //newitem.SetRightBadge(UIMenuItem.BadgeStyle.Tick);
@@ -3682,7 +3906,20 @@ UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
             if (canPlayerFastRun)
             {
                 Function.Call(Hash._SET_MOVE_SPEED_MULTIPLIER, Game.Player, 1.49f);
-                //Function.Call(Hash.SET_PED_MOVE_RATE_OVERRIDE, Game.Player.Handle, 3.0f); // max value is 10.0f (needs to be looped))
+
+                //Function.Call(Hash.SET_RUN_SPRINT_MULTIPLIER_FOR_PLAYER, Game.Player, 1.49f);
+                //Function.Call(Hash.SET_PED_MOVE_RATE_OVERRIDE, Game.Player.Character, 10.0f); // max value is 10.0f (needs to be looped))
+
+                //Function.Call(Hash.SET_SUPER_JUMP_THIS_FRAME, Game.Player);
+                
+
+                
+                
+                if (Game.Player.Character.IsJumping)
+                {
+                    Function.Call(Hash.APPLY_FORCE_TO_ENTITY, Game.Player, true, 0, 0, 10, 0, 0, 0, true, true, true, true, false, true);
+                }
+
             }
 
             if (canPlayerFastSwim)
@@ -3701,6 +3938,47 @@ UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
                 UI.ShowSubtitle("~r~Essential Menu~w~ FPS: " + Game.FPS + " / " + Game.Language);
             }
 
+            if (moneyGun)
+            {
+                Game.Player.Character.Weapons.Current.InfiniteAmmo = true;
+                Game.Player.Character.Weapons.Current.InfiniteAmmoClip = true;
+                Ped ped = Game.Player.Character;
+                if (Function.Call<bool>(Hash.IS_PED_SHOOTING, ped.Handle))
+                {
+                    OutputArgument arg = new OutputArgument();
+                    Function.Call(Hash.GET_PED_LAST_WEAPON_IMPACT_COORD, ped.Handle, arg);
+                    GTA.Math.Vector3 result = arg.GetResult<GTA.Math.Vector3>();
+                    if (result != GTA.Math.Vector3.Zero)
+                    {
+                        Model model = new Model(0x113FD533);
+                        if (!model.IsLoaded)
+                            model.Request(1000);
+                        int hash = Function.Call<int>(Hash.GET_HASH_KEY, "PICKUP_MONEY_CASE");
+                        Function.Call(Hash.CREATE_AMBIENT_PICKUP, hash, result.X, result.Y, result.Z, 0, 1000000, model.Hash, 0, 1);
+                    }
+                }
+            }
+
+            if (firegun)
+            {
+                Function.Call(Hash.SET_EXPLOSIVE_AMMO_THIS_FRAME, Game.Player);
+                Game.Player.Character.Weapons.Current.InfiniteAmmo = true;
+                Game.Player.Character.Weapons.Current.InfiniteAmmoClip = true;
+            }
+
+            if (firefiregun)
+            {
+                Function.Call(Hash.SET_FIRE_AMMO_THIS_FRAME, Game.Player);
+                
+                Game.Player.Character.Weapons.Current.InfiniteAmmo = true;
+                Game.Player.Character.Weapons.Current.InfiniteAmmoClip = true;
+            }
+
+           /* if (freezeplayer)
+            {
+
+            }*/
+
 
 
         }
@@ -3717,7 +3995,7 @@ UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
             if (e.KeyCode == OpenMenu  /*Keys.Z*/ && !modMenuPool.IsAnyMenuOpen())
             {
                 mainMenu.Visible = !mainMenu.Visible;
-                
+                BigMessageThread.MessageInstance.ShowMissionPassedMessage("Essential Mod Menu", 2000);
 
                 mainMenu.SetBannerType("scripts\\mainBanner.jpg"); //banner directory
                 weaponsMenu.SetBannerType("scripts\\weaponsBanner.jpg");
@@ -3730,6 +4008,7 @@ UIMenuItem authorItem = new UIMenuItem("~g~Dev and Author: [Anonik]");
                 creditsMenu.SetBannerType("scripts\\mainBanner.jpg");
                 
                 var background = new Sprite("commonmenu", "bgd_gradient", new Point(100, 20), new Size(200, 500));
+      
                 
 
 

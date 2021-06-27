@@ -1,0 +1,6 @@
+Fixed teleport waypont
+Money gun
+Explosive Gun
+Fire Gun
+Max All cars upgrade
+Freeze Player and vehicle
