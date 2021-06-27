@@ -1,3 +1,14 @@
+Middle Update v1.2.3
+
+*Fixed teleport waypoint
+*Added Money gun
+*Added Explosive Ammo
+*Added Fire Ammo
+*Added Max/Min All cars upgrade options
+*Added Freeze Player and vehicle options
+*Improved Source
+
+
 Major Update v1.2.2
 
 *Fixed Some Bugs
