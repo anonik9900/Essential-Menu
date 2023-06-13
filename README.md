@@ -1,3 +1,6 @@
+# Essential Menu is no longer supported
+Fork the project if you want to help out, thanks to all for the advice during development. Unfortunately I no longer have time to devote to this project.
+
 # Essential Menu
 
 GTA V Mod Menu with NativeUI written in C#<br>
