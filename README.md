@@ -1,6 +1,6 @@
 
-# EssentialMenu-LEMON
-# Essential Menu is Back ! , Retwrited with the LemonUI Library
+
+# Essential Menu 🍋 is Back ! , Retwrited with the LemonUI Library
 
 New version with LemonUI <a href="https://github.com/anonik9900/EssentialMenu-LEMON">Here !</a>.<br>
 
