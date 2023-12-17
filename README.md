@@ -1,5 +1,12 @@
-# Essential Menu is no longer supported
-Fork the project if you want to help out, thanks to all for the advice during development. Unfortunately I no longer have time to devote to this project.
+
+# EssentialMenu-LEMON
+# Essential Menu is Back ! , Retwrited with the LemonUI Library
+
+New version with LemonUI <a href="https://github.com/anonik9900/EssentialMenu-LEMON">Here !</a>.<br>
+
+Essential Menu is my biggest project when it comes to gta 5 mods. This is a work in progress version still being rewritten with the LemonUI graphics library, as NativeUI is now deprecated.
+
+# This version of Essential Menu is no longer supported !
 
 # Essential Menu
 
